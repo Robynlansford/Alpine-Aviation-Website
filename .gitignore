@@ -18,5 +18,8 @@ assets/Alpine.mp4
 .DS_Store
 Thumbs.db
 
-# Superseded by frame sequences (assets/frames) — kept locally, not deployed
-assets/vid/
+# Frame-sequence detour — superseded by the restored video scroll, kept locally only
+assets/frames/
+
+# Optimized-encode working folder — kept locally, deployed copies live in assets/vid/
+assets/vid_opt/

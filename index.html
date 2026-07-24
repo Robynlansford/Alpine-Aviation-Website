@@ -456,9 +456,17 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   </div>
 </footer>
 
-<script src="js/scrub-engine.js?v=frames"></script>
+<script src="js/scrub-engine.js?v=v2"></script>
 <script>
-mountScrollWorld(document.getElementById('world'), {
+(function () {
+  const world = document.getElementById('world');
+  const root = document.documentElement;
+  const loaderEl = document.getElementById('loader');
+  const bar = document.getElementById('loaderBar');
+  const pct = document.getElementById('loaderPct');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const CONFIG = {
   brand: { name: 'Alpine Aviation', href: '#world' },
   hint: 'scroll to fly',
   nav: true,
@@ -466,32 +474,32 @@ mountScrollWorld(document.getElementById('world'), {
   diveScroll: 1.4,
   crossfade: 0.08,
   sections: [
-    { id: 'peaks', label: 'The Range', still: 'assets/still_1.webp', frames: 'assets/frames/leg_1/', framesMobile: 'assets/frames/leg_1-m/', frameCount: 80,
+    { id: 'peaks', label: 'The Range', still: 'assets/still_1.webp', clip: 'assets/vid/leg_1.mp4?v=v2', clipMobile: 'assets/vid/leg_1-m.mp4?v=v2',
       scroll: 1.8, linger: 0.4, accent: 'oklch(74% 0.09 80)',
       eyebrow: 'Oasis, Idaho', title: 'Learn to fly where the mountains teach.',
       body: 'Helicopter and fixed-wing flight training in real Idaho backcountry — terrain that builds pilots, not just logbooks.',
       tags: ['Helicopter', 'Fixed-wing', 'Est. Idaho'] },
-    { id: 'flightline', label: 'Training', still: 'assets/still_2.webp', frames: 'assets/frames/leg_2/', framesMobile: 'assets/frames/leg_2-m/', frameCount: 80,
+    { id: 'flightline', label: 'Training', still: 'assets/still_2.webp', clip: 'assets/vid/leg_2.mp4?v=v2', clipMobile: 'assets/vid/leg_2-m.mp4?v=v2',
       scroll: 1.5, linger: 0.35, accent: 'oklch(85% 0.045 250)',
       eyebrow: 'Flight training', title: 'From first hover to CFI.',
       body: 'Private, commercial, instrument, and instructor programs — taught on a working flight line.',
       tags: ['PPL', 'CPL', 'IFR', 'CFI'] },
-    { id: 'ops', label: 'Commercial', still: 'assets/still_3.webp', frames: 'assets/frames/leg_3/', framesMobile: 'assets/frames/leg_3-m/', frameCount: 80,
+    { id: 'ops', label: 'Commercial', still: 'assets/still_3.webp', clip: 'assets/vid/leg_3.mp4?v=v2', clipMobile: 'assets/vid/leg_3-m.mp4?v=v2',
       scroll: 1.5, linger: 0.35, accent: 'oklch(74% 0.09 80)',
       eyebrow: 'Commercial services', title: 'Working aircraft, working country.',
       body: 'Tours, agriculture, ranching, and animal-control operations across the Idaho high desert.',
       tags: ['Tours', 'Agriculture', 'Ranch ops'] },
-    { id: 'campus', label: 'Housing', still: 'assets/still_4.webp', frames: 'assets/frames/leg_4/', framesMobile: 'assets/frames/leg_4-m/', frameCount: 80,
+    { id: 'campus', label: 'Housing', still: 'assets/still_4.webp', clip: 'assets/vid/leg_4.mp4?v=v2', clipMobile: 'assets/vid/leg_4-m.mp4?v=v2',
       scroll: 1.4, linger: 0.3, accent: 'oklch(85% 0.045 250)',
       eyebrow: 'Student housing', title: 'Live where you train.',
       body: 'On-site housing keeps you next to the flight line — and financing help through Stratus Financial.',
       tags: ['On-site', 'Stratus Financial'] },
-    { id: 'hangar', label: 'Graduates', still: 'assets/still_5.webp', frames: 'assets/frames/leg_5/', framesMobile: 'assets/frames/leg_5-m/', frameCount: 80,
+    { id: 'hangar', label: 'Graduates', still: 'assets/still_5.webp', clip: 'assets/vid/leg_5.mp4?v=v2', clipMobile: 'assets/vid/leg_5-m.mp4?v=v2',
       scroll: 1.5, linger: 0.4, accent: 'oklch(74% 0.09 80)',
       eyebrow: 'Graduates', title: 'Our graduates fly for a living.',
       body: 'Alpine trains for the commercial field — our graduates go on to working pilot careers.',
       tags: ['Career track'] },
-    { id: 'landing', label: 'Fly', still: 'assets/still_6.webp', frames: 'assets/frames/leg_6/', framesMobile: 'assets/frames/leg_6-m/', frameCount: 80,
+    { id: 'landing', label: 'Fly', still: 'assets/still_6.webp', clip: 'assets/vid/leg_6.mp4?v=v2', clipMobile: 'assets/vid/leg_6-m.mp4?v=v2',
       scroll: 1.9, linger: 0.5, accent: 'oklch(74% 0.09 80)',
       eyebrow: 'Discovery flight', title: 'Your move.',
       body: 'One discovery flight tells you more than a hundred web pages. Take the controls.',
@@ -499,99 +507,108 @@ mountScrollWorld(document.getElementById('world'), {
              secondary: { label: 'See the gallery', href: 'gallery.html' } } }
   ],
   connectors: []  // architecture A — the legs ARE the journey
-});
+  };
+  const SECTIONS = CONFIG.sections;
 
-// ---- brand logo in the film topbar ----
-(function () {
-  const brand = document.querySelector('.sw-brand');
-  if (brand) {
-    brand.innerHTML = '';
-    const img = document.createElement('img');
-    img.src = 'logo.jpg';
-    img.alt = 'Alpine Aviation — Flight School & Commercial Operations, Oasis, Idaho';
-    img.className = 'brand-logo';
-    brand.appendChild(img);
-  }
-})();
-
-// ---- film → ground handoff ----
-// The engine's last scene now slides/fades away with scroll over the track's trailing
-// 1vh buffer (see scrub-engine.js's "release" block) instead of an instant cut — so this
-// handoff only needs to finish the job once that slide completes, at the very end of the
-// track (world.offsetHeight), not as soon as the last scene's dive segment ends.
-(function () {
-  const world = document.getElementById('world');
-  const gnav = document.getElementById('gnav');
-  function filmEnd() { return world.offsetHeight; }
-  let landed = false;
-  function onScroll() {
-    const y = window.scrollY || window.pageYOffset;
-    const past = y > filmEnd() - 8;
-    if (past !== landed) {
-      landed = past;
-      world.classList.toggle('is-landed', landed);
-      gnav.classList.toggle('is-on', landed);
-    }
-  }
-  addEventListener('scroll', onScroll, { passive: true });
-  addEventListener('resize', onScroll);
-  onScroll();
-})();
-
-// ---- preflight loader: hold the page until the engine's OWN first-scene video is
-// scrub-ready, then reveal. ----
-// A previous version prefetched the clips itself to "warm the cache" — but the host
-// (Cloudflare Pages) serves media with `Cache-Control: max-age=0, must-revalidate`, so
-// the browser can't reuse that prefetch. The engine then re-downloaded the same clip to
-// build its scrub blob, and the page was already scrollable during that second download
-// — so scene 1 wasn't ready and the scroll jumped straight to scene 2. Watching the
-// engine's actual <video> (rather than a throwaway fetch) makes the reveal wait for the
-// exact element that gets scrubbed, with no duplicate download and no race.
-(function () {
-  const root = document.documentElement;
-  const loader = document.getElementById('loader');
-  const bar = document.getElementById('loaderBar');
-  const pct = document.getElementById('loaderPct');
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let done = false;
-
+  // Reveal the page (unlock scroll, fade the loader out). Guarded so it runs once.
+  let revealed = false;
   function reveal() {
-    if (done) return; done = true;
+    if (revealed) return; revealed = true;
     root.classList.remove('is-loading');
-    if (loader) { loader.classList.add('is-gone'); setTimeout(() => loader.remove(), 800); }
+    if (loaderEl) { loaderEl.classList.add('is-gone'); setTimeout(() => loaderEl.remove(), 800); }
   }
 
-  // Reduced motion → the engine loads no clips at all (stills only); nothing to wait for.
-  if (reduce) { reveal(); return; }
+  // Mount the scroll engine, then wire the brand logo and the film→ground handoff.
+  // Guarded so the safety-net timeout can't double-mount.
+  let mounted = false;
+  function mount() {
+    if (mounted) return; mounted = true;
+    mountScrollWorld(world, CONFIG);
+
+    // brand logo in the film topbar
+    const brand = document.querySelector('.sw-brand');
+    if (brand) {
+      brand.innerHTML = '';
+      const img = document.createElement('img');
+      img.src = 'logo.jpg';
+      img.alt = 'Alpine Aviation — Flight School & Commercial Operations, Oasis, Idaho';
+      img.className = 'brand-logo';
+      brand.appendChild(img);
+    }
+
+    // film → ground handoff: once scrolled past the whole film track, slide in the ground nav
+    const gnav = document.getElementById('gnav');
+    let landed = false;
+    function onScroll() {
+      const y = window.scrollY || window.pageYOffset;
+      const past = y > world.offsetHeight - 8;
+      if (past !== landed) {
+        landed = past;
+        world.classList.toggle('is-landed', landed);
+        if (gnav) gnav.classList.toggle('is-on', landed);
+      }
+    }
+    addEventListener('scroll', onScroll, { passive: true });
+    addEventListener('resize', onScroll);
+    onScroll();
+  }
 
   function paint(p) {
-    if (bar) bar.style.transform = `scaleX(${Math.max(0, Math.min(1, p))})`;
-    if (pct) pct.textContent = Math.round(Math.max(0, Math.min(1, p)) * 100) + '%';
+    p = Math.max(0, Math.min(1, p));
+    if (bar) bar.style.transform = `scaleX(${p})`;
+    if (pct) pct.textContent = Math.round(p * 100) + '%';
   }
 
-  // The engine loads scene 1's frame sequence and reports progress on the scene element
-  // (data-loaded / data-total). We reveal once nearly all of scene 1's frames are in — so
-  // the first scrub is complete end-to-end — while the last few finish during first scroll.
-  // The bar tracks real frame-load progress (not a time estimate).
-  function firstSceneProgress() {
-    const scene0 = document.querySelectorAll('#world .sw-scene')[0];
-    if (!scene0) return 0;
-    const loaded = +scene0.dataset.loaded || 0;
-    const total = +scene0.dataset.total || 0;
-    return total > 0 ? loaded / total : 0;
+  // Reduced motion: the engine shows stills only (no clips to load) — mount and reveal now.
+  if (reduce) { mount(); reveal(); return; }
+
+  // ---- preflight preloader ----
+  // Fully download EVERY flight clip into memory before the visitor can scroll, streaming
+  // the bytes so the bar shows real download progress. Each clip is handed to the engine as
+  // an in-memory blob URL, so once mounted there is ZERO network during scroll — a visitor
+  // can never land on a half-loaded or laggy scene. This is the real fix for the original
+  // complaint (large file → slow/incomplete load); the footage itself is the untouched,
+  // smooth-scrubbing original.
+  const isMobile = matchMedia('(hover: none) and (pointer: coarse)').matches || matchMedia('(max-width: 860px)').matches;
+  const urls = SECTIONS.map(s => (isMobile && s.clipMobile) ? s.clipMobile : s.clip);
+  const totals = new Array(urls.length).fill(0);
+  const loaded = new Array(urls.length).fill(0);
+  function repaint() {
+    const done = loaded.reduce((a, b) => a + b, 0);
+    const total = totals.reduce((a, b) => a + b, 0);
+    paint(total > 0 ? done / total : 0);
   }
+  function fetchClip(i, url) {
+    return fetch(url).then(res => {
+      if (!res.ok || !res.body) throw new Error('bad response ' + res.status);
+      totals[i] = +res.headers.get('content-length') || 0;
+      const reader = res.body.getReader();
+      const chunks = [];
+      return (function pump() {
+        return reader.read().then(({ done, value }) => {
+          if (done) return new Blob(chunks, { type: 'video/mp4' });
+          chunks.push(value);
+          loaded[i] += value.byteLength;
+          repaint();
+          return pump();
+        });
+      })();
+    });
+  }
+  Promise.all(urls.map((u, i) => fetchClip(i, u).catch(() => null))).then(blobs => {
+    blobs.forEach((b, i) => {
+      if (!b) return;                             // a failed clip falls back to its network URL
+      const burl = URL.createObjectURL(b);
+      if (isMobile && SECTIONS[i].clipMobile) SECTIONS[i].clipMobile = burl; else SECTIONS[i].clip = burl;
+    });
+    paint(1);
+    mount();
+    setTimeout(reveal, 200);                      // let 100% show for a beat
+  });
 
-  (function tick() {
-    if (done) return;
-    const p = firstSceneProgress();
-    paint(p);
-    if (p >= 0.98) { paint(1); setTimeout(reveal, 200); return; }
-    setTimeout(tick, 100);
-  })();
-
-  // Safety net: never trap a visitor behind the loader (frames that never load, blocked
-  // network, etc.) — reveal after 15s no matter what.
-  setTimeout(reveal, 15000);
+  // Safety net: if the network stalls/blocks, don't trap the visitor — mount on the
+  // originals (the engine streams them itself) and reveal after 30s no matter what.
+  setTimeout(() => { mount(); reveal(); }, 30000);
 })();
 </script>
 </body>
