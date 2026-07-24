@@ -566,30 +566,35 @@ mountScrollWorld(document.getElementById('world'), {
     ? ['assets/vid/leg_1-m.mp4','assets/vid/leg_2-m.mp4','assets/vid/leg_3-m.mp4','assets/vid/leg_4-m.mp4','assets/vid/leg_5-m.mp4','assets/vid/leg_6-m.mp4']
     : ['assets/vid/leg_1.mp4','assets/vid/leg_2.mp4','assets/vid/leg_3.mp4','assets/vid/leg_4.mp4','assets/vid/leg_5.mp4','assets/vid/leg_6.mp4'];
 
-  const totals = new Array(clips.length).fill(0);
-  const loaded = new Array(clips.length).fill(0);
-  let knownTotal = 0, hasAnyTotal = false;
+  // The loader only GATES on the first clip — the scene you scroll through immediately.
+  // Blocking reveal on all six was the bug: on a real connection the page either revealed
+  // late (after every clip) or hit the safety-net timeout with scene 1 still unbuffered,
+  // so the first scrub stalled and snapped. The engine lazy-loads the rest as you scroll
+  // toward them; the remaining fetches here just warm the HTTP cache in the background so
+  // those later blob-fetches resolve instantly, but they never hold up the reveal.
+  let firstTotal = 0, firstLoaded = 0;
 
   function paint() {
-    const sumLoaded = loaded.reduce((a, b) => a + b, 0);
-    const sumTotal = hasAnyTotal ? totals.reduce((a, b) => a + b, 0) : 0;
-    const p = sumTotal > 0 ? Math.min(1, sumLoaded / sumTotal) : 0;
+    const p = firstTotal > 0 ? Math.min(1, firstLoaded / firstTotal) : 0;
     if (bar) bar.style.transform = `scaleX(${p})`;
     if (pct) pct.textContent = Math.round(p * 100) + '%';
   }
 
-  function loadOne(i) {
-    return fetch(clips[i]).then(res => {
+  // Stream a clip to warm the cache. `track` (only the first clip) drives the progress bar
+  // and its returned promise gates the reveal.
+  function loadOne(url, track) {
+    return fetch(url).then(res => {
       if (!res.ok || !res.body) throw new Error('bad response');
-      const len = +res.headers.get('content-length') || 0;
-      if (len) { totals[i] = len; hasAnyTotal = true; }
+      if (track) {
+        firstTotal = +res.headers.get('content-length') || 0;
+        paint();
+      }
       const reader = res.body.getReader();
       return new Promise((resolve) => {
         function pump() {
           reader.read().then(({ done, value }) => {
             if (done) { resolve(); return; }
-            loaded[i] += value.byteLength;
-            paint();
+            if (track) { firstLoaded += value.byteLength; paint(); }
             pump();
           }).catch(resolve);
         }
@@ -599,16 +604,18 @@ mountScrollWorld(document.getElementById('world'), {
   }
 
   const started = Date.now();
-  Promise.all(clips.map((_, i) => loadOne(i))).then(() => {
+  // Warm the remaining clips in the background — fire-and-forget, never blocks reveal.
+  clips.slice(1).forEach(url => loadOne(url, false));
+  // Gate reveal on the first clip finishing (or the safety net, whichever comes first).
+  loadOne(clips[0], true).then(() => {
     paint();
-    // Give the fade-out a beat so 100% is visible rather than an instant cut.
     const elapsed = Date.now() - started;
-    setTimeout(reveal, elapsed < 300 ? 300 - elapsed : 0);
+    setTimeout(reveal, elapsed < 300 ? 300 - elapsed : 0);  // let 100% show for a beat
   });
 
   // Safety net: never trap a visitor behind the loader (slow/blocked network, unusual
-  // browser fetch/streams support) — reveal the page after 20s no matter what.
-  setTimeout(reveal, 20000);
+  // fetch/streams support) — reveal after 12s no matter what.
+  setTimeout(reveal, 12000);
 })();
 </script>
 </body>
