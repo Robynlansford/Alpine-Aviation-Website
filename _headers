@@ -6,6 +6,9 @@
 /assets/vid/*
   Cache-Control: public, max-age=604800
 
+/assets/frames/*
+  Cache-Control: public, max-age=604800
+
 /assets/*.webp
   Cache-Control: public, max-age=604800
 

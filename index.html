@@ -456,7 +456,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   </div>
 </footer>
 
-<script src="js/scrub-engine.js"></script>
+<script src="js/scrub-engine.js?v=frames"></script>
 <script>
 mountScrollWorld(document.getElementById('world'), {
   brand: { name: 'Alpine Aviation', href: '#world' },
@@ -466,32 +466,32 @@ mountScrollWorld(document.getElementById('world'), {
   diveScroll: 1.4,
   crossfade: 0.08,
   sections: [
-    { id: 'peaks', label: 'The Range', still: 'assets/still_1.webp', clip: 'assets/vid/leg_1.mp4?v=2', clipMobile: 'assets/vid/leg_1-m.mp4?v=2',
+    { id: 'peaks', label: 'The Range', still: 'assets/still_1.webp', frames: 'assets/frames/leg_1/', framesMobile: 'assets/frames/leg_1-m/', frameCount: 80,
       scroll: 1.8, linger: 0.4, accent: 'oklch(74% 0.09 80)',
       eyebrow: 'Oasis, Idaho', title: 'Learn to fly where the mountains teach.',
       body: 'Helicopter and fixed-wing flight training in real Idaho backcountry — terrain that builds pilots, not just logbooks.',
       tags: ['Helicopter', 'Fixed-wing', 'Est. Idaho'] },
-    { id: 'flightline', label: 'Training', still: 'assets/still_2.webp', clip: 'assets/vid/leg_2.mp4?v=2', clipMobile: 'assets/vid/leg_2-m.mp4?v=2',
+    { id: 'flightline', label: 'Training', still: 'assets/still_2.webp', frames: 'assets/frames/leg_2/', framesMobile: 'assets/frames/leg_2-m/', frameCount: 80,
       scroll: 1.5, linger: 0.35, accent: 'oklch(85% 0.045 250)',
       eyebrow: 'Flight training', title: 'From first hover to CFI.',
       body: 'Private, commercial, instrument, and instructor programs — taught on a working flight line.',
       tags: ['PPL', 'CPL', 'IFR', 'CFI'] },
-    { id: 'ops', label: 'Commercial', still: 'assets/still_3.webp', clip: 'assets/vid/leg_3.mp4?v=2', clipMobile: 'assets/vid/leg_3-m.mp4?v=2',
+    { id: 'ops', label: 'Commercial', still: 'assets/still_3.webp', frames: 'assets/frames/leg_3/', framesMobile: 'assets/frames/leg_3-m/', frameCount: 80,
       scroll: 1.5, linger: 0.35, accent: 'oklch(74% 0.09 80)',
       eyebrow: 'Commercial services', title: 'Working aircraft, working country.',
       body: 'Tours, agriculture, ranching, and animal-control operations across the Idaho high desert.',
       tags: ['Tours', 'Agriculture', 'Ranch ops'] },
-    { id: 'campus', label: 'Housing', still: 'assets/still_4.webp', clip: 'assets/vid/leg_4.mp4?v=2', clipMobile: 'assets/vid/leg_4-m.mp4?v=2',
+    { id: 'campus', label: 'Housing', still: 'assets/still_4.webp', frames: 'assets/frames/leg_4/', framesMobile: 'assets/frames/leg_4-m/', frameCount: 80,
       scroll: 1.4, linger: 0.3, accent: 'oklch(85% 0.045 250)',
       eyebrow: 'Student housing', title: 'Live where you train.',
       body: 'On-site housing keeps you next to the flight line — and financing help through Stratus Financial.',
       tags: ['On-site', 'Stratus Financial'] },
-    { id: 'hangar', label: 'Graduates', still: 'assets/still_5.webp', clip: 'assets/vid/leg_5.mp4?v=2', clipMobile: 'assets/vid/leg_5-m.mp4?v=2',
+    { id: 'hangar', label: 'Graduates', still: 'assets/still_5.webp', frames: 'assets/frames/leg_5/', framesMobile: 'assets/frames/leg_5-m/', frameCount: 80,
       scroll: 1.5, linger: 0.4, accent: 'oklch(74% 0.09 80)',
       eyebrow: 'Graduates', title: 'Our graduates fly for a living.',
       body: 'Alpine trains for the commercial field — our graduates go on to working pilot careers.',
       tags: ['Career track'] },
-    { id: 'landing', label: 'Fly', still: 'assets/still_6.webp', clip: 'assets/vid/leg_6.mp4?v=2', clipMobile: 'assets/vid/leg_6-m.mp4?v=2',
+    { id: 'landing', label: 'Fly', still: 'assets/still_6.webp', frames: 'assets/frames/leg_6/', framesMobile: 'assets/frames/leg_6-m/', frameCount: 80,
       scroll: 1.9, linger: 0.5, accent: 'oklch(74% 0.09 80)',
       eyebrow: 'Discovery flight', title: 'Your move.',
       body: 'One discovery flight tells you more than a hundred web pages. Take the controls.',
@@ -569,31 +569,28 @@ mountScrollWorld(document.getElementById('world'), {
     if (pct) pct.textContent = Math.round(Math.max(0, Math.min(1, p)) * 100) + '%';
   }
 
-  // The engine downloads scene 1's clip as a blob and only inserts the <video> once that
-  // blob is complete — so the element's presence + a buffered range covering its full
-  // duration is the true "scene 1 can scrub end-to-end" signal.
-  function firstSceneReady() {
+  // The engine loads scene 1's frame sequence and reports progress on the scene element
+  // (data-loaded / data-total). We reveal once nearly all of scene 1's frames are in — so
+  // the first scrub is complete end-to-end — while the last few finish during first scroll.
+  // The bar tracks real frame-load progress (not a time estimate).
+  function firstSceneProgress() {
     const scene0 = document.querySelectorAll('#world .sw-scene')[0];
-    const v = scene0 && scene0.querySelector('video');
-    if (!v || !v.duration || !isFinite(v.duration) || v.readyState < 3) return false;
-    let end = 0;
-    for (let k = 0; k < v.buffered.length; k++) end = Math.max(end, v.buffered.end(k));
-    return end >= v.duration - 0.3;
+    if (!scene0) return 0;
+    const loaded = +scene0.dataset.loaded || 0;
+    const total = +scene0.dataset.total || 0;
+    return total > 0 ? loaded / total : 0;
   }
 
-  // The blob downloads atomically (no byte-level progress to read off the element), so the
-  // bar creeps on a time estimate up to 92% and snaps to 100% the instant the video is
-  // genuinely ready — the reveal is gated on readiness, never on the estimate.
-  const start = Date.now(), EST = 7000;
   (function tick() {
     if (done) return;
-    if (firstSceneReady()) { paint(1); setTimeout(reveal, 200); return; }
-    paint(Math.min(0.92, (Date.now() - start) / EST));
-    setTimeout(tick, 120);
+    const p = firstSceneProgress();
+    paint(p);
+    if (p >= 0.98) { paint(1); setTimeout(reveal, 200); return; }
+    setTimeout(tick, 100);
   })();
 
-  // Safety net: never trap a visitor behind the loader (a clip that never loads, blocked
-  // media, etc.) — reveal after 15s no matter what.
+  // Safety net: never trap a visitor behind the loader (frames that never load, blocked
+  // network, etc.) — reveal after 15s no matter what.
   setTimeout(reveal, 15000);
 })();
 </script>

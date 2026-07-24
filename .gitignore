@@ -17,3 +17,6 @@ assets/Alpine.mp4
 # OS junk
 .DS_Store
 Thumbs.db
+
+# Superseded by frame sequences (assets/frames) — kept locally, not deployed
+assets/vid/
