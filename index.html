@@ -262,13 +262,23 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   transition: opacity .7s cubic-bezier(.22,.61,.36,1), visibility .7s;
 }
 #loader.is-gone { opacity: 0; visibility: hidden; pointer-events: none; }
-#loader .l-mark { width: 64px; height: 64px; object-fit: contain; border-radius: 14px; filter: drop-shadow(0 0 18px oklch(74% 0.09 80 / .35)); animation: loaderPulse 2.6s ease-in-out infinite; }
+#loader .l-mark { width: 52px; height: 52px; object-fit: contain; border-radius: 12px; filter: drop-shadow(0 0 18px oklch(74% 0.09 80 / .35)); animation: loaderPulse 2.6s ease-in-out infinite; }
 @keyframes loaderPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 #loader .l-line { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.78rem; letter-spacing: .32em; text-transform: uppercase; color: oklch(80% 0.02 250); padding-left: .32em; }
 #loader .l-track { width: min(280px, 64vw); height: 2px; background: oklch(74% 0.09 80 / .16); overflow: hidden; border-radius: 1px; }
 #loaderBar { display: block; height: 100%; width: 100%; transform: scaleX(0); transform-origin: left; background: oklch(74% 0.09 80); transition: transform .25s ease-out; }
 #loaderPct { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.78rem; color: oklch(62% 0.025 250); letter-spacing: .2em; }
 @media (prefers-reduced-motion: reduce) { #loader .l-mark { animation: none; } }
+
+/* preflight loader — read-while-you-wait intro */
+#loader .l-story { max-width: min(520px, 84vw); text-align: center; padding: 0 8px; }
+#loader .l-eyebrow { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.74rem; letter-spacing: .3em; text-transform: uppercase; color: oklch(74% 0.09 80); margin: 0 0 14px; }
+#loader .l-headline { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: clamp(1.5rem, 4vw, 2.15rem); line-height: 1.15; color: oklch(96% 0.008 90); margin: 0 0 14px; }
+#loader .l-body { font-family: "Archivo", system-ui, sans-serif; font-size: clamp(.92rem, 1.6vw, 1.02rem); line-height: 1.55; color: oklch(80% 0.02 250); margin: 0; }
+#loader .l-body strong { color: oklch(90% 0.03 90); font-weight: 600; }
+#loader .l-story { animation: loaderStoryIn .8s cubic-bezier(.22,.61,.36,1) both; }
+@keyframes loaderStoryIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (max-width: 560px) { #loader { gap: 18px; padding: 0 20px; } #loader .l-story { padding: 0; } }
 </style>
 </head>
 <body>
@@ -279,6 +289,11 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
 <!-- preflight loader — buffers the flight clips before reveal -->
 <div id="loader" aria-hidden="true">
   <img class="l-mark" src="assets/favicon.png" alt="">
+  <div class="l-story">
+    <p class="l-eyebrow">Oasis, Idaho</p>
+    <h2 class="l-headline">The mountains are the classroom.</h2>
+    <p class="l-body">Alpine Aviation trains helicopter and fixed-wing pilots in real Idaho backcountry — and flies working commercial missions across the high desert. <strong>Your flight is loading.</strong></p>
+  </div>
   <div class="l-line">Preparing the flight</div>
   <div class="l-track"><span id="loaderBar"></span></div>
   <div id="loaderPct">0%</div>
