@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Liability Waiver — Alpine Aviation</title>
+<meta name="description" content="Summary of the Alpine Aviation liability waiver covering photo/video release and flight risk acknowledgment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:title" content="Liability Waiver — Alpine Aviation">
+<meta property="og:type" content="website">
+<meta property="og:image" content="logo.jpg">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* Hallmark · page: liability-waiver · component of the Alpine Aviation build (see tokens.css stamp) */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* nav — identical to gallery.html */
+.nav { position: fixed; inset: var(--space-md) 0 auto 0; z-index: 40; display: flex; justify-content: center; pointer-events: none; padding: 0 var(--space-md); }
+.nav__chip { pointer-events: auto; display: flex; align-items: center; gap: var(--space-lg); background: var(--color-scrim); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid var(--color-line); border-radius: var(--radius-pill); padding: var(--space-xs) var(--space-lg); }
+.nav__brand { font-family: var(--font-display); font-size: var(--text-lg); text-decoration: none; letter-spacing: 0.01em; white-space: nowrap; }
+.brand-logo { height: 110px; width: 110px; border-radius: var(--radius-md); object-fit: cover; display: block; box-shadow: 0 4px 12px oklch(15% 0.03 255 / 0.5); }
+.nav__links { display: flex; gap: var(--space-md); }
+.nav__links a { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-soft); text-decoration: none; padding: var(--space-2xs) var(--space-xs); border-radius: var(--radius-sm); white-space: nowrap; transition: color var(--dur-fast) var(--ease-out); }
+.nav__links a:hover { color: var(--color-ink); }
+.nav__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.nav__links a[aria-current="page"] { color: var(--color-accent); }
+@media (max-width: 700px) { .nav__links a:nth-child(1), .nav__links a:nth-child(2) { display: none; } .nav__chip { gap: var(--space-md); padding: var(--space-xs) var(--space-md); } }
+
+/* header */
+.head { padding: calc(var(--space-4xl) + var(--space-xl)) var(--space-xl) var(--space-2xl); max-width: 72rem; margin: 0 auto; }
+.head__eyebrow { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent); margin: 0 0 var(--space-md); }
+.head h1 { font-family: var(--font-display); font-weight: 400; font-style: normal; font-size: var(--text-display-s); line-height: 1.04; margin: 0 0 var(--space-lg); max-width: 22ch; overflow-wrap: anywhere; min-width: 0; }
+.head p { color: var(--color-ink-soft); max-width: 60ch; margin: 0; }
+
+/* two-column content + sidebar */
+.layout { max-width: 72rem; margin: 0 auto; padding: 0 var(--space-xl) var(--space-3xl); display: grid; grid-template-columns: minmax(0,1fr) 20rem; gap: var(--space-2xl); align-items: start; }
+@media (max-width: 900px) { .layout { grid-template-columns: minmax(0,1fr); padding: 0 var(--space-md) var(--space-2xl); } }
+.article section { margin-bottom: var(--space-2xl); }
+.article h2 { font-family: var(--font-display); font-weight: 400; font-size: var(--text-2xl); margin: 0 0 var(--space-md); }
+.article p { color: var(--color-ink-soft); margin: 0 0 var(--space-md); max-width: 62ch; }
+.article ul { color: var(--color-ink-soft); padding-left: 1.2em; margin: 0 0 var(--space-md); }
+.article .cta { display: inline-block; margin-top: var(--space-sm); }
+.btn { font-family: var(--font-body); font-weight: 600; font-size: var(--text-md); background: var(--color-accent); color: oklch(20% 0.03 255); border: none; border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-xl); cursor: pointer; text-decoration: none; display: inline-block; transition: background var(--dur-fast) var(--ease-out); }
+.btn:hover { background: var(--color-focus); }
+.textlink { font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.04em; color: var(--color-accent); text-decoration: none; border-bottom: 1px solid var(--color-accent-deep); padding-bottom: 2px; }
+.textlink:hover { color: var(--color-ink); border-color: var(--color-ink); }
+
+/* sidebar */
+.sidebar { border-top: 2px solid var(--color-accent); padding-top: var(--space-md); }
+.sidebar h3 { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-ink-faint); margin: 0 0 var(--space-md); }
+.sidebar ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-sm); }
+.sidebar a { font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-ink-soft); text-decoration: none; }
+.sidebar a:hover { color: var(--color-accent); }
+.sidebar a[aria-current="page"] { color: var(--color-accent); font-weight: 600; }
+
+/* footer — full sitemap */
+.foot { border-top: var(--rule-hairline); padding: var(--space-3xl) var(--space-xl) var(--space-2xl); max-width: 72rem; margin: 0 auto; }
+.foot__statement { font-family: var(--font-display); font-weight: 400; font-style: normal; font-size: var(--text-2xl); line-height: 1.15; margin: 0 0 var(--space-xl); max-width: 26ch; }
+.foot__statement a { color: var(--color-accent); text-decoration-color: var(--color-accent-deep); text-underline-offset: 5px; }
+.foot__grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl); }
+@media (max-width: 760px) { .foot__grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.foot__grid h4 { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-ink-faint); margin: 0 0 var(--space-sm); }
+.foot__grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2xs); }
+.foot__grid a { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-ink-soft); text-decoration: none; }
+.foot__grid a:hover { color: var(--color-ink); }
+.foot__row { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl); font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-faint); border-top: var(--rule-hairline); padding-top: var(--space-lg); }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <div class="nav__chip">
+    <a class="nav__brand" href="index.html"><img class="brand-logo" src="logo.jpg" alt="Alpine Aviation — Flight School &amp; Commercial Operations, Oasis, Idaho"></a>
+    <div class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="flight-instruction.html">Training</a>
+      <a href="commercial-services.html">Services</a>
+      <a href="about.html" aria-current="page">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main class="head" style="max-width:52rem">
+  <p class="head__eyebrow">Legal</p>
+  <h1>Liability waiver.</h1>
+</main>
+
+<div class="wrap" style="max-width:52rem;margin:0 auto;padding:0 var(--space-xl) var(--space-3xl)">
+  <p style="color:var(--color-ink-soft);max-width:62ch;margin:0 0 var(--space-md)">I grant Alpine Aviation LLC, its representatives and employees the right to take photographs and videos of me and my property in connection with Alpine Aviation tours and flight services, and to use those photographs and videos for promotional purposes. I acknowledge that helicopter flight involves inherent risk, and I release Alpine Aviation LLC from liability for injury or loss arising from my participation, except where caused by gross negligence.</p>
+  <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-ink-faint)">This is a summary for reference only. A full waiver will be provided for signature before your flight.</p>
+</div>
+
+<footer class="foot">
+  <p class="foot__statement">Come see it in person — <a href="contact.html">book a discovery flight</a>.</p>
+  <div class="foot__grid">
+    <div><h4>Training</h4><ul>
+      <li><a href="flight-instruction.html">Flight Instruction</a></li>
+      <li><a href="intro-flight.html">Intro Flight</a></li>
+      <li><a href="student-housing.html">Student Housing</a></li>
+      <li><a href="financial-options.html">Financial Options</a></li>
+      <li><a href="instructing.html">Instructing / CFI Hiring</a></li>
+    </ul></div>
+    <div><h4>Services</h4><ul>
+      <li><a href="commercial-services.html">Commercial Services</a></li>
+      <li><a href="helicopter-tours.html">Helicopter Tours</a></li>
+      <li><a href="christmas-lights-tours.html">Christmas Lights Tours</a></li>
+      <li><a href="agriculture-ranching.html">Agriculture &amp; Ranching</a></li>
+      <li><a href="livestock-pest-control.html">Pest Control / Livestock Management</a></li>
+    </ul></div>
+    <div><h4>Company</h4><ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="testimonials.html">Testimonials</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="liability-waiver.html">Liability Waiver</a></li>
+    </ul></div>
+    <div><h4>Contact</h4><ul>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="tel:2088508252">208-850-8252</a></li>
+    </ul></div>
+  </div>
+  <div class="foot__row">
+    <span>© Alpine Aviation</span>
+    <span>Oasis / Mountain Home, Idaho</span>
+    <span>Grass Valley, California</span>
+    <span>Lewiston, Idaho</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+# Local tooling / editor state — not part of the deployed site
+.claude/
+.hallmark/
+
+# Scratch, backups, and raw render artifacts — kept on disk locally,
+# never shipped. See docs/ for the actual project plans/specs.
+work/
+assets/vid_backup_orig/
+assets/vid_backup_pre_upscale/
+assets/vid_upscaled/
+images/orig_backup/
+
+# Unused source asset — not referenced by any page, kept locally only
+assets/Alpine.mp4
+
+# OS junk
+.DS_Store
+Thumbs.db

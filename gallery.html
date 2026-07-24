@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gallery — Alpine Aviation · Flight School &amp; Commercial Operations, Oasis, Idaho</title>
+<meta name="description" content="Real photos from Alpine Aviation — our aircraft, our students, our graduates, and the Idaho backcountry we train in.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:title" content="Gallery — Alpine Aviation">
+<meta property="og:type" content="website">
+<meta property="og:image" content="images/Alpine-Aviation-Graduates.jpg">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* Hallmark · page: gallery · component of the Alpine Aviation build (see tokens.css stamp) */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ---- nav: floating chip ---- */
+.nav {
+  position: fixed; inset: var(--space-md) 0 auto 0; z-index: 40;
+  display: flex; justify-content: center; pointer-events: none;
+  padding: 0 var(--space-md);
+}
+.nav__chip {
+  pointer-events: auto;
+  display: flex; align-items: center; gap: var(--space-lg);
+  background: var(--color-scrim);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs) var(--space-lg);
+}
+.nav__brand {
+  font-family: var(--font-display); font-size: var(--text-lg);
+  text-decoration: none; letter-spacing: 0.01em; white-space: nowrap;
+}
+.nav__brand em { font-style: normal; color: var(--color-accent); }
+.brand-logo {
+  height: 110px; width: 110px; border-radius: var(--radius-md);
+  object-fit: cover; display: block;
+  box-shadow: 0 4px 12px oklch(15% 0.03 255 / 0.5);
+}
+.nav__links { display: flex; gap: var(--space-md); }
+.nav__links a {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-ink-soft); text-decoration: none;
+  padding: var(--space-2xs) var(--space-xs); border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.nav__links a:hover { color: var(--color-ink); }
+.nav__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.nav__links a[aria-current="page"] { color: var(--color-accent); }
+
+/* ---- header ---- */
+.head {
+  padding: calc(var(--space-4xl) + var(--space-xl)) var(--space-xl) var(--space-2xl);
+  max-width: 72rem; margin: 0 auto;
+}
+.head__eyebrow {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--color-accent); margin: 0 0 var(--space-md);
+}
+.head h1 {
+  font-family: var(--font-display); font-weight: 400; font-style: normal;
+  font-size: var(--text-display-s); line-height: 1.04;
+  margin: 0 0 var(--space-lg); max-width: 18ch;
+  overflow-wrap: anywhere; min-width: 0;
+}
+.head p { color: var(--color-ink-soft); max-width: 52ch; margin: 0; }
+
+/* ---- gallery grid ---- */
+.grid {
+  max-width: 90rem; margin: 0 auto;
+  padding: 0 var(--space-xl) var(--space-3xl);
+  columns: 3; column-gap: var(--space-md);
+}
+@media (max-width: 980px) { .grid { columns: 2; } }
+@media (max-width: 620px) { .grid { columns: 1; padding: 0 var(--space-md) var(--space-2xl); } }
+.tile {
+  break-inside: avoid; margin: 0 0 var(--space-md);
+  position: relative; overflow: clip; border-radius: var(--radius-md);
+  border: 1px solid var(--color-line);
+  background: var(--color-paper-2);
+  cursor: zoom-in; padding: 0;
+  width: 100%; display: block;
+}
+.tile img {
+  width: 100%; height: auto;
+  transition: transform var(--dur-slow) var(--ease-out), opacity var(--dur-med) var(--ease-out);
+  opacity: 0; transform: translateY(10px);
+}
+.tile.is-in img { opacity: 1; transform: none; }
+.tile:hover img { transform: scale(1.03); }
+.tile:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.tile figcaption {
+  position: absolute; inset: auto 0 0 0;
+  padding: var(--space-lg) var(--space-md) var(--space-sm);
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.06em; color: var(--color-ink);
+  background: linear-gradient(to top, var(--color-scrim), transparent);
+  opacity: 0; transition: opacity var(--dur-med) var(--ease-out);
+  pointer-events: none;
+}
+.tile:hover figcaption, .tile:focus-visible figcaption { opacity: 1; }
+figure.tile { display: block; }
+
+/* ---- lightbox ---- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 60;
+  background: oklch(14% 0.02 255 / 0.94);
+  display: none; align-items: center; justify-content: center;
+  padding: var(--space-xl);
+}
+.lightbox.is-open { display: flex; }
+.lightbox img {
+  max-width: min(92vw, 90rem); max-height: 86vh;
+  width: auto; height: auto;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 30px 80px oklch(10% 0.02 255 / 0.6);
+}
+.lightbox__cap {
+  position: absolute; bottom: var(--space-lg); left: 50%; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.08em; color: var(--color-ink-soft);
+}
+.lightbox__close {
+  position: absolute; top: var(--space-lg); right: var(--space-lg);
+  background: transparent; border: 1px solid var(--color-line);
+  color: var(--color-ink); border-radius: var(--radius-pill);
+  font-family: var(--font-mono); font-size: var(--text-sm);
+  padding: var(--space-xs) var(--space-md); cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.lightbox__close:hover { border-color: var(--color-accent); }
+.lightbox__close:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+/* ---- footer: statement ---- */
+.foot {
+  border-top: var(--rule-hairline);
+  padding: var(--space-3xl) var(--space-xl) var(--space-2xl);
+  max-width: 72rem; margin: 0 auto;
+}
+.foot__statement {
+  font-family: var(--font-display); font-weight: 400; font-style: normal;
+  font-size: var(--text-2xl); line-height: 1.15; margin: 0 0 var(--space-xl);
+  max-width: 24ch;
+}
+.foot__statement a { color: var(--color-accent); text-decoration-color: var(--color-accent-deep); text-underline-offset: 5px; }
+.foot__row {
+  display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl);
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-faint);
+}
+.foot__row a { color: var(--color-ink-soft); text-decoration: none; white-space: nowrap; }
+.foot__row a:hover { color: var(--color-ink); }
+.foot__row a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.foot__grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: var(--space-xl); margin-bottom: var(--space-xl); }
+@media (max-width: 760px) { .foot__grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.foot__grid h4 { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-ink-faint); margin: 0 0 var(--space-sm); }
+.foot__grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2xs); }
+.foot__grid a { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-ink-soft); text-decoration: none; }
+.foot__grid a:hover { color: var(--color-ink); }
+
+@media (prefers-reduced-motion: reduce) {
+  .tile img, .tile figcaption { transition: none; }
+  .tile img { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <div class="nav__chip">
+    <a class="nav__brand" href="index.html"><img class="brand-logo" src="logo.jpg" alt="Alpine Aviation — Flight School &amp; Commercial Operations, Oasis, Idaho"></a>
+    <div class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="flight-instruction.html">Training</a>
+      <a href="commercial-services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html" aria-current="page">Gallery</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="head">
+  <p class="head__eyebrow">From the flight line</p>
+  <h1>The school, as it actually looks.</h1>
+  <p>No stock photos here — these are our aircraft, our students, our graduates, and the
+     Idaho and California country we fly every week.</p>
+</header>
+
+<main class="grid" id="grid">
+  <figure class="tile"><img loading="lazy" src="images/IMG_0603-scaled.jpeg" alt="Alpine Aviation aircraft in the field"><figcaption>On operations</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/Alpine-Aviation-Graduates.jpg" alt="Alpine Aviation graduates"><figcaption>Graduates</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_1371-scaled.jpg" alt="Helicopter operations"><figcaption>Flight line</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_2464-scaled.jpeg" alt="Helicopter in the Idaho backcountry"><figcaption>Backcountry</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_0671-scaled.jpeg" alt="Training flight"><figcaption>Training flight</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/Alex-Alpine-Aviation.jpg" alt="Alex of Alpine Aviation"><figcaption>Our people</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_1377-scaled.jpg" alt="Helicopter on the ramp"><figcaption>On the ramp</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_0823-scaled.jpeg" alt="Cockpit view"><figcaption>From the cockpit</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_1395-1-scaled.jpg" alt="Helicopter in flight"><figcaption>In flight</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_2487-scaled.jpeg" alt="Field operations"><figcaption>Field ops</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_1409-scaled.jpg" alt="Helicopter operations"><figcaption>Working day</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/FullSizeRender-scaled.jpeg" alt="Alpine Aviation aircraft"><figcaption>The fleet</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_1443-1-scaled.jpg" alt="Helicopter at work"><figcaption>At work</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_2496-1-scaled.jpeg" alt="Backcountry flying"><figcaption>Backcountry flying</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_8137_VSCO-scaled.jpg" alt="Idaho terrain from the air"><figcaption>Idaho from above</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_1536-2-scaled.jpg" alt="Helicopter close-up"><figcaption>Up close</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/IMG_9872-scaled.jpg" alt="Sunset flight"><figcaption>Evening light</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/23622175_199853680583547_1117103289472654339_n.jpg" alt="Alpine Aviation early days"><figcaption>Where it started</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/fb-img-002.jpg" alt="Student at the controls giving a thumbs up"><figcaption>At the controls</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/fb-img-003.jpg" alt="Student and instructor holding a Private Pilot sign"><figcaption>Checkride day</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/fb-img-004.jpg" alt="New private pilot with instructor on the ramp"><figcaption>New private pilot</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/fb-img-005.jpg" alt="New commercial pilot holding the sign by the helicopter"><figcaption>New commercial pilot</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/fb-img-009.jpg" alt="Pilot beside the yellow helicopter at the hangar"><figcaption>On the ramp</figcaption></figure>
+  <figure class="tile"><img loading="lazy" src="images/fb-img-010.jpg" alt="Newly certificated pilot with instructor beside the helicopter"><figcaption>Certificated</figcaption></figure>
+</main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged photo">
+  <button class="lightbox__close" id="lbClose" type="button">Close ✕</button>
+  <img id="lbImg" src="" alt="">
+  <span class="lightbox__cap" id="lbCap"></span>
+</div>
+
+<footer class="foot">
+  <p class="foot__statement">Come see it in person — <a href="contact.html">book a discovery flight</a>.</p>
+  <div class="foot__grid">
+    <div><h4>Training</h4><ul>
+      <li><a href="flight-instruction.html">Flight Instruction</a></li>
+      <li><a href="intro-flight.html">Intro Flight</a></li>
+      <li><a href="student-housing.html">Student Housing</a></li>
+      <li><a href="financial-options.html">Financial Options</a></li>
+      <li><a href="instructing.html">Instructing / CFI Hiring</a></li>
+    </ul></div>
+    <div><h4>Services</h4><ul>
+      <li><a href="commercial-services.html">Commercial Services</a></li>
+      <li><a href="helicopter-tours.html">Helicopter Tours</a></li>
+      <li><a href="christmas-lights-tours.html">Christmas Lights Tours</a></li>
+      <li><a href="agriculture-ranching.html">Agriculture &amp; Ranching</a></li>
+      <li><a href="livestock-pest-control.html">Pest Control / Livestock Management</a></li>
+    </ul></div>
+    <div><h4>Company</h4><ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="testimonials.html">Testimonials</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="news.html">News</a></li>
+      <li><a href="liability-waiver.html">Liability Waiver</a></li>
+    </ul></div>
+    <div><h4>Contact</h4><ul>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="tel:2088508252">208-850-8252</a></li>
+    </ul></div>
+  </div>
+  <div class="foot__row">
+    <span>© Alpine Aviation</span>
+    <span>Oasis / Mountain Home, Idaho</span>
+    <span>Grass Valley, California</span>
+    <span>Lewiston, Idaho</span>
+  </div>
+</footer>
+
+<script>
+// Reveal on scroll
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+}), { rootMargin: '80px' });
+document.querySelectorAll('.tile').forEach(t => { t.tabIndex = 0; io.observe(t); });
+
+// Lightbox
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCap = document.getElementById('lbCap');
+let lastFocus = null;
+function openLB(tile) {
+  const img = tile.querySelector('img');
+  lbImg.src = img.src; lbImg.alt = img.alt;
+  lbCap.textContent = tile.querySelector('figcaption')?.textContent || '';
+  lb.classList.add('is-open');
+  lastFocus = tile;
+  document.getElementById('lbClose').focus();
+  document.body.style.overflow = 'hidden';
+}
+function closeLB() {
+  lb.classList.remove('is-open');
+  document.body.style.overflow = '';
+  lastFocus?.focus();
+}
+document.querySelectorAll('.tile').forEach(t => {
+  t.addEventListener('click', () => openLB(t));
+  t.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLB(t); } });
+});
+document.getElementById('lbClose').addEventListener('click', closeLB);
+lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('is-open')) closeLB(); });
+</script>
+</body>
+</html>

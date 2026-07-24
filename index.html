@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alpine Aviation — Helicopter &amp; Fixed-Wing Flight School · Oasis, Idaho</title>
+<meta name="description" content="Helicopter and fixed-wing flight training, commercial helicopter services, tours, and student housing in Oasis / Mountain Home, Idaho — with locations in Grass Valley, CA and Lewiston, ID.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<meta property="og:title" content="Alpine Aviation — Helicopter &amp; Fixed-Wing Flight School · Oasis, Idaho">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/still_6.webp">
+<link rel="stylesheet" href="tokens.css">
+<style>
+/* Hallmark · macrostructure: scroll-film spine + long-document sections · tone: cinematic-rugged-premium
+ * theme: custom (see tokens.css stamp) · nav: N2 floating chip (engine topbar) · footer: Ft5 statement
+ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { overflow-x: clip; }
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-md);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+
+/* scroll-world theme bridge */
+.sw-root, #world {
+  --sw-bg: oklch(24% 0.035 255);
+  --sw-ink: oklch(96% 0.008 90);
+  --sw-ink-soft: oklch(80% 0.02 250);
+  --sw-accent: oklch(74% 0.09 80);
+  --sw-font-display: "Instrument Serif", Georgia, serif;
+  --sw-font-body: "Archivo", system-ui, sans-serif;
+}
+/* engine's .sw-btn--primary hardcodes white text on var(--sw-ink) — on this
+   inverted dark-sky palette --sw-ink is light, so flip the button text to
+   --sw-bg (dark) to keep it readable against the now-light ink pill. */
+.sw-btn--primary { color: var(--sw-bg); }
+
+/* ---------- below-film content ---------- */
+.wrap { max-width: 72rem; margin: 0 auto; padding: 0 var(--space-xl); }
+@media (max-width: 620px) { .wrap { padding: 0 var(--space-md); } }
+
+section.block { padding: var(--space-3xl) 0; border-top: var(--rule-hairline); }
+.eyebrow {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--color-accent); margin: 0 0 var(--space-md);
+}
+h2 {
+  font-family: var(--font-display); font-weight: 400; font-style: normal;
+  font-size: var(--text-4xl); line-height: 1.06; margin: 0 0 var(--space-lg);
+  max-width: 20ch; overflow-wrap: anywhere; min-width: 0;
+}
+.lede { color: var(--color-ink-soft); max-width: 56ch; margin: 0 0 var(--space-xl); }
+
+/* programs */
+.programs { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--space-md); }
+@media (max-width: 760px) { .programs { grid-template-columns: minmax(0,1fr); } }
+.program {
+  border: 1px solid var(--color-line); border-radius: var(--radius-md);
+  padding: var(--space-xl); background: var(--color-paper-2);
+  transition: border-color var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+}
+.program:hover { border-color: var(--color-accent-deep); transform: translateY(-3px); }
+.program h3 {
+  font-family: var(--font-display); font-weight: 400; font-size: var(--text-xl);
+  margin: 0 0 var(--space-xs);
+}
+.program p { color: var(--color-ink-soft); margin: 0; font-size: var(--text-sm); }
+.program .k {
+  font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--color-ink-faint);
+  display: block; margin-bottom: var(--space-sm);
+}
+
+/* full-bleed photo under the training grid — breaks out of .wrap's max-width */
+.training-photo { margin-top: var(--space-2xl); }
+.training-photo img { display: block; width: 100%; height: 82vh; max-height: 900px; object-fit: cover; object-position: center; }
+@media (max-width: 760px) { .training-photo img { height: 56vh; } }
+
+/* split rows (housing / financing) */
+.split { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--space-2xl); align-items: start; }
+@media (max-width: 760px) { .split { grid-template-columns: minmax(0,1fr); gap: var(--space-xl); } }
+.split .photo { border-radius: var(--radius-md); overflow: clip; border: 1px solid var(--color-line); }
+.split .photo img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center; }
+
+/* locations */
+.locs { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--space-md); }
+@media (max-width: 760px) { .locs { grid-template-columns: minmax(0,1fr); } }
+.loc {
+  border-top: 2px solid var(--color-accent);
+  padding: var(--space-lg) 0 0;
+}
+.loc h3 { font-family: var(--font-display); font-weight: 400; font-size: var(--text-xl); margin: 0 0 var(--space-xs); }
+.loc p { color: var(--color-ink-soft); font-size: var(--text-sm); margin: 0; }
+
+/* services icon grid */
+.icongrid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: var(--space-xl); text-align: center; }
+@media (max-width: 760px) { .icongrid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--space-xl) var(--space-md); } }
+.icongrid a { text-decoration: none; color: inherit; display: block; }
+.icongrid a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; border-radius: var(--radius-pill); }
+.icongrid .ring {
+  width: 5.5rem; height: 5.5rem; margin: 0 auto var(--space-md);
+  border-radius: 50%; overflow: clip; border: 3px solid var(--color-accent);
+  background: #fff;
+  transition: transform var(--dur-med) var(--ease-out), border-color var(--dur-med) var(--ease-out);
+}
+.icongrid a:hover .ring { transform: translateY(-4px); border-color: var(--color-ink); }
+.icongrid .ring img { width: 100%; height: 100%; object-fit: contain; padding: 0.6rem; }
+.icongrid h3 { font-family: var(--font-display); font-weight: 400; font-size: var(--text-lg); margin: 0 0 var(--space-2xs); }
+.icongrid p { color: var(--color-ink-soft); font-size: var(--text-sm); margin: 0; }
+
+/* gallery teaser */
+.strip { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: var(--space-md); margin-bottom: var(--space-xl); }
+@media (max-width: 760px) { .strip { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+.strip a { border-radius: var(--radius-md); overflow: clip; border: 1px solid var(--color-line); display: block; aspect-ratio: 4/3; }
+.strip a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.strip img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease-out); }
+.strip a:hover img { transform: scale(1.04); }
+
+/* link voice */
+.textlink {
+  font-family: var(--font-mono); font-size: var(--text-sm); letter-spacing: 0.04em;
+  color: var(--color-accent); text-decoration: none;
+  border-bottom: 1px solid var(--color-accent-deep); padding-bottom: 2px;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  white-space: nowrap;
+}
+.textlink:hover { color: var(--color-ink); border-color: var(--color-ink); }
+.textlink:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+/* contact */
+#contact .card {
+  border: 1px solid var(--color-line); border-radius: var(--radius-lg);
+  background: var(--color-paper-2);
+  padding: var(--space-2xl); display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--space-2xl);
+}
+@media (max-width: 760px) { #contact .card { grid-template-columns: minmax(0,1fr); padding: var(--space-xl); } }
+.form { display: grid; gap: var(--space-md); }
+.form label {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-ink-faint);
+  display: grid; gap: var(--space-2xs);
+}
+.form input, .form select, .form textarea {
+  font-family: var(--font-body); font-size: var(--text-md);
+  background: var(--color-paper); color: var(--color-ink);
+  border: 1px solid var(--color-line); border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md); width: 100%;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.form input:hover, .form select:hover, .form textarea:hover { border-color: var(--color-ink-faint); }
+.form input:focus-visible, .form select:focus-visible, .form textarea:focus-visible {
+  outline: 2px solid var(--color-focus); outline-offset: 1px; border-color: var(--color-accent);
+}
+.btn {
+  font-family: var(--font-body); font-weight: 600; font-size: var(--text-md);
+  background: var(--color-accent); color: oklch(20% 0.03 255);
+  border: none; border-radius: var(--radius-pill);
+  padding: var(--space-sm) var(--space-xl); cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  justify-self: start;
+}
+.btn:hover { background: var(--color-focus); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.form .note { font-size: var(--text-xs); color: var(--color-ink-faint); font-family: var(--font-mono); }
+
+/* footer */
+footer.site {
+  border-top: var(--rule-hairline);
+  padding: var(--space-3xl) 0 var(--space-2xl);
+}
+.site .statement {
+  font-family: var(--font-display); font-weight: 400; font-style: normal;
+  font-size: var(--text-2xl); line-height: 1.15; margin: 0 0 var(--space-xl); max-width: 26ch;
+}
+.site .row {
+  display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl);
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-faint);
+}
+.site .row a { color: var(--color-ink-soft); text-decoration: none; white-space: nowrap; }
+.site .row a:hover { color: var(--color-ink); }
+.site .row a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+
+/* ---- film → ground handoff ---- */
+/* Tuck the ground content one viewport under the film's track: the film is opaque
+   full-bleed while pinned, so the overlap is invisible — and the dissolve then lands
+   the visitor exactly on the first ground headline instead of a blank band. */
+main { margin-top: -100vh; position: relative; z-index: 5; }
+#world { transition: opacity 120ms linear; }
+#world.is-landed { opacity: 0 !important; pointer-events: none; }
+#world.is-landed * { pointer-events: none !important; }
+
+.gnav {
+  position: fixed; inset: var(--space-md) 0 auto 0; z-index: 45;
+  display: flex; justify-content: center; padding: 0 var(--space-md);
+  opacity: 0; pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
+}
+.gnav.is-on { opacity: 1; pointer-events: auto; transform: none; }
+.gnav__chip {
+  display: flex; align-items: center; gap: var(--space-lg);
+  background: var(--color-scrim);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs) var(--space-lg);
+}
+.gnav__brand {
+  font-family: var(--font-display); font-size: var(--text-lg);
+  text-decoration: none; letter-spacing: 0.01em; white-space: nowrap; color: var(--color-ink);
+  display: flex; align-items: center;
+}
+.gnav__brand em { font-style: normal; color: var(--color-accent); }
+.brand-logo {
+  height: 110px; width: 110px; border-radius: var(--radius-md);
+  object-fit: cover; display: block;
+  box-shadow: 0 4px 12px oklch(15% 0.03 255 / 0.5);
+}
+.gnav__links { display: flex; gap: var(--space-md); }
+.gnav__links a {
+  font-family: var(--font-mono); font-size: var(--text-xs);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--color-ink-soft); text-decoration: none;
+  padding: var(--space-2xs) var(--space-xs); border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.gnav__links a:hover { color: var(--color-ink); }
+.gnav__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+@media (max-width: 700px) {
+  .gnav__links { gap: var(--space-xs); }
+  .gnav__links a:nth-child(1), .gnav__links a:nth-child(2), .gnav__links a:nth-child(3) { display: none; }
+  .gnav__chip { gap: var(--space-md); padding: var(--space-xs) var(--space-md); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .program, .strip img, .btn, .gnav, #world { transition: none; }
+}
+
+/* ---- preflight loader: buffers the flight clips before reveal, so the
+   first scroll scrubs with no network stall ---- */
+html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
+#loader {
+  position: fixed; inset: 0; z-index: 900;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px;
+  background: radial-gradient(900px 480px at 50% 34%, oklch(74% 0.09 80 / .08), transparent 60%), oklch(24% 0.035 255);
+  transition: opacity .7s cubic-bezier(.22,.61,.36,1), visibility .7s;
+}
+#loader.is-gone { opacity: 0; visibility: hidden; pointer-events: none; }
+#loader .l-mark { width: 64px; height: 64px; object-fit: contain; border-radius: 14px; filter: drop-shadow(0 0 18px oklch(74% 0.09 80 / .35)); animation: loaderPulse 2.6s ease-in-out infinite; }
+@keyframes loaderPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+#loader .l-line { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.78rem; letter-spacing: .32em; text-transform: uppercase; color: oklch(80% 0.02 250); padding-left: .32em; }
+#loader .l-track { width: min(280px, 64vw); height: 2px; background: oklch(74% 0.09 80 / .16); overflow: hidden; border-radius: 1px; }
+#loaderBar { display: block; height: 100%; width: 100%; transform: scaleX(0); transform-origin: left; background: oklch(74% 0.09 80); transition: transform .25s ease-out; }
+#loaderPct { font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.78rem; color: oklch(62% 0.025 250); letter-spacing: .2em; }
+@media (prefers-reduced-motion: reduce) { #loader .l-mark { animation: none; } }
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('is-loading');</script>
+
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Alpine Aviation — Helicopter &amp; Fixed-Wing Flight School, Oasis, Idaho</h1>
+
+<!-- preflight loader — buffers the flight clips before reveal -->
+<div id="loader" aria-hidden="true">
+  <img class="l-mark" src="assets/favicon.png" alt="">
+  <div class="l-line">Preparing the flight</div>
+  <div class="l-track"><span id="loaderBar"></span></div>
+  <div id="loaderPct">0%</div>
+</div>
+
+<!-- The flight — scroll-scrubbed continuous camera journey -->
+<div id="world"></div>
+
+<!-- ground nav: appears after the film releases -->
+<nav class="gnav" id="gnav" aria-label="Site">
+  <div class="gnav__chip">
+    <a class="gnav__brand" href="#world"><img class="brand-logo" src="logo.jpg" alt="Alpine Aviation — Flight School &amp; Commercial Operations, Oasis, Idaho"></a>
+    <div class="gnav__links">
+      <a href="flight-instruction.html">Training</a>
+      <a href="commercial-services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ---------- ground content ---------- -->
+<main>
+<section class="block" id="training">
+  <div class="wrap">
+    <p class="eyebrow">Flight training</p>
+    <h2>Every rating, one runway.</h2>
+    <p class="lede">Train in real mountain country — high-desert density altitude, canyon wind,
+       confined areas — the conditions that make commercial pilots. Helicopter and fixed-wing,
+       from your first hover to your instructor certificate.</p>
+    <div class="programs">
+      <div class="program"><span class="k">Helicopter</span><h3>Private Pilot</h3><p>Your foundation — first hover, first solo, first license.</p></div>
+      <div class="program"><span class="k">Helicopter</span><h3>Commercial Pilot</h3><p>Build the hours and the judgment to fly for a living.</p></div>
+      <div class="program"><span class="k">Helicopter</span><h3>Instrument Rating</h3><p>Fly precisely when the horizon disappears.</p></div>
+      <div class="program"><span class="k">Helicopter</span><h3>Certified Flight Instructor</h3><p>Teach the next class — and build turbine-track experience.</p></div>
+      <div class="program"><span class="k">Fixed-wing</span><h3>Airplane Programs</h3><p>Private through commercial in our fixed-wing fleet.</p></div>
+      <div class="program"><span class="k">Start here</span><h3>Discovery Flight</h3><p>One flight, real controls, an honest conversation about the path.</p></div>
+    </div>
+  </div>
+  <div class="training-photo"><img loading="lazy" src="images/FullSizeRender-scaled.jpeg" alt="Alpine Aviation aircraft on the ramp"></div>
+</section>
+
+<section class="block" id="services">
+  <div class="wrap">
+    <p class="eyebrow">Commercial services</p>
+    <h2>Working aircraft, working country.</h2>
+    <p class="lede">Alpine isn't only a school. Our aircraft earn their keep across the West —
+       and our students train alongside real operations.</p>
+    <div class="locs">
+      <div class="loc"><h3>Helicopter tours</h3><p>Idaho backcountry flights — canyons, lakes, and ranges you can't reach by road.</p></div>
+      <div class="loc"><h3>Agriculture &amp; ranching</h3><p>Aerial support for the region's ranches and growers.</p></div>
+      <div class="loc"><h3>Animal &amp; pest control</h3><p>Precision livestock management and pest-control operations.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="housing">
+  <div class="wrap split">
+    <div>
+      <p class="eyebrow">Student housing</p>
+      <h2>Live where you train.</h2>
+      <p class="lede">On-site student housing keeps you close to the flight line — more time
+         flying, less time commuting. Financing paths are available through our partnership
+         with Stratus Financial; we'll walk you through it before you commit to anything.</p>
+      <a class="textlink" href="#contact">Ask about housing &amp; financing</a>
+    </div>
+    <div class="photo"><img loading="lazy" src="images/IMG_0603-scaled.jpeg" alt="Alpine Aviation campus buildings with helicopters parked outside"></div>
+  </div>
+</section>
+
+<section class="block" id="locations">
+  <div class="wrap">
+    <p class="eyebrow">Locations</p>
+    <h2>Three fields, one standard.</h2>
+    <div class="locs">
+      <div class="loc"><h3>Oasis / Mountain Home, Idaho</h3><p>Home base — flight school, commercial operations, and student housing in Idaho high desert.</p></div>
+      <div class="loc"><h3>Grass Valley, California</h3><p>Sierra foothills training with the same instructors' standard.</p></div>
+      <div class="loc"><h3>Lewiston, Idaho</h3><p>North-Idaho operations on the Snake River.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="gallery-teaser">
+  <div class="wrap">
+    <p class="eyebrow">From the flight line</p>
+    <h2>Real aircraft. Real students.</h2>
+    <div class="strip">
+      <a href="gallery.html"><img loading="lazy" src="images/IMG_1371-scaled.jpg" alt="Helicopter on operations"></a>
+      <a href="gallery.html"><img loading="lazy" src="images/Alpine-Aviation-Graduates.jpg" alt="Alpine Aviation graduates"></a>
+      <a href="gallery.html"><img loading="lazy" src="images/IMG_8137_VSCO-scaled.jpg" alt="Idaho terrain from the air"></a>
+      <a href="gallery.html"><img loading="lazy" src="images/IMG_9872-scaled.jpg" alt="Evening flight"></a>
+    </div>
+    <a class="textlink" href="gallery.html">See the full gallery</a>
+  </div>
+</section>
+
+<section class="block" id="contact">
+  <div class="wrap">
+    <p class="eyebrow">Discovery flight</p>
+    <h2>The seat is real. So is the view.</h2>
+    <p class="lede">Tell us who you are and which field is closest — we'll set up a discovery
+       flight and answer everything: cost, timeline, housing, financing, careers.</p>
+    <div class="card">
+      <form class="form" onsubmit="event.preventDefault(); this.querySelector('.note').textContent='Thanks — we\'ll be in touch. (Demo form: connect to your email/CRM before launch.)';">
+        <label>Name<input type="text" name="name" required autocomplete="name"></label>
+        <label>Email<input type="email" name="email" required autocomplete="email"></label>
+        <label>Phone<input type="tel" name="phone" autocomplete="tel"></label>
+        <label>Interested in
+          <select name="interest">
+            <option>Discovery flight</option>
+            <option>Helicopter training</option>
+            <option>Fixed-wing training</option>
+            <option>Commercial services</option>
+            <option>Tours</option>
+          </select>
+        </label>
+        <button class="btn" type="submit">Request my flight</button>
+        <span class="note">We reply personally — no drip campaigns.</span>
+      </form>
+      <div>
+        <p class="eyebrow" style="margin-top:0">Or just call</p>
+        <p class="lede" style="margin-bottom:var(--space-md)">A five-minute phone call answers most questions
+           faster than any website can.</p>
+        <p style="font-family:var(--font-mono); color:var(--color-ink-soft); margin:0 0 var(--space-lg)">
+          Oasis / Mountain Home, ID<br>Grass Valley, CA<br>Lewiston, ID</p>
+        <a class="textlink" href="gallery.html">Meet the fleet in the gallery</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="explore">
+  <div class="wrap">
+    <p class="eyebrow">What we do</p>
+    <h2>Four ways into the air.</h2>
+    <div class="icongrid">
+      <a href="flight-instruction.html">
+        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Flight-Instruction-Idaho.jpg" alt=""></span>
+        <h3>Flight Instruction</h3>
+        <p>Personalized Helicopter Flight Instruction</p>
+      </a>
+      <a href="helicopter-tours.html">
+        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Flight-Tours-Boise.jpg" alt=""></span>
+        <h3>Helicopter Tours and Photo Shoots</h3>
+        <p>Helicopter Flight Tours and Photo Tours of beautiful Idaho</p>
+      </a>
+      <a href="livestock-pest-control.html">
+        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Animal-Control.jpg" alt=""></span>
+        <h3>Livestock Management</h3>
+        <p>Coyote Removal by Helicopter</p>
+      </a>
+      <a href="agriculture-ranching.html">
+        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Agriculture-Services-Idaho.jpg" alt=""></span>
+        <h3>Agriculture and Ranching</h3>
+        <p>Agricultural Services, Cattle Herding and Aerial Surveys</p>
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <p class="statement">Mountains don't grade on a curve. Neither do we.</p>
+    <div class="row">
+      <span>© Alpine Aviation</span>
+      <a href="flight-instruction.html">Training</a>
+      <a href="commercial-services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="testimonials.html">Testimonials</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/scrub-engine.js"></script>
+<script>
+mountScrollWorld(document.getElementById('world'), {
+  brand: { name: 'Alpine Aviation', href: '#world' },
+  hint: 'scroll to fly',
+  nav: true,
+  atmosphere: true,
+  diveScroll: 1.4,
+  crossfade: 0.08,
+  sections: [
+    { id: 'peaks', label: 'The Range', still: 'assets/still_1.webp', clip: 'assets/vid/leg_1.mp4', clipMobile: 'assets/vid/leg_1-m.mp4',
+      scroll: 1.8, linger: 0.4, accent: 'oklch(74% 0.09 80)',
+      eyebrow: 'Oasis, Idaho', title: 'Learn to fly where the mountains teach.',
+      body: 'Helicopter and fixed-wing flight training in real Idaho backcountry — terrain that builds pilots, not just logbooks.',
+      tags: ['Helicopter', 'Fixed-wing', 'Est. Idaho'] },
+    { id: 'flightline', label: 'Training', still: 'assets/still_2.webp', clip: 'assets/vid/leg_2.mp4', clipMobile: 'assets/vid/leg_2-m.mp4',
+      scroll: 1.5, linger: 0.35, accent: 'oklch(85% 0.045 250)',
+      eyebrow: 'Flight training', title: 'From first hover to CFI.',
+      body: 'Private, commercial, instrument, and instructor programs — taught on a working flight line.',
+      tags: ['PPL', 'CPL', 'IFR', 'CFI'] },
+    { id: 'ops', label: 'Commercial', still: 'assets/still_3.webp', clip: 'assets/vid/leg_3.mp4', clipMobile: 'assets/vid/leg_3-m.mp4',
+      scroll: 1.5, linger: 0.35, accent: 'oklch(74% 0.09 80)',
+      eyebrow: 'Commercial services', title: 'Working aircraft, working country.',
+      body: 'Tours, agriculture, ranching, and animal-control operations across the Idaho high desert.',
+      tags: ['Tours', 'Agriculture', 'Ranch ops'] },
+    { id: 'campus', label: 'Housing', still: 'assets/still_4.webp', clip: 'assets/vid/leg_4.mp4', clipMobile: 'assets/vid/leg_4-m.mp4',
+      scroll: 1.4, linger: 0.3, accent: 'oklch(85% 0.045 250)',
+      eyebrow: 'Student housing', title: 'Live where you train.',
+      body: 'On-site housing keeps you next to the flight line — and financing help through Stratus Financial.',
+      tags: ['On-site', 'Stratus Financial'] },
+    { id: 'hangar', label: 'Graduates', still: 'assets/still_5.webp', clip: 'assets/vid/leg_5.mp4', clipMobile: 'assets/vid/leg_5-m.mp4',
+      scroll: 1.5, linger: 0.4, accent: 'oklch(74% 0.09 80)',
+      eyebrow: 'Graduates', title: 'Our graduates fly for a living.',
+      body: 'Alpine trains for the commercial field — our graduates go on to working pilot careers.',
+      tags: ['Career track'] },
+    { id: 'landing', label: 'Fly', still: 'assets/still_6.webp', clip: 'assets/vid/leg_6.mp4', clipMobile: 'assets/vid/leg_6-m.mp4',
+      scroll: 1.9, linger: 0.5, accent: 'oklch(74% 0.09 80)',
+      eyebrow: 'Discovery flight', title: 'Your move.',
+      body: 'One discovery flight tells you more than a hundred web pages. Take the controls.',
+      cta: { primary: { label: 'Book a discovery flight', href: '#contact' },
+             secondary: { label: 'See the gallery', href: 'gallery.html' } } }
+  ],
+  connectors: []  // architecture A — the legs ARE the journey
+});
+
+// ---- brand logo in the film topbar ----
+(function () {
+  const brand = document.querySelector('.sw-brand');
+  if (brand) {
+    brand.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = 'logo.jpg';
+    img.alt = 'Alpine Aviation — Flight School & Commercial Operations, Oasis, Idaho';
+    img.className = 'brand-logo';
+    brand.appendChild(img);
+  }
+})();
+
+// ---- film → ground handoff ----
+// The engine's last scene now slides/fades away with scroll over the track's trailing
+// 1vh buffer (see scrub-engine.js's "release" block) instead of an instant cut — so this
+// handoff only needs to finish the job once that slide completes, at the very end of the
+// track (world.offsetHeight), not as soon as the last scene's dive segment ends.
+(function () {
+  const world = document.getElementById('world');
+  const gnav = document.getElementById('gnav');
+  function filmEnd() { return world.offsetHeight; }
+  let landed = false;
+  function onScroll() {
+    const y = window.scrollY || window.pageYOffset;
+    const past = y > filmEnd() - 8;
+    if (past !== landed) {
+      landed = past;
+      world.classList.toggle('is-landed', landed);
+      gnav.classList.toggle('is-on', landed);
+    }
+  }
+  addEventListener('scroll', onScroll, { passive: true });
+  addEventListener('resize', onScroll);
+  onScroll();
+})();
+
+// ---- preflight loader: buffers every flight clip (the same URLs and mobile/desktop
+// choice the engine itself uses) before revealing the page, so the engine's own
+// fetch-to-blob loads hit the browser's HTTP cache instead of the network — the first
+// scroll scrubs immediately instead of stalling on a clip that hasn't arrived yet. ----
+(function () {
+  const root = document.documentElement;
+  const loader = document.getElementById('loader');
+  const bar = document.getElementById('loaderBar');
+  const pct = document.getElementById('loaderPct');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function reveal() {
+    root.classList.remove('is-loading');
+    if (loader) {
+      loader.classList.add('is-gone');
+      setTimeout(() => loader.remove(), 800);
+    }
+  }
+
+  // Under reduced motion the engine never loads clips at all (stills only) — nothing
+  // to buffer, so reveal immediately.
+  if (reduce) { reveal(); return; }
+
+  const isMobile = matchMedia('(pointer: coarse)').matches || matchMedia('(max-width: 860px)').matches;
+  const clips = isMobile
+    ? ['assets/vid/leg_1-m.mp4','assets/vid/leg_2-m.mp4','assets/vid/leg_3-m.mp4','assets/vid/leg_4-m.mp4','assets/vid/leg_5-m.mp4','assets/vid/leg_6-m.mp4']
+    : ['assets/vid/leg_1.mp4','assets/vid/leg_2.mp4','assets/vid/leg_3.mp4','assets/vid/leg_4.mp4','assets/vid/leg_5.mp4','assets/vid/leg_6.mp4'];
+
+  const totals = new Array(clips.length).fill(0);
+  const loaded = new Array(clips.length).fill(0);
+  let knownTotal = 0, hasAnyTotal = false;
+
+  function paint() {
+    const sumLoaded = loaded.reduce((a, b) => a + b, 0);
+    const sumTotal = hasAnyTotal ? totals.reduce((a, b) => a + b, 0) : 0;
+    const p = sumTotal > 0 ? Math.min(1, sumLoaded / sumTotal) : 0;
+    if (bar) bar.style.transform = `scaleX(${p})`;
+    if (pct) pct.textContent = Math.round(p * 100) + '%';
+  }
+
+  function loadOne(i) {
+    return fetch(clips[i]).then(res => {
+      if (!res.ok || !res.body) throw new Error('bad response');
+      const len = +res.headers.get('content-length') || 0;
+      if (len) { totals[i] = len; hasAnyTotal = true; }
+      const reader = res.body.getReader();
+      return new Promise((resolve) => {
+        function pump() {
+          reader.read().then(({ done, value }) => {
+            if (done) { resolve(); return; }
+            loaded[i] += value.byteLength;
+            paint();
+            pump();
+          }).catch(resolve);
+        }
+        pump();
+      });
+    }).catch(() => { /* clip missing/blocked — engine's own loadClip() will retry or fall back */ });
+  }
+
+  const started = Date.now();
+  Promise.all(clips.map((_, i) => loadOne(i))).then(() => {
+    paint();
+    // Give the fade-out a beat so 100% is visible rather than an instant cut.
+    const elapsed = Date.now() - started;
+    setTimeout(reveal, elapsed < 300 ? 300 - elapsed : 0);
+  });
+
+  // Safety net: never trap a visitor behind the loader (slow/blocked network, unusual
+  // browser fetch/streams support) — reveal the page after 20s no matter what.
+  setTimeout(reveal, 20000);
+})();
+</script>
+</body>
+</html>
