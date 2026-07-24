@@ -1,6 +1,7 @@
 # Local tooling / editor state — not part of the deployed site
 .claude/
 .hallmark/
+.wrangler/
 
 # Scratch, backups, and raw render artifacts — kept on disk locally,
 # never shipped. See docs/ for the actual project plans/specs.
