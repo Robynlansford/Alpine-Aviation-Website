@@ -538,84 +538,63 @@ mountScrollWorld(document.getElementById('world'), {
   onScroll();
 })();
 
-// ---- preflight loader: buffers every flight clip (the same URLs and mobile/desktop
-// choice the engine itself uses) before revealing the page, so the engine's own
-// fetch-to-blob loads hit the browser's HTTP cache instead of the network — the first
-// scroll scrubs immediately instead of stalling on a clip that hasn't arrived yet. ----
+// ---- preflight loader: hold the page until the engine's OWN first-scene video is
+// scrub-ready, then reveal. ----
+// A previous version prefetched the clips itself to "warm the cache" — but the host
+// (Cloudflare Pages) serves media with `Cache-Control: max-age=0, must-revalidate`, so
+// the browser can't reuse that prefetch. The engine then re-downloaded the same clip to
+// build its scrub blob, and the page was already scrollable during that second download
+// — so scene 1 wasn't ready and the scroll jumped straight to scene 2. Watching the
+// engine's actual <video> (rather than a throwaway fetch) makes the reveal wait for the
+// exact element that gets scrubbed, with no duplicate download and no race.
 (function () {
   const root = document.documentElement;
   const loader = document.getElementById('loader');
   const bar = document.getElementById('loaderBar');
   const pct = document.getElementById('loaderPct');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let done = false;
 
   function reveal() {
+    if (done) return; done = true;
     root.classList.remove('is-loading');
-    if (loader) {
-      loader.classList.add('is-gone');
-      setTimeout(() => loader.remove(), 800);
-    }
+    if (loader) { loader.classList.add('is-gone'); setTimeout(() => loader.remove(), 800); }
   }
 
-  // Under reduced motion the engine never loads clips at all (stills only) — nothing
-  // to buffer, so reveal immediately.
+  // Reduced motion → the engine loads no clips at all (stills only); nothing to wait for.
   if (reduce) { reveal(); return; }
 
-  const isMobile = matchMedia('(pointer: coarse)').matches || matchMedia('(max-width: 860px)').matches;
-  const clips = isMobile
-    ? ['assets/vid/leg_1-m.mp4','assets/vid/leg_2-m.mp4','assets/vid/leg_3-m.mp4','assets/vid/leg_4-m.mp4','assets/vid/leg_5-m.mp4','assets/vid/leg_6-m.mp4']
-    : ['assets/vid/leg_1.mp4','assets/vid/leg_2.mp4','assets/vid/leg_3.mp4','assets/vid/leg_4.mp4','assets/vid/leg_5.mp4','assets/vid/leg_6.mp4'];
-
-  // The loader only GATES on the first clip — the scene you scroll through immediately.
-  // Blocking reveal on all six was the bug: on a real connection the page either revealed
-  // late (after every clip) or hit the safety-net timeout with scene 1 still unbuffered,
-  // so the first scrub stalled and snapped. The engine lazy-loads the rest as you scroll
-  // toward them; the remaining fetches here just warm the HTTP cache in the background so
-  // those later blob-fetches resolve instantly, but they never hold up the reveal.
-  let firstTotal = 0, firstLoaded = 0;
-
-  function paint() {
-    const p = firstTotal > 0 ? Math.min(1, firstLoaded / firstTotal) : 0;
-    if (bar) bar.style.transform = `scaleX(${p})`;
-    if (pct) pct.textContent = Math.round(p * 100) + '%';
+  function paint(p) {
+    if (bar) bar.style.transform = `scaleX(${Math.max(0, Math.min(1, p))})`;
+    if (pct) pct.textContent = Math.round(Math.max(0, Math.min(1, p)) * 100) + '%';
   }
 
-  // Stream a clip to warm the cache. `track` (only the first clip) drives the progress bar
-  // and its returned promise gates the reveal.
-  function loadOne(url, track) {
-    return fetch(url).then(res => {
-      if (!res.ok || !res.body) throw new Error('bad response');
-      if (track) {
-        firstTotal = +res.headers.get('content-length') || 0;
-        paint();
-      }
-      const reader = res.body.getReader();
-      return new Promise((resolve) => {
-        function pump() {
-          reader.read().then(({ done, value }) => {
-            if (done) { resolve(); return; }
-            if (track) { firstLoaded += value.byteLength; paint(); }
-            pump();
-          }).catch(resolve);
-        }
-        pump();
-      });
-    }).catch(() => { /* clip missing/blocked — engine's own loadClip() will retry or fall back */ });
+  // The engine downloads scene 1's clip as a blob and only inserts the <video> once that
+  // blob is complete — so the element's presence + a buffered range covering its full
+  // duration is the true "scene 1 can scrub end-to-end" signal.
+  function firstSceneReady() {
+    const scene0 = document.querySelectorAll('#world .sw-scene')[0];
+    const v = scene0 && scene0.querySelector('video');
+    if (!v || !v.duration || !isFinite(v.duration) || v.readyState < 3) return false;
+    let end = 0;
+    for (let k = 0; k < v.buffered.length; k++) end = Math.max(end, v.buffered.end(k));
+    return end >= v.duration - 0.3;
   }
 
-  const started = Date.now();
-  // Warm the remaining clips in the background — fire-and-forget, never blocks reveal.
-  clips.slice(1).forEach(url => loadOne(url, false));
-  // Gate reveal on the first clip finishing (or the safety net, whichever comes first).
-  loadOne(clips[0], true).then(() => {
-    paint();
-    const elapsed = Date.now() - started;
-    setTimeout(reveal, elapsed < 300 ? 300 - elapsed : 0);  // let 100% show for a beat
-  });
+  // The blob downloads atomically (no byte-level progress to read off the element), so the
+  // bar creeps on a time estimate up to 92% and snaps to 100% the instant the video is
+  // genuinely ready — the reveal is gated on readiness, never on the estimate.
+  const start = Date.now(), EST = 7000;
+  (function tick() {
+    if (done) return;
+    if (firstSceneReady()) { paint(1); setTimeout(reveal, 200); return; }
+    paint(Math.min(0.92, (Date.now() - start) / EST));
+    setTimeout(tick, 120);
+  })();
 
-  // Safety net: never trap a visitor behind the loader (slow/blocked network, unusual
-  // fetch/streams support) — reveal after 12s no matter what.
-  setTimeout(reveal, 12000);
+  // Safety net: never trap a visitor behind the loader (a clip that never loads, blocked
+  // media, etc.) — reveal after 15s no matter what.
+  setTimeout(reveal, 15000);
 })();
 </script>
 </body>

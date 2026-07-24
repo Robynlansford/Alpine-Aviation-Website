@@ -1,0 +1,13 @@
+# Cloudflare Pages headers.
+# Media (flight clips, stills, photos) are large and effectively immutable — let the
+# browser cache them for a week so repeat visits and re-scrubs don't re-download.
+# HTML/JS/CSS are left on the default revalidating policy so content edits go live at once.
+
+/assets/vid/*
+  Cache-Control: public, max-age=604800
+
+/assets/*.webp
+  Cache-Control: public, max-age=604800
+
+/images/*
+  Cache-Control: public, max-age=604800
