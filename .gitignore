@@ -14,6 +14,12 @@ images/orig_backup/
 # Unused source asset — not referenced by any page, kept locally only
 assets/Alpine.mp4
 
+# Raw source images / backups dropped at repo root while updating branding —
+# the deployed copies live under images/ and logo.jpg; these are originals only
+/alpine-aviation-badge.jpg
+/image.jpg
+/logo.jpg.bak
+
 # OS junk
 .DS_Store
 Thumbs.db

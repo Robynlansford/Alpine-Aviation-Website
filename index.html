@@ -82,10 +82,16 @@ h2 {
   display: block; margin-bottom: var(--space-sm);
 }
 
-/* full-bleed photo under the training grid — breaks out of .wrap's max-width */
-.training-photo { margin-top: var(--space-2xl); }
-.training-photo img { display: block; width: 100%; height: 82vh; max-height: 900px; object-fit: cover; object-position: center; }
-@media (max-width: 760px) { .training-photo img { height: 56vh; } }
+/* badge card under the training grid — the badge is a small logo graphic
+   (navy bg, text baked in), so it's centered and contained, not stretched
+   full-bleed like a photo would be. */
+.training-photo { margin-top: var(--space-2xl); padding: var(--space-2xl) var(--space-xl); background: oklch(24% 0.035 255); display: flex; justify-content: center; }
+.training-photo img { display: block; width: 100%; max-width: 520px; height: auto; object-fit: contain; }
+
+/* full-bleed photo — breaks out of .wrap's max-width */
+.flightline-photo { margin: var(--space-xl) 0 var(--space-2xl); }
+.flightline-photo img { display: block; width: 100%; height: 72vh; max-height: 780px; object-fit: cover; object-position: center; }
+@media (max-width: 760px) { .flightline-photo img { height: 50vh; } }
 
 /* split rows (housing / financing) */
 .split { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: var(--space-2xl); align-items: start; }
@@ -334,7 +340,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
       <div class="program"><span class="k">Start here</span><h3>Discovery Flight</h3><p>One flight, real controls, an honest conversation about the path.</p></div>
     </div>
   </div>
-  <div class="training-photo"><img loading="lazy" src="images/FullSizeRender-scaled.jpeg" alt="Alpine Aviation aircraft on the ramp"></div>
+  <div class="training-photo"><img loading="lazy" src="images/alpine-aviation-badge.png" alt="Alpine Aviation — Flight School and Commercial Operations, Oasis, Idaho"></div>
 </section>
 
 <section class="block" id="services">
@@ -378,6 +384,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
 </section>
 
 <section class="block" id="gallery-teaser">
+  <div class="flightline-photo"><img loading="lazy" src="images/FullSizeRender-scaled.jpeg" alt="Alpine Aviation helicopter and airplane on the ramp with student and dogs"></div>
   <div class="wrap">
     <p class="eyebrow">From the flight line</p>
     <h2>Real aircraft. Real students.</h2>
