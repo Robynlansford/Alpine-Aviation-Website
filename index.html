@@ -82,11 +82,11 @@ h2 {
   display: block; margin-bottom: var(--space-sm);
 }
 
-/* badge card under the training grid — the badge is a small logo graphic
-   (navy bg, text baked in), so it's centered and contained, not stretched
-   full-bleed like a photo would be. */
-.training-photo { margin-top: var(--space-2xl); padding: var(--space-2xl) var(--space-xl); background: oklch(24% 0.035 255); display: flex; justify-content: center; }
-.training-photo img { display: block; width: 100%; max-width: 520px; height: auto; object-fit: contain; }
+/* full-screen badge banner under the training grid — badge has its own navy
+   background, so the letterbox (if any, on ultra-wide viewports) blends in. */
+.training-photo { margin-top: var(--space-2xl); background: oklch(24% 0.035 255); display: flex; justify-content: center; align-items: center; min-height: 92vh; }
+.training-photo img { display: block; width: 100%; height: 92vh; object-fit: contain; }
+@media (max-width: 760px) { .training-photo, .training-photo img { min-height: 70vh; height: 70vh; } }
 
 /* full-bleed photo — breaks out of .wrap's max-width */
 .flightline-photo { margin: var(--space-xl) 0 var(--space-2xl); }
