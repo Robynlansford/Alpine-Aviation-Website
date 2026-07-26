@@ -121,6 +121,11 @@ img { max-width: 100%; display: block; }
 .tile:hover figcaption, .tile:focus-visible figcaption { opacity: 1; }
 figure.tile { display: block; }
 
+/* Instagram embed tile — Instagram's widget renders its own card/controls,
+   so it skips the photo hover-zoom/lightbox treatment entirely. */
+.tile--embed { cursor: default; background: transparent; border: 0; display: flex; justify-content: center; }
+.tile--embed .instagram-media { margin: 0 !important; width: 100% !important; }
+
 /* ---- lightbox ---- */
 .lightbox {
   position: fixed; inset: 0; z-index: 60;
@@ -208,6 +213,11 @@ figure.tile { display: block; }
 </header>
 
 <main class="grid" id="grid">
+  <div class="tile tile--embed">
+    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/Da9E5TBJ6hR/" data-instgrm-version="14" style="background:#FFF; border:0; border-radius:3px; margin:0; max-width:540px; min-width:326px; width:100%;">
+      <a href="https://www.instagram.com/p/Da9E5TBJ6hR/" target="_blank" rel="noopener">View this post on Instagram</a>
+    </blockquote>
+  </div>
   <figure class="tile"><img loading="lazy" src="images/IMG_0603-scaled.jpeg" alt="Alpine Aviation aircraft in the field"><figcaption>On operations</figcaption></figure>
   <figure class="tile"><img loading="lazy" src="images/Alpine-Aviation-Graduates.jpg" alt="Alpine Aviation graduates"><figcaption>Graduates</figcaption></figure>
   <figure class="tile"><img loading="lazy" src="images/IMG_1371-scaled.jpg" alt="Helicopter operations"><figcaption>Flight line</figcaption></figure>
@@ -284,7 +294,9 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 }), { rootMargin: '80px' });
 document.querySelectorAll('.tile').forEach(t => { t.tabIndex = 0; io.observe(t); });
 
-// Lightbox
+// Lightbox — photo tiles only. The Instagram embed (.tile--embed) renders its
+// own card/play controls via Instagram's widget, so it's excluded: no photo
+// to swap in, and it shouldn't steal focus/keyboard handling from the embed.
 const lb = document.getElementById('lightbox');
 const lbImg = document.getElementById('lbImg');
 const lbCap = document.getElementById('lbCap');
@@ -303,7 +315,7 @@ function closeLB() {
   document.body.style.overflow = '';
   lastFocus?.focus();
 }
-document.querySelectorAll('.tile').forEach(t => {
+document.querySelectorAll('.tile:not(.tile--embed)').forEach(t => {
   t.addEventListener('click', () => openLB(t));
   t.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLB(t); } });
 });
@@ -311,5 +323,6 @@ document.getElementById('lbClose').addEventListener('click', closeLB);
 lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('is-open')) closeLB(); });
 </script>
+<script async src="https://www.instagram.com/embed.js"></script>
 </body>
 </html>

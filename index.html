@@ -44,6 +44,13 @@ img { max-width: 100%; display: block; }
    inverted dark-sky palette --sw-ink is light, so flip the button text to
    --sw-bg (dark) to keep it readable against the now-light ink pill. */
 .sw-btn--primary { color: var(--sw-bg); }
+/* same bug, same fix, different element: the route-dot hover label
+   (.sw-route__label, e.g. "Training") hardcodes var(--sw-ink) text on a
+   near-white pill — on this inverted palette --sw-ink is light, so it's
+   white-on-white. Flip to --sw-bg (dark) for readable text on the light pill.
+   (.sw-nav__item:hover is unaffected — its background stays transparent, so
+   light text there is already correct.) */
+.sw-route__label { color: var(--sw-bg); }
 
 /* ---------- below-film content ---------- */
 .wrap { max-width: 72rem; margin: 0 auto; padding: 0 var(--space-xl); }
