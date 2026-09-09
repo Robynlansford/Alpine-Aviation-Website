@@ -31,7 +31,7 @@ img { max-width: 100%; display: block; }
 .nav__links a:hover { color: var(--color-ink); }
 .nav__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 .nav__links a[aria-current="page"] { color: var(--color-accent); }
-@media (max-width: 700px) { .nav__links a:nth-child(1), .nav__links a:nth-child(2) { display: none; } .nav__chip { gap: var(--space-md); padding: var(--space-xs) var(--space-md); } }
+@media (max-width: 700px) { .nav__chip { gap: var(--space-sm); padding: var(--space-xs) var(--space-sm); } }
 
 /* header */
 .head { padding: calc(var(--space-4xl) + var(--space-xl)) var(--space-xl) var(--space-2xl); max-width: 72rem; margin: 0 auto; }
@@ -79,12 +79,13 @@ img { max-width: 100%; display: block; }
   <div class="nav__chip">
     <a class="nav__brand" href="index.html"><img class="brand-logo" src="logo.jpg" alt="Alpine Aviation — Flight School &amp; Commercial Operations, Oasis, Idaho"></a>
     <div class="nav__links">
-      <a href="index.html">Home</a>
+      <a class="hide-sm" href="index.html">Home</a>
       <a href="flight-instruction.html">Training</a>
       <a href="commercial-services.html" aria-current="page">Services</a>
-      <a href="about.html">About</a>
-      <a href="gallery.html">Gallery</a>
+      <a class="hide-sm" href="about.html">About</a>
+      <a class="hide-sm" href="gallery.html">Gallery</a>
       <a href="contact.html">Contact</a>
+      <a class="nav__call" href="tel:2088508252">Call</a>
     </div>
   </div>
 </nav>
@@ -111,8 +112,9 @@ img { max-width: 100%; display: block; }
     </section>
     <section>
       <h2>Booking</h2>
-      <p>To book your tour, use the contact form below or call us directly.</p>
+      <p>To book your tour, use the <a class="textlink" href="contact.html">contact form</a> or call us at <a class="textlink" href="tel:2088508252">208-850-8252</a>.</p>
       <a class="btn cta" href="contact.html">Book your holiday tour</a>
+      <p style="margin-top:var(--space-md)"><a class="textlink" href="tel:2088508252">Or call 208-850-8252</a></p>
     </section>
   </article>
 
