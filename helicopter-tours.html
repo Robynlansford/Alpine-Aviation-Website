@@ -76,6 +76,7 @@ img { max-width: 100%; display: block; }
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
 <nav class="nav" aria-label="Primary">
   <div class="nav__chip">
     <a class="nav__brand" href="index.html"><img class="brand-logo" src="logo.jpg" alt="Alpine Aviation — Flight School &amp; Commercial Operations, Oasis, Idaho"></a>
@@ -91,7 +92,7 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<main class="head">
+<main class="head" id="main">
   <img class="head__logo" src="images/icon_images/Helicopter-Flight-Tours-Boise.jpg" alt="Alpine Aviation Helicopter Tours">
   <p class="head__eyebrow">Helicopter tours</p>
   <h1>See Idaho from the air.</h1>
@@ -115,6 +116,7 @@ img { max-width: 100%; display: block; }
       </ul>
       <p class="note" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-ink-faint)">*Pricing subject to change — confirm current rates when booking.</p>
       <a class="btn cta" href="contact.html">Schedule your tour</a>
+      <p style="margin-top:var(--space-md)"><a class="textlink" href="tel:2088508252">Or call 208-850-8252</a></p>
       <p style="margin-top:var(--space-md)">We also offer a private, hour-long <strong>Downtown Boise Christmas Light Tour</strong> for an exclusive, personalized view of the city's holiday lights from the sky, plus a group <strong>Downtown Boise Christmas Lights</strong> tour coordinated out of Jackson Jet Center. <a class="textlink" href="christmas-lights-tours.html">Looking for the Christmas Lights Tour?</a></p>
     </section>
     <section>
@@ -126,6 +128,7 @@ img { max-width: 100%; display: block; }
         <img loading="lazy" src="images/Aerial_Photography_Alpine_Aviation.jpg" alt="Aerial photography from an Alpine Aviation helicopter" style="border-radius:var(--radius-md);border:1px solid var(--color-line)">
       </figure>
       <a class="btn cta" href="contact.html">Schedule your photo flight</a>
+      <p style="margin-top:var(--space-md)"><a class="textlink" href="tel:2088508252">Or call 208-850-8252</a></p>
     </section>
   </article>
 
@@ -157,7 +160,7 @@ img { max-width: 100%; display: block; }
     <label style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink-faint);display:grid;gap:var(--space-2xs)">Your email<input type="email" name="email" required autocomplete="email" style="font-family:var(--font-body);font-size:var(--text-md);background:var(--color-paper);color:var(--color-ink);border:1px solid var(--color-line);border-radius:var(--radius-sm);padding:var(--space-sm) var(--space-md);width:100%"></label>
     <label style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink-faint);display:grid;gap:var(--space-2xs)">Date<input type="date" name="date" required style="font-family:var(--font-body);font-size:var(--text-md);background:var(--color-paper);color:var(--color-ink);border:1px solid var(--color-line);border-radius:var(--radius-sm);padding:var(--space-sm) var(--space-md);width:100%"></label>
     <label style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink-faint);display:grid;gap:var(--space-2xs)">Your signature<input type="text" name="signature" required placeholder="Type your full name to sign" style="font-family:var(--font-body);font-size:var(--text-md);background:var(--color-paper);color:var(--color-ink);border:1px solid var(--color-line);border-radius:var(--radius-sm);padding:var(--space-sm) var(--space-md);width:100%"></label>
-    <button class="btn" type="submit" style="justify-self:start">Submit waiver</button>
+    <button class="btn" type="submit" style="justify-self:start">Continue by phone</button>
     <span class="note" style="font-size:var(--text-xs);color:var(--color-ink-faint);font-family:var(--font-mono)">This form isn't a signed waiver — Alpine will have you sign the full agreement before your flight. See the <a class="textlink" href="liability-waiver.html">general liability waiver</a>.</span>
   </form>
 </section>
@@ -165,28 +168,28 @@ img { max-width: 100%; display: block; }
 <footer class="foot">
   <p class="foot__statement">Come see it in person — <a href="contact.html">book a discovery flight</a>.</p>
   <div class="foot__grid">
-    <div><h4>Training</h4><ul>
+    <div><p class="foot__heading">Training</p><ul>
       <li><a href="flight-instruction.html">Flight Instruction</a></li>
       <li><a href="intro-flight.html">Intro Flight</a></li>
       <li><a href="student-housing.html">Student Housing</a></li>
       <li><a href="financial-options.html">Financial Options</a></li>
       <li><a href="instructing.html">Instructing / CFI Hiring</a></li>
     </ul></div>
-    <div><h4>Services</h4><ul>
+    <div><p class="foot__heading">Services</p><ul>
       <li><a href="commercial-services.html">Commercial Services</a></li>
       <li><a href="helicopter-tours.html">Helicopter Tours</a></li>
       <li><a href="christmas-lights-tours.html">Christmas Lights Tours</a></li>
       <li><a href="agriculture-ranching.html">Agriculture &amp; Ranching</a></li>
       <li><a href="livestock-pest-control.html">Pest Control / Livestock Management</a></li>
     </ul></div>
-    <div><h4>Company</h4><ul>
+    <div><p class="foot__heading">Company</p><ul>
       <li><a href="about.html">About</a></li>
       <li><a href="testimonials.html">Testimonials</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="news.html">News</a></li>
       <li><a href="liability-waiver.html">Liability Waiver</a></li>
     </ul></div>
-    <div><h4>Contact</h4><ul>
+    <div><p class="foot__heading">Contact</p><ul>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="tel:2088508252">208-850-8252</a></li>
     </ul></div>

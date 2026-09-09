@@ -75,6 +75,7 @@ img { max-width: 100%; display: block; }
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
 <nav class="nav" aria-label="Primary">
   <div class="nav__chip">
     <a class="nav__brand" href="index.html"><img class="brand-logo" src="logo.jpg" alt="Alpine Aviation — Flight School &amp; Commercial Operations, Oasis, Idaho"></a>
@@ -96,14 +97,14 @@ img { max-width: 100%; display: block; }
 </header>
 
 <div class="layout">
-  <main class="article">
+  <main class="article" id="main">
     <section>
       <h2>The opportunity</h2>
       <p>If you're a Certified Flight Instructor working toward your hour-building goals, we want to hear from you. While we can't guarantee a position, we're always looking to connect with driven, passionate CFIs who are excited about aviation and instruction.</p>
     </section>
     <section>
       <h2>How to apply</h2>
-      <p>Opportunities open up from time to time, and filling out the form below puts you one step closer when they do. Include your resume, where you completed your flight training, and a brief explanation of your hour-building goals. We look forward to learning more about you and possibly working together in the future!</p>
+      <p>Opportunities open up from time to time. The form below isn't connected yet — call or use the chat, and include your resume, where you completed your flight training, and a brief explanation of your hour-building goals.</p>
       <p style="font-size:var(--text-sm)">Not a flight instructor? Check out our <a class="textlink" href="flight-instruction.html">Flight Instruction page</a>!</p>
 
       <form class="cfi-form" style="display:grid;gap:var(--space-md);max-width:36rem;border:1px solid var(--color-line);border-radius:var(--radius-lg);background:var(--color-paper-2);padding:var(--space-xl);margin-top:var(--space-lg)" onsubmit="event.preventDefault(); this.querySelector('.note').innerHTML='This form isn\'t connected yet — <a class=\'textlink\' href=\'tel:2088508252\'>call 208-850-8252</a> or ask in the chat.';">
@@ -161,28 +162,28 @@ img { max-width: 100%; display: block; }
 <footer class="foot">
   <p class="foot__statement">Come see it in person — <a href="contact.html">book a discovery flight</a>.</p>
   <div class="foot__grid">
-    <div><h4>Training</h4><ul>
+    <div><p class="foot__heading">Training</p><ul>
       <li><a href="flight-instruction.html">Flight Instruction</a></li>
       <li><a href="intro-flight.html">Intro Flight</a></li>
       <li><a href="student-housing.html">Student Housing</a></li>
       <li><a href="financial-options.html">Financial Options</a></li>
       <li><a href="instructing.html">Instructing / CFI Hiring</a></li>
     </ul></div>
-    <div><h4>Services</h4><ul>
+    <div><p class="foot__heading">Services</p><ul>
       <li><a href="commercial-services.html">Commercial Services</a></li>
       <li><a href="helicopter-tours.html">Helicopter Tours</a></li>
       <li><a href="christmas-lights-tours.html">Christmas Lights Tours</a></li>
       <li><a href="agriculture-ranching.html">Agriculture &amp; Ranching</a></li>
       <li><a href="livestock-pest-control.html">Pest Control / Livestock Management</a></li>
     </ul></div>
-    <div><h4>Company</h4><ul>
+    <div><p class="foot__heading">Company</p><ul>
       <li><a href="about.html">About</a></li>
       <li><a href="testimonials.html">Testimonials</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="news.html">News</a></li>
       <li><a href="liability-waiver.html">Liability Waiver</a></li>
     </ul></div>
-    <div><h4>Contact</h4><ul>
+    <div><p class="foot__heading">Contact</p><ul>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="tel:2088508252">208-850-8252</a></li>
     </ul></div>
