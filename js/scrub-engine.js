@@ -138,7 +138,7 @@ function mountScrollWorld(container, config) {
   // segment scenes
   SEGMENTS.forEach(s => {
     const scene = el('div', 'sw-scene'); scene.style.setProperty('--sw-accent', s.accent || '');
-    const img = el('img', 'sw-scene__still'); img.alt = ''; img.decoding = 'async'; img.loading = 'lazy';
+    const img = el('img', 'sw-scene__still'); img.alt = ''; img.setAttribute('aria-hidden', 'true'); img.decoding = 'async'; img.loading = 'lazy';
     const poster = (isMobile() && s.stillM) ? s.stillM : s.still;
     if (poster) img.src = poster;
     scene.appendChild(img); stage.appendChild(scene);
@@ -160,11 +160,13 @@ function mountScrollWorld(container, config) {
     copylayer.appendChild(c); copies.push(c);
 
     const dot = el('button', 'sw-route__dot'); dot.style.setProperty('--sw-accent', s.accent || '');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', s.label || ('Section ' + (i + 1)));
     dot.innerHTML = `<span class="sw-route__label">${esc(s.label || '')}</span><i></i>`;
     dot.addEventListener('click', () => jumpTo(i)); route.appendChild(dot); dots.push(dot);
 
     if (config.nav !== false) {
-      const b = el('button', 'sw-nav__item'); b.textContent = s.label || '';
+      const b = el('button', 'sw-nav__item'); b.type = 'button'; b.textContent = s.label || '';
       b.addEventListener('click', () => jumpTo(i)); nav.appendChild(b);
     }
   });
@@ -410,6 +412,8 @@ function injectCSS() {
   .sw-nav__item{font:inherit;font-size:.82rem;color:var(--sw-ink-soft);border:0;background:transparent;cursor:pointer;padding:7px 14px;border-radius:999px;transition:color .25s,background .25s;}
   .sw-nav__item:hover{color:var(--sw-ink);} .sw-nav__item.is-active{color:#fff;background:var(--sw-accent);}
   .sw-topcta{text-decoration:none;font-weight:600;font-size:.9rem;color:#fff;background:var(--sw-ink);padding:10px 20px;border-radius:999px;white-space:nowrap;}
+  .sw-brand:focus-visible,.sw-topcta:focus-visible,.sw-btn:focus-visible,.sw-nav__item:focus-visible{outline:2px solid var(--sw-accent);outline-offset:3px;}
+  .sw-route__dot:focus-visible{outline:2px solid var(--sw-accent);outline-offset:4px;border-radius:50%;}
   .sw-stage{position:fixed;inset:0;z-index:10;pointer-events:none;}
   .sw-scene{position:absolute;inset:0;opacity:0;overflow:hidden;will-change:opacity;}
   .sw-scene__video,.sw-scene__still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;}

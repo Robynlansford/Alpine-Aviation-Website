@@ -51,6 +51,11 @@ img { max-width: 100%; display: block; }
    (.sw-nav__item:hover is unaffected — its background stays transparent, so
    light text there is already correct.) */
 .sw-route__label { color: var(--sw-bg); }
+/* Film topbar Call uses the same inverted-ink pill as primary CTAs */
+.sw-topcta { color: var(--sw-bg); background: var(--color-accent); }
+@media (max-width: 860px) {
+  .sw-topcta { font-size: 0.8rem; padding: 8px 14px; }
+}
 
 /* ---------- below-film content ---------- */
 .wrap { max-width: 72rem; margin: 0 auto; padding: 0 var(--space-xl); }
@@ -298,13 +303,14 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <script>document.documentElement.classList.add('is-loading');</script>
 
 <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Alpine Aviation — Helicopter &amp; Fixed-Wing Flight School, Oasis, Idaho</h1>
 
 <!-- preflight loader — buffers the flight clips before reveal -->
 <div id="loader" aria-hidden="true">
-  <img class="l-mark" src="assets/favicon.png" alt="">
+  <img class="l-mark" src="assets/favicon.png" alt="" aria-hidden="true">
   <div class="l-story">
     <p class="l-eyebrow">Oasis, Idaho</p>
     <h2 class="l-headline">The mountains are the classroom.</h2>
@@ -334,7 +340,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
 </nav>
 
 <!-- ---------- ground content ---------- -->
-<main>
+<main id="main">
 <section class="block" id="training">
   <div class="wrap">
     <p class="eyebrow">Flight training</p>
@@ -417,8 +423,9 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   <div class="wrap">
     <p class="eyebrow">Discovery flight</p>
     <h2>The seat is real. So is the view.</h2>
-    <p class="lede">Tell us who you are and which field is closest — we'll set up a discovery
-       flight and answer everything: cost, timeline, housing, financing, careers.</p>
+    <p class="lede">Tell us who you are and which field is closest. The form isn't connected yet —
+       call or use the chat and we'll help you plan a discovery flight and talk through training,
+       housing, and financing.</p>
     <div class="card">
       <form class="form" onsubmit="event.preventDefault(); this.querySelector('.note').innerHTML='This form isn\'t connected yet — <a class=\'textlink\' href=\'tel:2088508252\'>call 208-850-8252</a> or ask in the chat.';">
         <label>Name<input type="text" name="name" required autocomplete="name"></label>
@@ -433,8 +440,8 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
             <option>Tours</option>
           </select>
         </label>
-        <button class="btn" type="submit">Request my flight</button>
-        <span class="note">Prefer to talk now? <a class="textlink" href="tel:2088508252">Call 208-850-8252</a> — or use the chat. We reply personally.</span>
+        <button class="btn" type="submit">Submit inquiry</button>
+        <span class="note">This form isn't connected yet — <a class="textlink" href="tel:2088508252">call 208-850-8252</a> or ask in the chat.</span>
       </form>
       <div>
         <p class="eyebrow" style="margin-top:0">Or just call</p>
@@ -459,22 +466,22 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
     <h2>Four ways into the air.</h2>
     <div class="icongrid">
       <a href="flight-instruction.html">
-        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Flight-Instruction-Idaho.jpg" alt=""></span>
+        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Flight-Instruction-Idaho.jpg" alt="Helicopter flight instruction in Idaho"></span>
         <h3>Flight Instruction</h3>
         <p>Personalized Helicopter Flight Instruction</p>
       </a>
       <a href="helicopter-tours.html">
-        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Flight-Tours-Boise.jpg" alt=""></span>
+        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Flight-Tours-Boise.jpg" alt="Helicopter tour over the Boise area"></span>
         <h3>Helicopter Tours and Photo Shoots</h3>
         <p>Helicopter Flight Tours and Photo Tours of beautiful Idaho</p>
       </a>
       <a href="livestock-pest-control.html">
-        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Animal-Control.jpg" alt=""></span>
+        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Animal-Control.jpg" alt="Helicopter livestock and animal-control work"></span>
         <h3>Livestock Management</h3>
         <p>Coyote Removal by Helicopter</p>
       </a>
       <a href="agriculture-ranching.html">
-        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Agriculture-Services-Idaho.jpg" alt=""></span>
+        <span class="ring"><img loading="lazy" src="images/icon_images/Helicopter-Agriculture-Services-Idaho.jpg" alt="Helicopter agriculture and ranching work"></span>
         <h3>Agriculture and Ranching</h3>
         <p>Agricultural Services, Cattle Herding and Aerial Surveys</p>
       </a>
@@ -512,6 +519,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   const CONFIG = {
   brand: { name: 'Alpine Aviation', href: '#world' },
   hint: 'scroll to fly',
+  cta: { label: 'Call', href: 'tel:2088508252' },
   nav: true,
   atmosphere: true,
   diveScroll: 1.4,
@@ -547,7 +555,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
       eyebrow: 'Discovery flight', title: 'Your move.',
       body: 'One discovery flight tells you more than a hundred web pages. Take the controls.',
       cta: { primary: { label: 'Book a discovery flight', href: '#contact' },
-             secondary: { label: 'See the gallery', href: 'gallery.html' } } }
+             secondary: { label: 'Call 208-850-8252', href: 'tel:2088508252' } } }
   ],
   connectors: []  // architecture A — the legs ARE the journey
   };
@@ -578,6 +586,8 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
       img.className = 'brand-logo';
       brand.appendChild(img);
     }
+    const topcta = document.querySelector('.sw-topcta');
+    if (topcta) topcta.setAttribute('aria-label', 'Call Alpine Aviation at 208-850-8252');
 
     // film → ground handoff: once scrolled past the whole film track, slide in the ground nav
     const gnav = document.getElementById('gnav');

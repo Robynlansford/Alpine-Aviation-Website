@@ -71,6 +71,7 @@ img { max-width: 100%; display: block; }
 </head>
 <body>
 
+<a class="skip-link" href="#main">Skip to content</a>
 <nav class="nav" aria-label="Primary">
   <div class="nav__chip">
     <a class="nav__brand" href="index.html"><img class="brand-logo" src="logo.jpg" alt="Alpine Aviation — Flight School &amp; Commercial Operations, Oasis, Idaho"></a>
@@ -89,11 +90,12 @@ img { max-width: 100%; display: block; }
 <header class="head">
   <p class="head__eyebrow">Get in touch</p>
   <h1>Let's get you in the air.</h1>
-  <p>Fill out the form below and we'll get in touch as soon as possible. Are you a CFI looking for instruction
-     hours? Fill out our <a class="textlink" href="instructing.html">CFI Instruction Interest Form</a> instead.</p>
+  <p>The form below isn't connected yet — call or use the chat and we'll help you from there.
+     Are you a CFI looking for instruction hours? Use our
+     <a class="textlink" href="instructing.html">CFI Instruction Interest Form</a> instead.</p>
 </header>
 
-<main class="layout">
+<main class="layout" id="main">
   <article class="article">
     <div class="card" style="border:1px solid var(--color-line);border-radius:var(--radius-lg);background:var(--color-paper-2);padding:var(--space-2xl);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-2xl)">
       <form class="form" style="display:grid;gap:var(--space-md)" onsubmit="event.preventDefault(); this.querySelector('.note').innerHTML='This form isn\'t connected yet — <a class=\'textlink\' href=\'tel:2088508252\'>call 208-850-8252</a> or ask in the chat.';">
@@ -105,7 +107,7 @@ img { max-width: 100%; display: block; }
             <option>Discovery flight</option><option>Helicopter training</option><option>Fixed-wing training</option><option>Commercial services</option><option>Tours</option><option>CFI hiring</option>
           </select>
         </label>
-        <button class="btn" type="submit" style="justify-self:start">Send message</button>
+        <button class="btn" type="submit" style="justify-self:start">Submit inquiry</button>
         <span class="note" style="font-size:var(--text-xs);color:var(--color-ink-faint);font-family:var(--font-mono)">This form isn't connected yet — <a class="textlink" href="tel:2088508252">call 208-850-8252</a> or ask in the chat.</span>
       </form>
       <div>
@@ -130,28 +132,28 @@ img { max-width: 100%; display: block; }
 <footer class="foot">
   <p class="foot__statement">Come see it in person — <a href="contact.html">book a discovery flight</a>.</p>
   <div class="foot__grid">
-    <div><h4>Training</h4><ul>
+    <div><p class="foot__heading">Training</p><ul>
       <li><a href="flight-instruction.html">Flight Instruction</a></li>
       <li><a href="intro-flight.html">Intro Flight</a></li>
       <li><a href="student-housing.html">Student Housing</a></li>
       <li><a href="financial-options.html">Financial Options</a></li>
       <li><a href="instructing.html">Instructing / CFI Hiring</a></li>
     </ul></div>
-    <div><h4>Services</h4><ul>
+    <div><p class="foot__heading">Services</p><ul>
       <li><a href="commercial-services.html">Commercial Services</a></li>
       <li><a href="helicopter-tours.html">Helicopter Tours</a></li>
       <li><a href="christmas-lights-tours.html">Christmas Lights Tours</a></li>
       <li><a href="agriculture-ranching.html">Agriculture &amp; Ranching</a></li>
       <li><a href="livestock-pest-control.html">Pest Control / Livestock Management</a></li>
     </ul></div>
-    <div><h4>Company</h4><ul>
+    <div><p class="foot__heading">Company</p><ul>
       <li><a href="about.html">About</a></li>
       <li><a href="testimonials.html">Testimonials</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="news.html">News</a></li>
       <li><a href="liability-waiver.html">Liability Waiver</a></li>
     </ul></div>
-    <div><h4>Contact</h4><ul>
+    <div><p class="foot__heading">Contact</p><ul>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="tel:2088508252">208-850-8252</a></li>
     </ul></div>

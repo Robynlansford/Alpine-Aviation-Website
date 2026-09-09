@@ -71,3 +71,45 @@
   color: var(--color-accent) !important;
   font-weight: 600;
 }
+
+/* Skip link + shared focus — keep conversion controls keyboard-visible */
+.skip-link {
+  position: absolute;
+  left: var(--space-md);
+  top: var(--space-md);
+  z-index: 100;
+  padding: var(--space-xs) var(--space-md);
+  background: var(--color-accent);
+  color: oklch(20% 0.03 255);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transform: translateY(-180%);
+}
+.skip-link:focus {
+  transform: none;
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+/* Footer column labels — not headings, so we don't skip h2/h3 → h4 */
+.foot__heading {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  margin: 0 0 var(--space-sm);
+}
