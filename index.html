@@ -77,6 +77,8 @@ h2 {
   padding: var(--space-xl); background: var(--color-paper-2);
   transition: border-color var(--dur-med) var(--ease-out), transform var(--dur-med) var(--ease-out);
 }
+a.program { text-decoration: none; color: inherit; display: block; }
+a.program:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 .program:hover { border-color: var(--color-accent-deep); transform: translateY(-3px); }
 .program h3 {
   font-family: var(--font-display); font-weight: 400; font-size: var(--text-xl);
@@ -113,6 +115,8 @@ h2 {
   border-top: 2px solid var(--color-accent);
   padding: var(--space-lg) 0 0;
 }
+a.loc { text-decoration: none; color: inherit; display: block; }
+a.loc:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
 .loc h3 { font-family: var(--font-display); font-weight: 400; font-size: var(--text-xl); margin: 0 0 var(--space-xs); }
 .loc p { color: var(--color-ink-soft); font-size: var(--text-sm); margin: 0; }
 
@@ -256,8 +260,7 @@ main { margin-top: -100vh; position: relative; z-index: 5; }
 .gnav__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 @media (max-width: 700px) {
   .gnav__links { gap: var(--space-xs); }
-  .gnav__links a:nth-child(1), .gnav__links a:nth-child(2), .gnav__links a:nth-child(3) { display: none; }
-  .gnav__chip { gap: var(--space-md); padding: var(--space-xs) var(--space-md); }
+  .gnav__chip { gap: var(--space-sm); padding: var(--space-xs) var(--space-sm); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -322,9 +325,10 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
     <div class="gnav__links">
       <a href="flight-instruction.html">Training</a>
       <a href="commercial-services.html">Services</a>
-      <a href="about.html">About</a>
-      <a href="gallery.html">Gallery</a>
+      <a class="hide-sm" href="about.html">About</a>
+      <a class="hide-sm" href="gallery.html">Gallery</a>
       <a href="contact.html">Contact</a>
+      <a class="gnav__call" href="tel:2088508252">Call</a>
     </div>
   </div>
 </nav>
@@ -341,12 +345,12 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   </div>
   <div class="wrap">
     <div class="programs">
-      <div class="program"><span class="k">Helicopter</span><h3>Private Pilot</h3><p>Your foundation — first hover, first solo, first license.</p></div>
-      <div class="program"><span class="k">Helicopter</span><h3>Commercial Pilot</h3><p>Build the hours and the judgment to fly for a living.</p></div>
-      <div class="program"><span class="k">Helicopter</span><h3>Instrument Rating</h3><p>Fly precisely when the horizon disappears.</p></div>
-      <div class="program"><span class="k">Helicopter</span><h3>Certified Flight Instructor</h3><p>Teach the next class — and build turbine-track experience.</p></div>
-      <div class="program"><span class="k">Fixed-wing</span><h3>Airplane Programs</h3><p>Private through commercial in our fixed-wing fleet.</p></div>
-      <div class="program"><span class="k">Start here</span><h3>Discovery Flight</h3><p>One flight, real controls, an honest conversation about the path.</p></div>
+      <a class="program" href="flight-instruction.html"><span class="k">Helicopter</span><h3>Private Pilot</h3><p>Your foundation — first hover, first solo, first license.</p></a>
+      <a class="program" href="flight-instruction.html"><span class="k">Helicopter</span><h3>Commercial Pilot</h3><p>Build the hours and the judgment to fly for a living.</p></a>
+      <a class="program" href="flight-instruction.html"><span class="k">Helicopter</span><h3>Instrument Rating</h3><p>Fly precisely when the horizon disappears.</p></a>
+      <a class="program" href="flight-instruction.html"><span class="k">Helicopter</span><h3>Certified Flight Instructor</h3><p>Teach the next class — and build turbine-track experience.</p></a>
+      <a class="program" href="flight-instruction.html"><span class="k">Fixed-wing</span><h3>Airplane Programs</h3><p>Private through commercial in our fixed-wing fleet.</p></a>
+      <a class="program" href="intro-flight.html"><span class="k">Start here</span><h3>Discovery Flight</h3><p>One flight, real controls, an honest conversation about the path.</p></a>
     </div>
   </div>
   <div class="training-photo"><img loading="lazy" src="images/alpine-aviation-badge.png" alt="Alpine Aviation — Flight School and Commercial Operations, Oasis, Idaho"></div>
@@ -359,9 +363,9 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
     <p class="lede">Alpine isn't only a school. Our aircraft earn their keep across the West —
        and our students train alongside real operations.</p>
     <div class="locs">
-      <div class="loc"><h3>Helicopter tours</h3><p>Idaho backcountry flights — canyons, lakes, and ranges you can't reach by road.</p></div>
-      <div class="loc"><h3>Agriculture &amp; ranching</h3><p>Aerial support for the region's ranches and growers.</p></div>
-      <div class="loc"><h3>Animal &amp; pest control</h3><p>Precision livestock management and pest-control operations.</p></div>
+      <a class="loc" href="helicopter-tours.html"><h3>Helicopter tours</h3><p>Idaho backcountry flights — canyons, lakes, and ranges you can't reach by road.</p></a>
+      <a class="loc" href="agriculture-ranching.html"><h3>Agriculture &amp; ranching</h3><p>Aerial support for the region's ranches and growers.</p></a>
+      <a class="loc" href="livestock-pest-control.html"><h3>Animal &amp; pest control</h3><p>Precision livestock management and pest-control operations.</p></a>
     </div>
   </div>
 </section>
@@ -374,7 +378,9 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
       <p class="lede">On-site student housing keeps you close to the flight line — more time
          flying, less time commuting. Financing paths are available through our partnership
          with Stratus Financial; we'll walk you through it before you commit to anything.</p>
-      <a class="textlink" href="#contact">Ask about housing &amp; financing</a>
+      <a class="textlink" href="student-housing.html">Student housing</a>
+      &nbsp;&nbsp;
+      <a class="textlink" href="financial-options.html">Financing options</a>
     </div>
     <div class="photo"><img loading="lazy" src="images/IMG_0603-scaled.jpeg" alt="Alpine Aviation campus buildings with helicopters parked outside"></div>
   </div>
@@ -414,7 +420,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
     <p class="lede">Tell us who you are and which field is closest — we'll set up a discovery
        flight and answer everything: cost, timeline, housing, financing, careers.</p>
     <div class="card">
-      <form class="form" onsubmit="event.preventDefault(); this.querySelector('.note').textContent='Thanks — we\'ll be in touch. (Demo form: connect to your email/CRM before launch.)';">
+      <form class="form" onsubmit="event.preventDefault(); this.querySelector('.note').innerHTML='This form isn\'t connected yet — <a class=\'textlink\' href=\'tel:2088508252\'>call 208-850-8252</a> or ask in the chat.';">
         <label>Name<input type="text" name="name" required autocomplete="name"></label>
         <label>Email<input type="email" name="email" required autocomplete="email"></label>
         <label>Phone<input type="tel" name="phone" autocomplete="tel"></label>
@@ -428,14 +434,19 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
           </select>
         </label>
         <button class="btn" type="submit">Request my flight</button>
-        <span class="note">We reply personally — no drip campaigns.</span>
+        <span class="note">Prefer to talk now? <a class="textlink" href="tel:2088508252">Call 208-850-8252</a> — or use the chat. We reply personally.</span>
       </form>
       <div>
         <p class="eyebrow" style="margin-top:0">Or just call</p>
         <p class="lede" style="margin-bottom:var(--space-md)">A five-minute phone call answers most questions
            faster than any website can.</p>
+        <p style="margin:0 0 var(--space-md)">
+          <a class="textlink" href="tel:2088508252" style="font-size:var(--text-lg);white-space:nowrap">208-850-8252</a>
+        </p>
         <p style="font-family:var(--font-mono); color:var(--color-ink-soft); margin:0 0 var(--space-lg)">
           Oasis / Mountain Home, ID<br>Grass Valley, CA<br>Lewiston, ID</p>
+        <a class="textlink" href="contact.html">Contact form</a>
+        &nbsp;&nbsp;
         <a class="textlink" href="gallery.html">Meet the fleet in the gallery</a>
       </div>
     </div>
@@ -483,6 +494,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
       <a href="gallery.html">Gallery</a>
       <a href="testimonials.html">Testimonials</a>
       <a href="contact.html">Contact</a>
+      <a href="tel:2088508252">208-850-8252</a>
     </div>
   </div>
 </footer>
