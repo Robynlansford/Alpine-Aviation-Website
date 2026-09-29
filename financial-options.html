@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/favicon.png">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: financial-options · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -70,7 +71,19 @@ img { max-width: 100%; display: block; }
 .foot__grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2xs); }
 .foot__grid a { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-ink-soft); text-decoration: none; }
 .foot__grid a:hover { color: var(--color-ink); }
+/* Living Pages · the two ways in, as a figure (living/scenes/fx-paths.js) */
+.paths .fx { --fx-ratio: 16 / 7; --fx-ratio-sm: 4 / 5; margin: var(--space-lg) 0 var(--space-lg); }
+.paths .fx-cap { margin: calc(-1 * var(--space-sm)) 0 var(--space-lg); }
+.paths:has(.fx.nogl) { display: none; }
+@media (max-width: 720px) { .paths .fx-label { white-space: normal; max-width: 10.5em; line-height: 1.4; } }   /* phones: labels wrap beside their routes */
+.lp.nogl .lp-pin::before, .lp:not(.lp-on) .lp-pin::before { background:
+    var(--lp-poster, none) center / cover no-repeat,   /* the scene's still, when it has one */
+  radial-gradient(60% 50% at 74% 62%, oklch(62% .11 70 / .22), transparent 70%),
+  linear-gradient(180deg, oklch(16% .03 258), oklch(21% .04 60 / .9) 72%, var(--lp-void)); }
 .foot__row { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl); font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-faint); border-top: var(--rule-hairline); padding-top: var(--space-lg); }
+/* Living Pages · hero headline breaks evenly */
+.lp-beat h1 { text-wrap: balance; }
+@media (min-width: 721px) { .lp-beat { width: min(46rem, calc(100% - 48px)); } }
 </style>
 </head>
 <body>
@@ -91,20 +104,32 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<header class="head">
-  <p class="head__eyebrow">Financing</p>
-  <h1>Financing that doesn't get in your way.</h1>
-</header>
+<section class="lp live" data-scene="contours" data-tone="gold" data-seed="2" style="--lp-len:74" aria-label="Financing that doesn't get in your way." data-poster="living/posters/financial-options.jpg" data-poster-sm="living/posters/financial-options-sm.jpg">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-at="-1,2" data-static>
+        <p class="lp-eyebrow">Financing</p>
+        <h1>Financing that doesn't get in your way.</h1>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <p class="lp-credit">Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · real ground near Oasis / Mountain Home, Idaho · heights ×2 · the moving light is illustration</p>
+  </div>
+</section>
 
 <div class="layout">
   <main class="article" id="main">
-    <section>
+    <section class="lp-rise">
       <h2>Our partner</h2>
       <p>Alpine Aviation is proudly partnered with Stratus Financial to help make financing your flight training more accessible and straightforward.</p>
     </section>
     <section>
       <h2>Getting started</h2>
       <p>To get started, you can begin the application process directly with Stratus Financial using the link below — or reach out to us first and we'll walk you through the process before you commit to anything.</p>
+      <div class="paths">
+        <div class="fx" data-fx="fx-paths"></div>
+        <p class="fx-cap">Illustration</p>
+      </div>
       <div style="display:flex;gap:var(--space-md);flex-wrap:wrap">
         <a class="btn cta" href="https://stratus.finance" target="_blank" rel="noopener">Apply with Stratus Financial</a>
         <a class="btn cta" href="contact.html" style="background:transparent;border:1.5px solid var(--color-accent);color:var(--color-ink)">Start the conversation</a>
@@ -161,6 +186,12 @@ img { max-width: 100%; display: block; }
   </div>
 </footer>
 
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/contours.js" defer></script>
+  <script src="living/scenes/fx-paths.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/fx.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>

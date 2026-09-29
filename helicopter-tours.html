@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="images/icon_images/Helicopter-Flight-Tours-Boise.jpg">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: helicopter-tours · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -72,6 +73,35 @@ img { max-width: 100%; display: block; }
 .foot__grid a { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-ink-soft); text-decoration: none; }
 .foot__grid a:hover { color: var(--color-ink); }
 .foot__row { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl); font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-faint); border-top: var(--rule-hairline); padding-top: var(--space-lg); }
+
+/* Living Pages · valley hero */
+.lp .lp-beat p.vl-lead { font-family: var(--font-display); font-size: clamp(1.7rem, 3vw, 2.5rem); line-height: 1.12; color: var(--color-ink); margin-bottom: var(--space-md); }
+.lp .vl-tours { list-style: none; margin: 0 0 var(--space-md); padding: 0; display: grid; gap: 10px; }
+.lp .vl-tours li { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 .55em; padding: 12px 16px; border-radius: 14px; border: 1px solid oklch(80% .115 78 / .32); background: oklch(17% .035 256 / .6); backdrop-filter: blur(8px); color: var(--color-ink-soft); font-size: var(--text-md); box-shadow: 0 0 36px -14px var(--lp-gold-glow); }
+.lp .vl-tours li span { color: var(--color-ink); font-weight: 500; }
+.lp .vl-tours li b { margin-left: auto; font-family: var(--font-display); font-weight: 400; font-size: 1.7rem; line-height: 1; color: var(--lp-cream); text-shadow: 0 0 18px var(--lp-gold-glow); }
+.lp .lp-beat p.vl-note { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: .04em; color: var(--lp-gold); }
+.lp .vl-vf { position: absolute; inset: 17% 5% 15% 44%; opacity: 0; pointer-events: none; }
+.lp .vl-vf i { position: absolute; width: 38px; height: 38px; border: 0 solid var(--lp-cream); opacity: .9; filter: drop-shadow(0 0 6px oklch(90% .05 85 / .6)); transition: translate .5s var(--ease-out), border-color .5s; }
+.lp .vl-vf i:nth-child(1) { left: 0; top: 0; border-width: 2px 0 0 2px; }
+.lp .vl-vf i:nth-child(2) { right: 0; top: 0; border-width: 2px 2px 0 0; }
+.lp .vl-vf i:nth-child(3) { left: 0; bottom: 0; border-width: 0 0 2px 2px; }
+.lp .vl-vf i:nth-child(4) { right: 0; bottom: 0; border-width: 0 2px 2px 0; }
+.lp .vl-vf em { position: absolute; inset: 0; background:
+  linear-gradient(90deg, transparent calc(33.3% - .5px), oklch(95% .02 85 / .16) 0 calc(33.3% + .5px), transparent 0 calc(66.6% - .5px), oklch(95% .02 85 / .16) 0 calc(66.6% + .5px), transparent 0),
+  linear-gradient(180deg, transparent calc(33.3% - .5px), oklch(95% .02 85 / .16) 0 calc(33.3% + .5px), transparent 0 calc(66.6% - .5px), oklch(95% .02 85 / .16) 0 calc(66.6% + .5px), transparent 0); }
+.lp .vl-vf b { position: absolute; left: 50%; top: 50%; width: 74px; height: 50px; translate: -50% -50%; border: 1px solid oklch(95% .02 85 / .55); border-radius: 3px; transition: all .45s var(--ease-out); }
+.lp .vl-vf.lock i { border-color: var(--lp-gold); }
+.lp .vl-vf.lock i:nth-child(1) { translate: 10px 10px; } .lp .vl-vf.lock i:nth-child(2) { translate: -10px 10px; }
+.lp .vl-vf.lock i:nth-child(3) { translate: 10px -10px; } .lp .vl-vf.lock i:nth-child(4) { translate: -10px -10px; }
+.lp .vl-vf.lock b { width: 58px; height: 40px; border-color: var(--lp-gold); box-shadow: 0 0 20px -2px var(--lp-gold-glow), inset 0 0 12px -4px var(--lp-gold-glow); }
+.lp .vl-flash { position: absolute; inset: 0; opacity: 0; pointer-events: none; background: radial-gradient(60% 70% at 70% 48%, oklch(98% .02 85), oklch(96% .03 85 / .5) 55%, transparent 85%); }
+@media (max-width: 720px) {
+  .lp .vl-vf { inset: 20% 7% 47% 7%; }
+  .lp .vl-flash { background: radial-gradient(70% 45% at 50% 34%, oklch(98% .02 85), oklch(96% .03 85 / .5) 55%, transparent 85%); }
+  .lp .vl-tours li { padding: 9px 12px; font-size: .92rem; }
+  .lp .vl-tours li b { font-size: 1.35rem; }
+}
 </style>
 </head>
 <body>
@@ -92,15 +122,52 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<main class="head" id="main">
-  <img class="head__logo" src="images/icon_images/Helicopter-Flight-Tours-Boise.jpg" alt="Alpine Aviation Helicopter Tours">
-  <p class="head__eyebrow">Helicopter tours</p>
-  <h1>See Idaho from the air.</h1>
-</main>
+<section class="lp" data-scene="valley" style="--lp-len:480" aria-label="See Idaho from the air" data-poster="living/posters/helicopter-tours.jpg" data-poster-sm="living/posters/helicopter-tours-sm.jpg">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-at="-1,.12" data-static>
+        <img class="lp-badge" src="images/icon_images/Helicopter-Flight-Tours-Boise.jpg" alt="Alpine Aviation Helicopter Tours" width="64" height="64">
+        <p class="lp-eyebrow">Helicopter tours</p>
+        <h1>See Idaho from the air.</h1>
+      </div>
+      <div class="lp-beat pos-right" data-at=".17,.31">
+        <span class="lp-num">01 · Mountains · rivers · canyons</span>
+        <h2>The experience</h2>
+        <p>You are able to sit back and enjoy the view while one of our professional pilots takes you on a ride over mountains, rivers, canyons, and much more.</p>
+      </div>
+      <div class="lp-beat" data-at=".36,.48">
+        <p class="vl-lead">Our tours are available year-round and can be customized to meet the desires of the client.</p>
+        <p>We can do helicopter tours for large events such as weddings and fairs, Christmas and New Year's, Valentine's Day and more!</p>
+      </div>
+      <div class="lp-beat" data-at=".54,.67">
+        <span class="lp-num">02 · Downtown · Treasure Valley</span>
+        <h2>Tour options</h2>
+        <ul class="vl-tours">
+          <li><span>Downtown City Tour</span> — <b>$100.00*</b></li>
+          <li><span>Treasure Valley Light Tour</span> — <b>$400.00*</b></li>
+        </ul>
+        <p class="vl-note">*Pricing subject to change — confirm current rates when booking.</p>
+      </div>
+      <div class="lp-beat" data-at=".73,.85">
+        <span class="lp-num">03 · Photographers · film crews</span>
+        <h2>Photo flight</h2>
+        <p>Our Robinson helicopters are ideal, highly stable and safe aircraft for photographers and film crews. The doors can be removed, offering an outstanding view and a wide variety of angles.</p>
+      </div>
+      <div class="lp-beat" data-at=".91,2">
+        <p class="vl-lead">Contact us today to schedule your helicopter tour with a professional pilot at Alpine Aviation.</p>
+        <div class="lp-cta"><a class="btn" href="contact.html">Schedule your tour</a><a class="textlink" href="tel:2088508252">Or call 208-850-8252</a></div>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <div class="lp-rail" aria-hidden="true"><i class="lp-fill"></i></div>
+    <a class="lp-skip" href="#main">Skip the tour <svg viewBox="0 0 10 14" aria-hidden="true"><path d="M5 1v11M1 8l4 4 4-4"/></svg></a>
+    <p class="lp-credit">Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · Map data: OpenStreetMap contributors (ODbL) · heights ×1.5 · route illustrative · helicopter and lights are illustrations</p>
+  </div>
+</section>
 
-<div class="layout">
+<main class="layout" id="main">
   <article class="article">
-    <section>
+    <section class="lp-rise">
       <h2>The experience</h2>
       <p>Helicopter tours allow you to experience the adventure of flying in Idaho and seeing it from a bird's-eye view. You are able to sit back and enjoy the view while one of our professional pilots takes you on a ride over mountains, rivers, canyons, and much more.</p>
       <p>Our tours are available year-round and can be customized to meet the desires of the client. We can do helicopter tours for large events such as weddings and fairs, Christmas and New Year's, Valentine's Day and more! Contact us today to schedule your helicopter tour with a professional pilot at Alpine Aviation.</p>
@@ -108,7 +175,7 @@ img { max-width: 100%; display: block; }
         <img loading="lazy" src="images/Helicopter-Flight-Tours-Boise-1.jpg" alt="Alpine Aviation helicopter tour over Boise" style="border-radius:var(--radius-md);border:1px solid var(--color-line)">
       </figure>
     </section>
-    <section>
+    <section class="lp-rise">
       <h2>Tour options</h2>
       <ul>
         <li>Downtown City Tour — $100.00*</li>
@@ -119,7 +186,7 @@ img { max-width: 100%; display: block; }
       <p style="margin-top:var(--space-md)"><a class="textlink" href="tel:2088508252">Or call 208-850-8252</a></p>
       <p style="margin-top:var(--space-md)">We also offer a private, hour-long <strong>Downtown Boise Christmas Light Tour</strong> for an exclusive, personalized view of the city's holiday lights from the sky, plus a group <strong>Downtown Boise Christmas Lights</strong> tour coordinated out of Jackson Jet Center. <a class="textlink" href="christmas-lights-tours.html">Looking for the Christmas Lights Tour?</a></p>
     </section>
-    <section>
+    <section class="lp-rise">
       <h2>Photo flight</h2>
       <p>If you need photos of something from the air — or just want a picture of your house — our expert pilots will always get you the shot you want. Professional photographer or amateur, whether you're shooting with state-of-the-art camera equipment or a disposable camera, taking photos from a few hundred feet above will always give you photos you'll treasure. Enjoy breathtaking scenery from thousands of feet up.</p>
       <p>Realtors, take pictures of your properties to give a unique perspective to your customers. Contractors, need an aerial survey of the land you're working on? Or maybe just a photo of a work in progress? Get that dramatic photo that will put your customers over the top.</p>
@@ -146,7 +213,7 @@ img { max-width: 100%; display: block; }
       <li><a href="#waiver">Liability Waiver</a></li>
     </ul>
   </nav>
-</div>
+</main>
 
 <section id="waiver" style="max-width:52rem;margin:0 auto;padding:0 var(--space-xl) var(--space-3xl);border-top:var(--rule-hairline);padding-top:var(--space-2xl)">
   <h2 style="font-family:var(--font-display);font-weight:400;font-size:var(--text-2xl);margin:0 0 var(--space-md)">Helicopter Tour Liability Waiver</h2>
@@ -202,6 +269,10 @@ img { max-width: 100%; display: block; }
   </div>
 </footer>
 
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/valley.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>

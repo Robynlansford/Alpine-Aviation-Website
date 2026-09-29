@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/favicon.png">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: instructing · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -70,7 +71,20 @@ img { max-width: 100%; display: block; }
 .foot__grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2xs); }
 .foot__grid a { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-ink-soft); text-decoration: none; }
 .foot__grid a:hover { color: var(--color-ink); }
+/* Living Pages · what to include, as a scroll-lit route (lighting: living/ui.js) */
+.include { gap: var(--space-md); margin: var(--space-md) 0 var(--space-xl); }
+.include li { padding-left: 52px; min-height: 32px; display: flex; align-items: center; }
+.include li p { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); line-height: 1.25; color: var(--color-ink); max-width: 40ch; }
+.include li.lit p { text-shadow: 0 0 22px oklch(78% .13 240 / .35); }
+.include li::before { top: 50%; translate: 0 -50%; }
+.include li.lit::before { background: var(--lp-ice); border-color: var(--lp-ice); box-shadow: 0 0 22px var(--lp-ice-glow); }
+.lp.nogl .lp-pin::before, .lp:not(.lp-on) .lp-pin::before { background:
+    var(--lp-poster, none) center / cover no-repeat,   /* the scene's still, when it has one */
+  radial-gradient(60% 50% at 74% 62%, oklch(55% .09 240 / .26), transparent 70%),
+  linear-gradient(180deg, oklch(15% .03 258), oklch(20% .045 250 / .9) 72%, var(--lp-void)); }
 .foot__row { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl); font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-faint); border-top: var(--rule-hairline); padding-top: var(--space-lg); }
+/* Living Pages · hero headline breaks evenly */
+.lp-beat h1 { text-wrap: balance; }
 </style>
 </head>
 <body>
@@ -91,20 +105,33 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<header class="head">
-  <p class="head__eyebrow">For CFIs</p>
-  <h1>Building hours? Let's talk.</h1>
-</header>
+<section class="lp live" data-scene="contours" data-tone="ice" data-seed="3" style="--lp-len:74" aria-label="Building hours? Let's talk." data-poster="living/posters/instructing.jpg" data-poster-sm="living/posters/instructing-sm.jpg">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-at="-1,2" data-static>
+        <p class="lp-eyebrow">For CFIs</p>
+        <h1>Building hours? Let's talk.</h1>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <p class="lp-credit">Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · real ground near Oasis / Mountain Home, Idaho · heights ×2 · the moving light is illustration</p>
+  </div>
+</section>
 
 <div class="layout">
   <main class="article" id="main">
-    <section>
+    <section class="lp-rise">
       <h2>The opportunity</h2>
       <p>If you're a Certified Flight Instructor working toward your hour-building goals, we want to hear from you. While we can't guarantee a position, we're always looking to connect with driven, passionate CFIs who are excited about aviation and instruction.</p>
     </section>
     <section>
       <h2>How to apply</h2>
-      <p>Opportunities open up from time to time. The form below isn't connected yet — call or use the chat, and include your resume, where you completed your flight training, and a brief explanation of your hour-building goals.</p>
+      <p>Opportunities open up from time to time. The form below isn't connected yet — call or use the chat, and include</p>
+      <ol class="lp-route include">
+        <li><p>your resume,</p></li>
+        <li><p>where you completed your flight training,</p></li>
+        <li><p>and a brief explanation of your hour-building goals.</p></li>
+      </ol>
       <p style="font-size:var(--text-sm)">Not a flight instructor? Check out our <a class="textlink" href="flight-instruction.html">Flight Instruction page</a>!</p>
 
       <form class="cfi-form" style="display:grid;gap:var(--space-md);max-width:36rem;border:1px solid var(--color-line);border-radius:var(--radius-lg);background:var(--color-paper-2);padding:var(--space-xl);margin-top:var(--space-lg)" onsubmit="event.preventDefault(); this.querySelector('.note').innerHTML='This form isn\'t connected yet — <a class=\'textlink\' href=\'tel:2088508252\'>call 208-850-8252</a> or ask in the chat.';">
@@ -196,6 +223,10 @@ img { max-width: 100%; display: block; }
   </div>
 </footer>
 
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/contours.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>

@@ -56,7 +56,7 @@
 
   /* the flight's timeline on scroll progress p */
   const T_HOVER = .19, T_UP = .34, T_GO = .38;
-  function pathS(p) { return p < T_GO ? 0 : Math.pow((p - T_GO) / (1 - T_GO), 1.15); }
+  function pathS(p) { return p < T_GO ? 0 : Math.pow((p - T_GO) / (1 - T_GO), 1.55); }   /* eases out of the hover */
 
   function heliState(E, p) {
     const e = E.ease;
@@ -191,7 +191,7 @@
         tgt = tgt.map((v, i) => e.mix(v, e.mix(v, wt[i], ww), k2));
       }
       /* keep the camera above the ground */
-      const gnd = T.hMesh(eye[0], eye[2]) + (p < T_GO ? 1.2 : 30);
+      const gnd = T.hMesh(eye[0], eye[2]) + e.mix(1.2, 30, e.smooth((p - T_GO) / .12));
       if (eye[1] < gnd) eye[1] = gnd;
       if (NS.debug && NS.debug.eyeLift) eye[1] += NS.debug.eyeLift;
       /* gentle handheld drift + pointer parallax */
@@ -202,6 +202,7 @@
       const proj = E.M.persp(FOV, E.aspect, near, 90000);
       /* lens shift: aircraft sits right of the words (desktop) or above them (phone) */
       if (E.SMALL) proj[9] = -.34; else proj[8] = -.24;
+      if (NS.debug) NS.debug.cam = { eye: eye.slice(), tgt: tgt.slice(), hp: hp.slice() };
       const view = E.M.look(eye, tgt, [0, 1, 0]);
       const vp = E.M.mul(proj, view);
       const pxs = K.pxScale(E, FOV);
@@ -212,7 +213,7 @@
 
       /* wind lines */
       const wk = e.smooth((p - .39) / .1) * (1 - e.smooth((p - .95) / .05) * .4);
-      if (wk > .01) WIND.draw(vp, { width: 1.5, color: [.16, .36, .8], intensity: wk * .8, t, pulse: .05, pulseLen: .22, fadeD: 32000, nearD: 900 });
+      if (wk > .01 && !(NS.debug && NS.debug.noWind)) WIND.draw(vp, { width: 1.4, color: [.16, .36, .8], intensity: wk * .8, t, pulse: .05, pulseLen: .22, fadeD: 7000, nearD: 900 });   /* far streaks would stack into a band on the horizon */
 
       /* pad */
       const padK = 1 - e.smooth((p - .55) / .2);
@@ -250,17 +251,17 @@
       const dist = Math.hypot(eye[0] - hp[0], eye[1] - hp[1], eye[2] - hp[2]);
       const scaleUp = Math.min(5, Math.max(1, dist / 260));          /* far away: keep the aircraft readable as a glowing mark */
       const M = E.M.trs(hp[0], hp[1], hp[2], hs.yaw, hs.pitch, hs.roll, scaleUp);
-      AC.draw(A, vp, eye, { M, kind: "heli", spin, rate, cabin: .35 + .65 * e.smooth((p - .55) / .1), t, fog: 60000, pxScale: pxs, lightSize: 1.1 * Math.min(1.8, scaleUp) });
+      AC.draw(A, vp, eye, { M, kind: "heli", spin, rate, cabin: .35 + .65 * e.smooth((p - .55) / .1), t, fog: 60000, pxScale: pxs, lightSize: .5 * Math.min(2.5, scaleUp), rotorI: e.mix(.55, 1, e.smooth((dist - 20) / 60)) });
       if (p > .58) {
         const sp = studentPos(E, p), sh = headingAt(Math.max(0, hs.s - .01));
         const d2 = Math.hypot(eye[0] - sp[0], eye[1] - sp[1], eye[2] - sp[2]), sc2 = Math.min(5, Math.max(1, d2 / 260));
-        AC.draw(A, vp, eye, { M: E.M.trs(sp[0], sp[1], sp[2], yawOf(sh), -.08, hs.roll * .8, sc2), kind: "heli", spin: spin * .97 + 1.3, rate: 1, cabin: 1, cabinCol: [1.4, .85, .35], rim: [1.0, .7, .35], t: t + .4, fog: 60000, pxScale: pxs, lightSize: 1.1 * Math.min(1.8, sc2) });
+        AC.draw(A, vp, eye, { M: E.M.trs(sp[0], sp[1], sp[2], yawOf(sh), -.08, hs.roll * .8, sc2), kind: "heli", spin: spin * .97 + 1.3, rate: 1, cabin: 1, cabinCol: [1.4, .85, .35], rim: [1.0, .7, .35], t: t + .4, fog: 60000, pxScale: pxs, lightSize: .5 * Math.min(2.5, sc2) });
         place(E, lab.student, vp, [sp[0], sp[1] + 3 * sc2, sp[2]], e.pulse(p, .62, .66, .74, .78));
       }
       if (p > .72) {
         const ps = planeState(E, p);
         const d3 = Math.hypot(eye[0] - ps.pos[0], eye[1] - ps.pos[1], eye[2] - ps.pos[2]), sc3 = Math.min(5, Math.max(1, d3 / 220));
-        AC.draw(A, vp, eye, { M: E.M.trs(ps.pos[0], ps.pos[1], ps.pos[2], ps.yaw, ps.pitch, ps.roll, sc3), kind: "plane", spin: t * 60, rate: 1, cabin: .8, rim: [.9, .95, 1.1], t, fog: 60000, pxScale: pxs, lightSize: 1.2 * Math.min(1.8, sc3) });
+        AC.draw(A, vp, eye, { M: E.M.trs(ps.pos[0], ps.pos[1], ps.pos[2], ps.yaw, ps.pitch, ps.roll, sc3), kind: "plane", spin: t * 60, rate: 1, cabin: .8, rim: [.9, .95, 1.1], t, fog: 60000, pxScale: pxs, lightSize: .55 * Math.min(2.5, sc3) });
         place(E, lab.plane, vp, [ps.pos[0], ps.pos[1] + 4.5 * sc3, ps.pos[2]], e.pulse(p, .785, .8, .845, .87));
       }
 

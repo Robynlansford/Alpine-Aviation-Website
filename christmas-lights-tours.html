@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="images/icon_images/Helicopter-Flight-Tours-Boise.jpg">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: christmas-lights-tours · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -71,6 +72,46 @@ img { max-width: 100%; display: block; }
 .foot__grid a { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-ink-soft); text-decoration: none; }
 .foot__grid a:hover { color: var(--color-ink); }
 .foot__row { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl); font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-faint); border-top: var(--rule-hairline); padding-top: var(--space-lg); }
+
+/* credit stays legible over bright sky */
+.lp[data-scene="lights"] .lp-credit { text-shadow: 0 1px 8px oklch(12% .03 258 / .95), 0 0 2px oklch(12% .03 258 / .9); }
+/* Living Pages — the night-city backdrop (also the no-WebGL fallback) */
+.lp[data-scene="lights"] .lp-pin::before {
+  background:
+    var(--lp-poster, none) center / cover no-repeat,   /* the scene's still, when it has one */
+    radial-gradient(46% 30% at 68% 60%, oklch(62% .13 62 / .30), transparent 72%),
+    radial-gradient(22% 14% at 66% 58%, oklch(80% .1 80 / .22), transparent 70%),
+    radial-gradient(60% 22% at 60% 30%, oklch(34% .06 45 / .45), transparent 75%),
+    linear-gradient(180deg, oklch(13% .03 258), oklch(19% .045 45 / .9) 44%, oklch(12% .025 258) 88%);
+}
+/* the group-tour rule, drawn: 1, 2 or 3 passengers, the total stays the same */
+.seats { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--space-2xs) var(--space-lg); max-width: 34rem; margin: var(--space-lg) 0 var(--space-md);
+  padding: var(--space-md) var(--space-lg); border-radius: var(--radius-lg); border: 1px solid oklch(80% .115 78 / .32);
+  background: linear-gradient(135deg, oklch(21% .04 255 / .9), oklch(18% .035 258 / .9)); box-shadow: 0 0 44px -18px var(--lp-gold-glow), inset 0 1px 0 oklch(100% 0 0 / .05); }
+.seats__row { display: flex; gap: 10px; }
+.seats__row i { width: 15px; height: 15px; border-radius: 50%; border: 1px solid oklch(80% .115 78 / .55); background: transparent; box-shadow: none; animation: seat-a 9s infinite; }
+.seats__row i:nth-child(2) { animation-name: seat-b; }
+.seats__row i:nth-child(3) { animation-name: seat-c; }
+.seats__count { display: grid; font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: .12em; text-transform: uppercase; color: var(--color-ink-soft); }
+.seats__count span { grid-area: 1 / 1; opacity: 0; animation: count-a 9s infinite; }
+.seats__count span:nth-child(2) { animation-name: count-b; }
+.seats__count span:nth-child(3) { animation-name: count-c; }
+.seats__count .seats__all { display: none; animation: none; }
+.seats__total { font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1; color: var(--color-ink); text-shadow: 0 0 22px var(--lp-gold-glow); text-align: right; white-space: nowrap; }
+.seats__total small { display: block; font-family: var(--font-mono); font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--lp-gold); text-shadow: none; margin-bottom: 4px; }
+.seats__cap { grid-column: 1 / -1; margin: var(--space-xs) 0 0 !important; font-family: var(--font-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--color-ink-faint) !important; }
+@keyframes seat-a { 0%, 100% { background: var(--lp-gold); box-shadow: 0 0 14px var(--lp-gold-glow); } }
+@keyframes seat-b { 0%, 31% { background: transparent; box-shadow: none; } 34%, 97% { background: var(--lp-gold); box-shadow: 0 0 14px var(--lp-gold-glow); } 100% { background: transparent; box-shadow: none; } }
+@keyframes seat-c { 0%, 64% { background: transparent; box-shadow: none; } 67%, 97% { background: var(--lp-gold); box-shadow: 0 0 14px var(--lp-gold-glow); } 100% { background: transparent; box-shadow: none; } }
+@keyframes count-a { 0%, 30% { opacity: 1; } 33%, 97% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes count-b { 0%, 31% { opacity: 0; } 34%, 64% { opacity: 1; } 67%, 100% { opacity: 0; } }
+@keyframes count-c { 0%, 64% { opacity: 0; } 67%, 97% { opacity: 1; } 100% { opacity: 0; } }
+@media (max-width: 520px) { .seats { grid-template-columns: auto 1fr; } .seats__total { grid-column: 1 / -1; text-align: left; margin-top: var(--space-xs); } }
+@media (prefers-reduced-motion: reduce) {
+  .seats__row i { animation: none; background: var(--lp-gold); box-shadow: 0 0 14px var(--lp-gold-glow); }
+  .seats__count span { display: none; }
+  .seats__count .seats__all { display: block; opacity: 1; }
+}
 </style>
 </head>
 <body>
@@ -91,27 +132,44 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<main class="head" id="main">
-  <p class="head__eyebrow">Seasonal</p>
-  <h1>Boise's holiday lights, from above.</h1>
+<main id="main">
+<section class="lp live" data-scene="lights" style="--lp-len:92" aria-label="Boise's holiday lights, from above" data-poster="living/posters/christmas-lights-tours.jpg" data-poster-sm="living/posters/christmas-lights-tours-sm.jpg">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-static>
+        <p class="lp-eyebrow">Seasonal</p>
+        <h1>Boise's holiday lights, from above.</h1>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <p class="lp-credit">Map data: OpenStreetMap contributors (ODbL) · Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · holiday lights, snow and helicopter are illustrative</p>
+  </div>
+</section>
 </main>
 
 <div class="layout">
   <article class="article">
-    <section>
+    <section class="lp-rise">
       <h2>Two ways to fly it</h2>
       <p>We offer two distinct helicopter tours to experience the festive holiday lights in Boise.</p>
     </section>
-    <section>
+    <section class="lp-rise">
       <h2>Private Downtown Boise Christmas Light Tour</h2>
       <p>An exclusive, personalized tour of Boise's holiday lights from the sky with an hour-long flight.</p>
     </section>
-    <section>
+    <section class="lp-rise">
       <h2>Downtown Boise Christmas Lights — Group Tour</h2>
       <p>A group tour providing a magical aerial view of the city's Christmas decorations, coordinated out of Jackson Jet Center. If there are fewer than 4 passengers, the total for the Treasure Valley Light Tour is $1,600.00*.</p>
+      <div class="seats" aria-hidden="true">
+        <div class="seats__row"><i></i><i></i><i></i></div>
+        <div class="seats__count"><span>1 passenger</span><span>2 passengers</span><span>3 passengers</span><span class="seats__all">1–3 passengers</span></div>
+        <div class="seats__total"><small>Total</small>$1,600.00*</div>
+        <p class="seats__cap">Fewer than 4 passengers · Treasure Valley Light Tour</p>
+      </div>
       <p class="note" style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-ink-faint)">*Pricing subject to change — confirm current rates when booking.</p>
     </section>
-    <section>
+    <div class="lp-divider"></div>
+    <section class="lp-rise">
       <h2>Booking</h2>
       <p>To book your tour, use the <a class="textlink" href="contact.html">contact form</a> or call us at <a class="textlink" href="tel:2088508252">208-850-8252</a>.</p>
       <a class="btn cta" href="contact.html">Book your holiday tour</a>
@@ -168,6 +226,10 @@ img { max-width: 100%; display: block; }
   </div>
 </footer>
 
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/lights.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>

@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="images/IMG_1371-scaled.jpg">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: news · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -77,6 +78,63 @@ img { max-width: 100%; display: block; }
 .entry time { display: block; font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-ink-faint); margin-bottom: var(--space-2xs); }
 .entry h2 { font-family: var(--font-display); font-weight: 400; font-size: var(--text-xl); margin: 0 0 var(--space-sm); }
 .entry p { color: var(--color-ink-soft); margin: 0 0 var(--space-sm); max-width: 62ch; }
+
+/* Living Pages · the milestones as a scroll-lit timeline (rail + lighting: living/ui.js .lp-route) */
+.tl { gap: var(--space-2xl); margin: var(--space-md) 0 var(--space-2xl); }
+.tl > li { padding-left: 60px; opacity: .72; }
+.tl > li::before { content: ""; top: 2px; width: 32px; height: 32px; background:
+    radial-gradient(circle, oklch(94% .01 240 / .35) 0 2px, transparent 3px), var(--color-paper); }
+.tl > li.lit::before { background: radial-gradient(circle, var(--lp-cream) 0 3px, oklch(80% .115 78 / .9) 4px 5px, transparent 6.5px), var(--color-paper);
+  border-color: oklch(80% .115 78 / .8); box-shadow: 0 0 0 4px oklch(80% .115 78 / .08), 0 0 26px var(--lp-gold-glow); }
+.tl > li::after { content: ""; position: absolute; left: 0; top: 2px; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--lp-gold); opacity: 0; pointer-events: none; }
+.tl > li.lit::after { animation: tl-ping 1.6s cubic-bezier(.2,.7,.2,1) 1; }
+@keyframes tl-ping { from { transform: scale(.6); opacity: .9; } to { transform: scale(2.4); opacity: 0; } }
+.tl > li.tl-undated::before { background: var(--color-paper); border-style: dashed; }
+.tl > li.tl-undated.lit::before { background: radial-gradient(circle, oklch(86% .07 235 / .9) 0 2.5px, transparent 3.5px), var(--color-paper);
+  border-color: oklch(86% .07 235 / .6); box-shadow: 0 0 22px -4px var(--lp-ice-glow); }
+.tl .entry { border-top: 0; padding: 0; margin: 0; position: relative; }
+.tl .entry time { font-size: .74rem; letter-spacing: .2em; color: var(--color-ink-faint); margin: 7px 0 var(--space-xs); transition: color .6s, text-shadow .6s; }
+.tl > li.lit .entry time { color: var(--lp-gold); text-shadow: 0 0 14px oklch(74% .14 70 / .55); }
+.tl > li.tl-undated .entry h2 { margin-top: 5px; }
+.tl .entry h2 { font-size: clamp(1.45rem, 2.4vw, 1.8rem); line-height: 1.15; }
+
+/* Matt: Dec. 21, 2017 -> Jan. 15, 2018, drawn as one short span of light */
+.span { display: grid; grid-template-columns: auto minmax(64px, 1fr) auto; align-items: center; gap: 12px 14px; margin: var(--space-md) 0 var(--space-xs); max-width: 34rem;
+  font-family: var(--font-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--color-ink-soft); }
+.span__end { display: inline-flex; align-items: center; gap: 9px; white-space: nowrap; }
+.span__end i { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+.span__end--a i { background: var(--lp-gold); box-shadow: 0 0 12px var(--lp-gold-glow); }
+.span__end--b { flex-direction: row-reverse; }
+.span__end--b i { background: var(--lp-cream); box-shadow: 0 0 0 3px oklch(96% .03 85 / .12), 0 0 18px oklch(96% .03 85 / .8); opacity: .35; transition: opacity .5s 1.5s; }
+.span__bar { position: relative; height: 2px; border-radius: 2px; background: oklch(94% .01 240 / .12); }
+.span__bar i { position: absolute; inset: 0; border-radius: 2px; background: linear-gradient(90deg, var(--lp-gold), var(--lp-cream)); box-shadow: 0 0 12px var(--lp-gold-glow);
+  transform-origin: left; transform: scaleX(0); transition: transform 1.5s cubic-bezier(.45,0,.2,1) .25s; }
+.span__note { grid-column: 1 / -1; justify-self: center; color: var(--lp-cream); letter-spacing: .2em; opacity: 0; transition: opacity .8s 1.6s; text-shadow: 0 0 14px oklch(74% .14 70 / .5); }
+.tl > li.lit .span__bar i { transform: scaleX(1); }
+.tl > li.lit .span__end--b i { opacity: 1; }
+.tl > li.lit .span__note { opacity: .9; }
+@media (max-width: 560px) {
+  .tl > li { padding-left: 48px; }
+  .span { grid-template-columns: 1fr; gap: 8px; }
+  .span__end--b { flex-direction: row; }
+  .span__bar { width: 2px; height: 34px; margin-left: 3.5px; }
+  .span__bar i { transform-origin: top; transform: scaleY(0); background: linear-gradient(180deg, var(--lp-gold), var(--lp-cream)); }
+  .tl > li.lit .span__bar i { transform: scaleY(1); }
+  .span__note { justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tl > li.lit::after { animation: none; }
+  .span__bar i, .span__end--b i, .span__note, .tl .entry time { transition: none; }
+}
+/* no WebGL: the hero keeps a quiet dusk wash */
+.lp.nogl .lp-pin::before, .lp:not(.lp-on) .lp-pin::before { background:
+    var(--lp-poster, none) center / cover no-repeat,   /* the scene's still, when it has one */
+  radial-gradient(60% 50% at 74% 62%, oklch(55% .08 40 / .22), transparent 70%),
+  radial-gradient(50% 40% at 80% 40%, oklch(45% .09 290 / .2), transparent 70%),
+  linear-gradient(180deg, oklch(16% .03 270), oklch(20% .04 300 / .9) 70%, var(--lp-void)); }
+/* Living Pages · hero headline breaks evenly */
+.lp-beat h1 { text-wrap: balance; }
+#main.wrap { padding-top: var(--space-xl) !important; }   /* breathing room under the hero (the inline style zeroes it) */
 </style>
 </head>
 <body>
@@ -97,53 +155,84 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<main class="head" style="max-width:52rem" id="main">
-  <p class="head__eyebrow">From the flight line</p>
-  <h1>News &amp; milestones.</h1>
-  <p>A running log of Alpine Aviation announcements and student milestones.</p>
+<section class="lp live" data-scene="contours" data-tone="dusk" data-seed="1" style="--lp-len:74" aria-label="News &amp; milestones" data-poster="living/posters/news.jpg" data-poster-sm="living/posters/news-sm.jpg">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-at="-1,2" data-static>
+        <p class="lp-eyebrow">From the flight line</p>
+        <h1>News &amp; milestones.</h1>
+        <p>A running log of Alpine Aviation announcements and student milestones.</p>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <p class="lp-credit">Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · real ground near Oasis / Mountain Home, Idaho · heights ×2 · the moving light is illustration</p>
+  </div>
+</section>
+
+<main class="wrap" id="main" style="max-width:52rem;margin:0 auto;padding:0 var(--space-xl) var(--space-3xl)">
+
+  <ol class="lp-route tl">
+    <li>
+      <article class="entry">
+        <time datetime="2019-12-18">Dec 18, 2019</time>
+        <h2>Congratulations Forrest</h2>
+        <p>A big congratulations from the Alpine Aviation team to Forrest Krupin on passing his Private checkride.</p>
+      </article>
+    </li>
+
+    <li>
+      <article class="entry">
+        <time datetime="2019-11-28">Nov 28, 2019</time>
+        <h2>Christmas Lights Tours 2019</h2>
+        <p>Beautiful Boise Christmas lights tours by helicopter — it's that time of year once again!</p>
+        <a class="textlink" href="christmas-lights-tours.html">Christmas lights tours</a>
+      </article>
+    </li>
+
+    <li>
+      <article class="entry">
+        <time datetime="2018-01-15">Jan 15, 2018</time>
+        <h2>Congratulations Matt</h2>
+        <p>A big congratulations to Matt Van Pelt on passing his Commercial Check Ride. Matt began with Alpine on Dec. 21, 2017 and passed his checkride on Jan. 15, 2018 — less than a month later.</p>
+        <div class="span" aria-hidden="true">
+          <span class="span__end span__end--a"><i></i>Dec. 21, 2017</span>
+          <span class="span__bar"><i></i></span>
+          <span class="span__end span__end--b"><i></i>Jan. 15, 2018</span>
+          <span class="span__note">less than a month later</span>
+        </div>
+      </article>
+    </li>
+
+    <li>
+      <article class="entry">
+        <time datetime="2017-11">Nov 2017</time>
+        <h2>Congratulations Tanner</h2>
+        <p>Congratulations to Tanner Cude on passing his commercial check ride! Best of luck on the new job in Texas.</p>
+      </article>
+    </li>
+
+    <li>
+      <article class="entry">
+        <time datetime="2017-11-12">Nov 12, 2017</time>
+        <h2>Flight Student Alert</h2>
+        <p>If you're a "non-VA" student paying out of pocket, you need to contact us — you may be paying way too much for your flight training.</p>
+      </article>
+    </li>
+
+    <li class="tl-undated">
+      <article class="entry">
+        <h2>Alpine Aviation booth in Gooding, ID</h2>
+        <p>Come visit us and speak with the owner and our professional helicopter pilots — we'll be happy to tell you more about our programs and services.</p>
+      </article>
+    </li>
+  </ol>
+
+  <div class="lp-divider"></div>
+  <div class="lp-rise">
+    <a class="btn" href="contact.html">Get in touch</a>
+    <p style="margin-top:var(--space-md)"><a class="textlink" href="tel:2088508252">Or call 208-850-8252</a></p>
+  </div>
 </main>
-
-<div class="wrap" style="max-width:52rem;margin:0 auto;padding:0 var(--space-xl) var(--space-3xl)">
-
-  <article class="entry">
-    <time>Dec 18, 2019</time>
-    <h2>Congratulations Forrest</h2>
-    <p>A big congratulations from the Alpine Aviation team to Forrest Krupin on passing his Private checkride.</p>
-  </article>
-
-  <article class="entry">
-    <time>Nov 28, 2019</time>
-    <h2>Christmas Lights Tours 2019</h2>
-    <p>Beautiful Boise Christmas lights tours by helicopter — it's that time of year once again!</p>
-    <a class="textlink" href="christmas-lights-tours.html">Christmas lights tours</a>
-  </article>
-
-  <article class="entry">
-    <time>Jan 15, 2018</time>
-    <h2>Congratulations Matt</h2>
-    <p>A big congratulations to Matt Van Pelt on passing his Commercial Check Ride. Matt began with Alpine on Dec. 21, 2017 and passed his checkride on Jan. 15, 2018 — less than a month later.</p>
-  </article>
-
-  <article class="entry">
-    <time>Nov 2017</time>
-    <h2>Congratulations Tanner</h2>
-    <p>Congratulations to Tanner Cude on passing his commercial check ride! Best of luck on the new job in Texas.</p>
-  </article>
-
-  <article class="entry">
-    <time>Nov 12, 2017</time>
-    <h2>Flight Student Alert</h2>
-    <p>If you're a "non-VA" student paying out of pocket, you need to contact us — you may be paying way too much for your flight training.</p>
-  </article>
-
-  <article class="entry">
-    <h2>Alpine Aviation booth in Gooding, ID</h2>
-    <p>Come visit us and speak with the owner and our professional helicopter pilots — we'll be happy to tell you more about our programs and services.</p>
-  </article>
-
-  <a class="btn" href="contact.html">Get in touch</a>
-  <p style="margin-top:var(--space-md)"><a class="textlink" href="tel:2088508252">Or call 208-850-8252</a></p>
-</div>
 
 <footer class="foot">
   <p class="foot__statement">Come see it in person — <a href="contact.html">book a discovery flight</a>.</p>
@@ -182,6 +271,10 @@ img { max-width: 100%; display: block; }
   </div>
 </footer>
 
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/contours.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>

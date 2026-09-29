@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="images/Alpine-Aviation-Graduates.jpg">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: about · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -81,6 +82,26 @@ img { max-width: 100%; display: block; }
 .foot__grid a { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-ink-soft); text-decoration: none; }
 .foot__grid a:hover { color: var(--color-ink); }
 .foot__row { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl); font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-faint); border-top: var(--rule-hairline); padding-top: var(--space-lg); }
+
+/* living pages · about: the hero's photo caption (the last frame is a real photo) */
+.og-cap { position: absolute; right: max(24px, calc((100vw - var(--lp-wrap)) / 2 + 24px)); bottom: 88px; z-index: 3; margin: 0; max-width: 34ch; text-align: right;
+  font-family: var(--font-mono); font-size: .62rem; letter-spacing: .08em; line-height: 1.5; color: var(--lp-cream);
+  padding: 6px 12px; border-radius: 999px; background: oklch(15% .03 255 / .55); border: 1px solid oklch(80% .115 78 / .35); backdrop-filter: blur(6px);
+  opacity: 0; transition: opacity .6s ease; pointer-events: none; }
+.og-cap b { color: var(--lp-gold); font-weight: 500; letter-spacing: .18em; text-transform: uppercase; }
+.og-cap.on, .lp.nogl .og-cap { opacity: 1; }
+.lp .lp-credit { transition: opacity .6s ease; }
+.lp.og-photo .lp-credit { opacity: 0; }
+/* without WebGL the poster is the real photo: shade it for the words, credit only the photo */
+.lp.nogl .lp-pin::before { background: linear-gradient(90deg, oklch(14% .03 258 / .9), oklch(14% .03 258 / .55) 55%, oklch(14% .03 258 / .1)), var(--lp-poster) center / cover no-repeat, var(--lp-void); }
+.lp.nogl .lp-credit { display: none; }
+@media (max-width: 720px) {
+  .og-cap { left: 20px; right: 20px; bottom: auto; top: calc(84px + 8px); text-align: left; max-width: none; border-radius: 12px; }
+  .lp.nogl .lp-pin::before { background: linear-gradient(0deg, oklch(14% .03 258 / .92), oklch(14% .03 258 / .5) 55%, oklch(14% .03 258 / .15)), var(--lp-poster) center / cover no-repeat, var(--lp-void); }
+}
+/* the list of services: lit rows */
+.article ul.services { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: var(--space-xs) var(--space-md); }
+.article ul.services li { padding: var(--space-xs) var(--space-sm); border-left: 2px solid oklch(80% .115 78 / .45); background: linear-gradient(90deg, oklch(80% .115 78 / .07), transparent); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
 </style>
 </head>
 <body>
@@ -101,22 +122,59 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<header class="head">
-  <p class="head__eyebrow">About us</p>
-  <h1>A tight-knit school, not a pilot factory.</h1>
-</header>
+<section class="lp" data-scene="origin" style="--lp-len:380" data-poster="images/IMG_0603-scaled.jpeg" aria-label="A tight-knit school, not a pilot factory.">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-at="-1,.12" data-static>
+        <p class="lp-eyebrow">About us</p>
+        <h1>A tight-knit school, not a pilot factory.</h1>
+      </div>
+      <div class="lp-beat pos-right" data-at=".17,.31">
+        <span class="lp-num">01 · Oasis, Idaho</span>
+        <h2>Who we are</h2>
+        <p>Alpine Aviation is a professional flight school and commercial helicopter operator based in Oasis, Idaho, with additional operations in Grass Valley, California and Lewiston, Idaho. For over a decade we've combined real-world aviation experience with personalized instruction and top-tier aerial services.</p>
+      </div>
+      <div class="lp-beat" data-at=".37,.50">
+        <span class="lp-num">02 · One-on-one</span>
+        <h2>How we teach</h2>
+        <p>We provide comprehensive flight training in both helicopters and fixed-wing aircraft, in a focused, one-on-one learning environment — hands-on instruction from high-time, experienced instructors actively working in the aviation industry.</p>
+      </div>
+      <div class="lp-beat" data-at=".55,.67">
+        <span class="lp-num">03 · Quality over quantity</span>
+        <h2>What makes us different</h2>
+        <p>We aren't a pilot factory — we're a tight-knit school focused on quality over quantity. Our mission is to create confident, capable, and career-ready pilots.</p>
+        <p><span class="lp-tag">Dual-Specialty Training</span><span class="lp-tag gold">100% Career Placement Rate</span><span class="lp-tag">Real-World Commercial Exposure</span><span class="lp-tag gold">Small Class Sizes</span></p>
+      </div>
+      <div class="lp-beat" data-at=".73,.845">
+        <span class="lp-num">04 · Commercial helicopter operations</span>
+        <h2>"We come to you"</h2>
+        <p>Thanks to our custom-built helicopter trailer, we can bring our aircraft directly to your location — cutting out costly ferry time and offering lower rates than the competition.</p>
+      </div>
+      <div class="lp-beat pos-low" data-at=".925,2">
+        <h2>Let's fly.</h2>
+        <p>Train with us. Work with us. Fly with confidence.</p>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <div class="lp-rail" aria-hidden="true"><i class="lp-fill"></i></div>
+    <a class="lp-skip" href="#main">Skip the flight <svg viewBox="0 0 10 14" aria-hidden="true"><path d="M5 1v11M1 8l4 4 4-4"/></svg></a>
+    <p class="lp-credit">Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · Oasis / Mountain Home, Idaho, heights ×1.6 · field directions are true bearings, not to scale · aircraft, trailer and route are illustrations</p>
+    <p class="og-cap"><b>Real photo</b> · Alpine Aviation campus buildings with helicopters parked outside</p>
+  </div>
+</section>
 
 <div class="layout">
   <main class="article" id="main">
-    <section>
+    <section class="lp-rise">
       <h2>Who we are</h2>
       <p>Alpine Aviation is a professional flight school and commercial helicopter operator based in Oasis, Idaho, with additional operations in Grass Valley, California and Lewiston, Idaho. For over a decade we've combined real-world aviation experience with personalized instruction and top-tier aerial services.</p>
     </section>
-    <section>
+    <section class="lp-rise">
       <h2>How we teach</h2>
       <p>We provide comprehensive flight training in both helicopters and fixed-wing aircraft, in a focused, one-on-one learning environment — hands-on instruction from high-time, experienced instructors actively working in the aviation industry.</p>
     </section>
-    <section>
+    <div class="lp-divider"></div>
+    <section class="lp-rise">
       <h2>What makes us different</h2>
       <p>We aren't a pilot factory — we're a tight-knit school focused on quality over quantity. Our mission is to create confident, capable, and career-ready pilots.</p>
       <ul class="checklist">
@@ -128,10 +186,11 @@ img { max-width: 100%; display: block; }
       <p>If you're serious about becoming a professional pilot, we're currently interviewing students for both helicopter and fixed-wing programs. Let's talk about your aviation goals!</p>
       <a class="btn cta" href="testimonials.html">Read student outcomes</a>
     </section>
-    <section>
+    <div class="lp-divider"></div>
+    <section class="lp-rise">
       <h2>Commercial helicopter operations: "We come to you"</h2>
       <p>Alpine Aviation provides a wide range of commercial helicopter services throughout Idaho and the surrounding region. Our specialties include:</p>
-      <ul>
+      <ul class="services">
         <li>🐄 Cattle Mustering</li>
         <li>🌾 Crop Pollination &amp; Drying</li>
         <li>🌄 Helicopter Tours</li>
@@ -156,7 +215,7 @@ img { max-width: 100%; display: block; }
   </nav>
 </div>
 
-<section class="closing">
+<section class="closing lp-rise">
   <h2>Let's fly.</h2>
   <p>Whether you're ready to take flight or need aerial support for your next project, Alpine Aviation is ready to help. Train with us. Work with us. Fly with confidence.</p>
   <a class="btn cta" href="contact.html">Contact us</a>
@@ -200,6 +259,10 @@ img { max-width: 100%; display: block; }
   </div>
 </footer>
 
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/origin.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>

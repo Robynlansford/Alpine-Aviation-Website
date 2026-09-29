@@ -51,7 +51,9 @@
   const TOFF = parseFloat(Q.get("t")) || 0;
   const LIVE = root.classList.contains("live");
 
-  if (root.dataset.poster) root.style.setProperty("--lp-poster", `url("${new URL(root.dataset.poster, document.baseURI).href}")`);
+  /* the still under the canvas: shown until the first frame, and instead of it without WebGL (data-poster-sm on phones) */
+  const PST = (matchMedia("(max-width: 720px)").matches && root.dataset.posterSm) || root.dataset.poster;
+  if (PST) root.style.setProperty("--lp-poster", `url("${new URL(PST, document.baseURI).href}")`);
   root.classList.add("lp-on");
 
   const pin = root.querySelector(".lp-pin");

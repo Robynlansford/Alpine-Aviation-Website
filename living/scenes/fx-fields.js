@@ -43,7 +43,7 @@ void main(){ vQ = p; gl_Position = uVP * vec4(uC + vec3(p.x * uR, 900., p.y * uR
 precision highp float; in vec2 vQ; out vec4 o; uniform float uT, uPh; uniform vec3 uCol;
 void main(){ float r = length(vQ); if (r > 1.) discard;
   float w = 0.;
-  for (int k = 0; k < 3; k++) { float rr = fract(uT * .22 + uPh + float(k) / 3.); w += exp(-pow((r - rr) / .012, 2.)) * (1. - rr) * (1. - rr); }
+  for (int k = 0; k < 3; k++) { float rr = fract(uT * .22 + uPh + float(k) / 3.); w += exp(-(((r - rr) / .012)*((r - rr) / .012))) * (1. - rr) * (1. - rr); }
   o = vec4(uCol * w * 1.6 + uCol * exp(-r * r * 60.) * .5, 1.); }`);
       const gl = E.gl; this.quad = gl.createVertexArray(); gl.bindVertexArray(this.quad);
       const b = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, b); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);

@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="images/Alex-Alpine-Aviation.jpg">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: testimonials · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -76,6 +77,24 @@ img { max-width: 100%; display: block; }
 .quote { border-top: 2px solid var(--color-accent); padding-top: var(--space-md); margin-bottom: var(--space-2xl); }
 .quote blockquote { margin: 0 0 var(--space-md); font-family: var(--font-body); font-size: var(--text-md); color: var(--color-ink); }
 .quote figcaption { font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-ink-faint); }
+
+/* living pages · testimonials: glass quotes, gold names (gold = the person) */
+.quote { position: relative; border-top: 0; margin: 0 0 var(--space-xl); padding: var(--space-lg) var(--space-lg) var(--space-md); border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, oklch(27% .04 255 / .6), oklch(22% .035 256 / .35)); border: 1px solid oklch(86% .07 235 / .13);
+  box-shadow: inset 0 1px 0 oklch(100% 0 0 / .05), 0 24px 60px -34px oklch(8% .03 258 / .95); transition: border-color .5s, box-shadow .5s; }
+.quote::before { content: ""; position: absolute; left: var(--space-lg); right: 40%; top: -1px; height: 2px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--lp-gold), oklch(80% .115 78 / 0)); box-shadow: 0 0 14px var(--lp-gold-glow); }
+.quote:hover { border-color: oklch(80% .115 78 / .32); box-shadow: inset 0 1px 0 oklch(100% 0 0 / .06), 0 0 46px -16px var(--lp-gold-glow), 0 24px 60px -34px oklch(8% .03 258 / .95); }
+.quote figcaption { color: var(--lp-gold); display: flex; align-items: center; gap: .7em; }
+.quote figcaption::before { content: ""; flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--lp-cream); box-shadow: 0 0 10px 2px var(--lp-gold-glow); }
+@media (max-width: 700px) { .quote { padding: var(--space-md) var(--space-md) var(--space-sm); } .quote::before { left: var(--space-md); } }
+/* hero cards: a person's card glows when the light arrives */
+.lp-label.tr-card > span { transition: box-shadow .6s ease, border-color .6s ease; }
+.lp-label.tr-card > span b { color: var(--lp-gold); }
+.lp-label.tr-card.tr-hit > span { border-color: oklch(90% .08 85 / .8); box-shadow: 0 0 46px -8px var(--lp-gold-glow), inset 0 0 18px -8px oklch(90% .08 85 / .5); }
+.lp-label.tr-origin > span { transform: translate(-50%, 18px); padding: 0; }
+.lp-label.tr-origin > span::after { display: none; }
+@media (max-width: 720px) { .lp-label.tr-origin > span { transform: translate(calc(-100% - 16px), -50%); } }
 </style>
 </head>
 <body>
@@ -96,47 +115,55 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<main class="head" style="max-width:52rem" id="main">
-  <p class="head__eyebrow">Student outcomes</p>
-  <h1>At Alpine, we have a 100% success rate.</h1>
-  <p>Every student has excelled and is currently working in the commercial field. Here's what a few of them have to say.</p>
-</main>
+<section class="lp live" data-scene="trails" style="--lp-len:92" aria-label="At Alpine, we have a 100% success rate." data-poster="living/posters/testimonials.jpg" data-poster-sm="living/posters/testimonials-sm.jpg">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-at="-1,2" data-static>
+        <p class="lp-eyebrow">Student outcomes</p>
+        <h1>At Alpine, we have a 100% success rate.</h1>
+        <p>Every student has excelled and is currently working in the commercial field. Here's what a few of them have to say.</p>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <p class="lp-credit">Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · Mountain Home, Idaho, heights ×1.6 · the light trails are an illustration, not a map</p>
+  </div>
+</section>
 
-<div class="wrap" style="max-width:52rem;margin:0 auto;padding:0 var(--space-xl) var(--space-3xl)">
+<main class="wrap" id="main" style="max-width:52rem;margin:0 auto;padding:var(--space-xl) var(--space-xl) var(--space-3xl)">
 
-  <figure class="quote">
+  <figure class="quote lp-rise">
     <blockquote>I started my flight training shortly after graduating high school at another flight school, but I didn't get the results I was looking for. I did not like the lies I was getting from most of the helicopter schools promising jobs after completion of training. There's no way a flight school can push 100 students through a program and offer all of them jobs when there's only a small handful of positions. I also like that Alpine does not charge students high prices to pad the pocket of the 141 VA program! The training I received was very practical and geared for real-life applications.</blockquote>
     <figcaption>Waylon Forgue, 21, Asotin, WA</figcaption>
   </figure>
 
-  <figure class="quote">
+  <figure class="quote lp-rise">
     <blockquote>I moved from south Texas to Idaho to start training in March of 2017. After searching for flight schools I decided to go with Alpine Aviation. The Mountain Home airport offers an amazing training environment where you can stay focused and train in peace without multiple aircraft tying up the radio and interfering with training. I would recommend Alpine Aviation for anyone who is serious about being a career helicopter pilot. I am now flying a Sikorsky Skycrane heli tanker on fires in California with just over 1000 hrs. On my day off I still go work with Kevin and he still is teaching me new things. If you are serious about becoming a helicopter pilot, this is the way to get there.</blockquote>
     <figcaption>Tanner Wayne Cude, South Texas → Idaho</figcaption>
   </figure>
 
-  <figure class="quote">
+  <figure class="quote lp-rise">
     <blockquote>I'm a commercially certified ATP fixed wing pilot and was working on my Commercial Rotor wing add-on.</blockquote>
     <figcaption>Andrew Southard, ATP Fixed Wing → Rotor</figcaption>
   </figure>
 
-  <figure class="quote">
+  <figure class="quote lp-rise">
     <blockquote>And flying helicopters is just a huge amount of fun too.</blockquote>
     <figcaption>Bud Layne, CEO, Span Tech LLC</figcaption>
   </figure>
 
-  <figure class="quote">
+  <figure class="quote lp-rise">
     <blockquote>A huge thank you to Alpine Aviation — especially Kevin and Ashley — for everything they did to help me earn my helicopter license.</blockquote>
     <figcaption>Beau Value, President/CEO, Disaster Response</figcaption>
   </figure>
 
-  <figure class="quote">
+  <figure class="quote lp-rise">
     <blockquote>James Pafford of Alpine Aviation was my instructor and I sincerely can't say enough awesome things about him. He is extremely knowledgeable, yet has a way of teaching that allowed me to be at ease and looking forward to our next training session. I was struggling at first with aerodynamics and James quickly noticed that I learn better with the help of visual aids. He has a training manual that is second to none that takes all of the guesswork out of learning. This was huge for me! Our flights were always centered around safety but he regularly reminded me that we were there to have fun.</blockquote>
     <figcaption>James Pafford, Student</figcaption>
   </figure>
 
   <a class="btn" href="contact.html">Start your own story</a>
   <p style="margin-top:var(--space-md)"><a class="textlink" href="tel:2088508252">Or call 208-850-8252</a></p>
-</div>
+</main>
 
 <footer class="foot">
   <p class="foot__statement">Come see it in person — <a href="contact.html">book a discovery flight</a>.</p>
@@ -175,6 +202,10 @@ img { max-width: 100%; display: block; }
   </div>
 </footer>
 
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/trails.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>

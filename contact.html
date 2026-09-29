@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="images/IMG_0603-scaled.jpeg">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: contact · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -87,16 +88,24 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<header class="head">
-  <p class="head__eyebrow">Get in touch</p>
-  <h1>Let's get you in the air.</h1>
-  <p>The form below isn't connected yet — call or use the chat and we'll help you from there.
-     Are you a CFI looking for instruction hours? Use our
-     <a class="textlink" href="instructing.html">CFI Instruction Interest Form</a> instead.</p>
-</header>
+<section class="lp live" data-scene="beacons" style="--lp-len:92" aria-label="Let's get you in the air" data-poster="living/posters/contact.jpg" data-poster-sm="living/posters/contact-sm.jpg">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-static>
+        <p class="lp-eyebrow">Get in touch</p>
+        <h1>Let's get you in the air.</h1>
+        <p>The form below isn't connected yet — call or use the chat and we'll help you from there.
+           Are you a CFI looking for instruction hours? Use our
+           <a class="textlink" href="instructing.html">CFI Instruction Interest Form</a> instead.</p>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <p class="lp-credit">Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · heights ×10 · beacons, rings and arcs are illustrations, not to scale</p>
+  </div>
+</section>
 
 <main class="layout" id="main">
-  <article class="article">
+  <article class="article lp-rise">
     <div class="card" style="border:1px solid var(--color-line);border-radius:var(--radius-lg);background:var(--color-paper-2);padding:var(--space-2xl);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-2xl)">
       <form class="form" style="display:grid;gap:var(--space-md)" onsubmit="event.preventDefault(); this.querySelector('.note').innerHTML='This form isn\'t connected yet — <a class=\'textlink\' href=\'tel:2088508252\'>call 208-850-8252</a> or ask in the chat.';">
         <label style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.1em;text-transform:uppercase;color:var(--color-ink-faint);display:grid;gap:var(--space-2xs)">Name<input type="text" name="name" required autocomplete="name" style="font-family:var(--font-body);font-size:var(--text-md);background:var(--color-paper);color:var(--color-ink);border:1px solid var(--color-line);border-radius:var(--radius-sm);padding:var(--space-sm) var(--space-md);width:100%"></label>
@@ -166,6 +175,10 @@ img { max-width: 100%; display: block; }
   </div>
 </footer>
 
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/beacons.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>

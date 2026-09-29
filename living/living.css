@@ -114,7 +114,8 @@
 .lp.live.static .lp-pin, .lp.live:not(.lp-on) .lp-pin { height: min(92svh, 900px); min-height: 600px; }
 .lp.static .lp-skip, .lp.static .lp-rail, .lp:not(.lp-on) .lp-skip, .lp:not(.lp-on) .lp-rail { display: none; }
 .lp.static .lp-canvas { opacity: 1; transition: none; }
-.lp.nogl .lp-labels { display: none; }
+.lp.nogl .lp-labels, .lp.static .lp-labels { display: none; }
+.lp.nogl:not([data-poster]) .lp-credit { display: none; }   /* no picture on screen, nothing to credit */
 
 @media (max-width: 720px) {
   .lp-beat, .lp-beat.pos-right, .lp-beat.pos-center { left: 20px; right: 20px; width: auto; text-align: left; translate: 0 0; top: auto; bottom: 12svh; }
@@ -126,7 +127,7 @@
   .lp-beat h2 { font-size: clamp(1.8rem, 8.2vw, 2.4rem); }
   .lp-rail { right: 10px; height: 110px; }
   .lp-skip { left: 20px; translate: 0 0; bottom: 18px; }
-  .lp-credit { top: calc(84px + 8px); bottom: auto; left: 20px; right: 20px; font-size: .52rem; }
+  .lp-credit { top: calc(84px + 8px); bottom: auto; left: 20px; right: 20px; font-size: .5rem; letter-spacing: .02em; line-height: 1.4; color: oklch(75% .02 250 / .5); text-shadow: 0 1px 6px oklch(12% .03 258 / .9); }   /* recedes under the nav; still readable */
   .lp-label { font-size: .56rem; letter-spacing: .14em; }
   .lp-label.card > span { width: 12rem; font-size: .74rem; padding: 9px 11px; }
   .lp.live, .lp.live.static { height: max(100svh, 700px); min-height: 0; }
@@ -149,7 +150,8 @@
 .fx-label.gold i { background: var(--lp-gold); box-shadow: 0 0 10px var(--lp-gold-glow); }
 .fx-label.gold.on { color: var(--lp-cream); }
 .fx-cap { font-family: var(--font-mono); font-size: .62rem; letter-spacing: .08em; color: var(--color-ink-faint); margin: calc(-1 * var(--space-lg)) 0 var(--space-xl); }
-@media (max-width: 720px) { .fx { --fx-ratio: 4 / 5; } .fx-label { font-size: .54rem; letter-spacing: .1em; } }
+/* phones get their own shape (a page's inline --fx-ratio is for wide screens); set --fx-ratio-sm per figure if needed */
+@media (max-width: 720px) { .fx { aspect-ratio: var(--fx-ratio-sm, 1 / 1); } .fx-label { font-size: .54rem; letter-spacing: .1em; } }
 
 /* ------------------------------------------------------- finishing layer */
 /* buttons: a sweep of light across the gold */

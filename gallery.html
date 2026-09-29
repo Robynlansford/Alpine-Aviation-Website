@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="images/Alpine-Aviation-Graduates.jpg">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: gallery · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -184,10 +185,34 @@ figure.tile { display: block; }
 .foot__grid a { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-ink-soft); text-decoration: none; }
 .foot__grid a:hover { color: var(--color-ink); }
 
+/* Living Pages · photos stay the star: a glass edge and a glow on hover, one sweep of light as each arrives */
+.grid { padding-top: var(--space-lg); }
+.tile:not(.tile--embed) { transition: border-color .5s var(--ease-out), box-shadow .6s var(--ease-out), transform .6s var(--ease-out); }
+.tile:not(.tile--embed)::before { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; pointer-events: none;
+  box-shadow: inset 0 1px 0 oklch(100% 0 0 / .08), inset 0 0 0 1px oklch(96% .03 85 / .04); transition: box-shadow .5s var(--ease-out); }
+.tile:not(.tile--embed)::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(105deg, transparent 34%, oklch(98% .03 85 / .16) 47%, oklch(98% .03 85 / .28) 50%, oklch(98% .03 85 / .16) 53%, transparent 66%);
+  transform: translateX(-130%); }
+.tile.is-in:not(.tile--embed)::after { animation: tile-sweep 1.9s cubic-bezier(.3,.6,.2,1) .35s 1 backwards; }
+.tile:not(.tile--embed):hover::after, .tile:not(.tile--embed):focus-visible::after { transform: translateX(130%); transition: transform 1.1s cubic-bezier(.3,.6,.2,1); }
+@keyframes tile-sweep { from { transform: translateX(-130%); } to { transform: translateX(130%); } }
+.tile:not(.tile--embed):hover, .tile:not(.tile--embed):focus-visible { border-color: oklch(80% .115 78 / .55); transform: translateY(-2px);
+  box-shadow: 0 0 0 1px oklch(80% .115 78 / .18), 0 18px 50px -18px oklch(10% .02 255 / .9), 0 0 38px -10px var(--lp-gold-glow); }
+.tile:not(.tile--embed):hover::before, .tile:not(.tile--embed):focus-visible::before { box-shadow: inset 0 1px 0 oklch(100% 0 0 / .16), inset 0 0 0 1px oklch(96% .03 85 / .12), inset 0 -60px 60px -40px oklch(80% .115 78 / .18); }
+.tile figcaption { z-index: 2; }
+.lp.nogl .lp-pin::before, .lp:not(.lp-on) .lp-pin::before { background:
+    var(--lp-poster, none) center / cover no-repeat,   /* the scene's still, when it has one */
+  radial-gradient(60% 50% at 74% 62%, oklch(70% .05 85 / .16), transparent 70%),
+  linear-gradient(180deg, oklch(16% .03 258), oklch(21% .03 80 / .85) 72%, var(--lp-void)); }
+
 @media (prefers-reduced-motion: reduce) {
   .tile img, .tile figcaption { transition: none; }
   .tile img { opacity: 1; transform: none; }
+  .tile:not(.tile--embed)::after { animation: none !important; display: none; }
+  .tile:not(.tile--embed) { transition: none; }
 }
+/* Living Pages · hero headline breaks evenly */
+.lp-beat h1 { text-wrap: balance; }
 </style>
 </head>
 <body>
@@ -208,12 +233,20 @@ figure.tile { display: block; }
   </div>
 </nav>
 
-<header class="head">
-  <p class="head__eyebrow">From the flight line</p>
-  <h1>The school, as it actually looks.</h1>
-  <p>No stock photos here — these are our aircraft, our students, our graduates, and the
-     Idaho and California country we fly every week.</p>
-</header>
+<section class="lp live" data-scene="contours" data-tone="cream" data-seed="4" style="--lp-len:74" aria-label="The school, as it actually looks." data-poster="living/posters/gallery.jpg" data-poster-sm="living/posters/gallery-sm.jpg">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-at="-1,2" data-static>
+        <p class="lp-eyebrow">From the flight line</p>
+        <h1>The school, as it actually looks.</h1>
+        <p>No stock photos here — these are our aircraft, our students, our graduates, and the
+           Idaho and California country we fly every week.</p>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <p class="lp-credit">Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · real ground near Oasis / Mountain Home, Idaho · heights ×2 · the moving light is illustration</p>
+  </div>
+</section>
 
 <main class="grid" id="main">
   <div class="tile tile--embed">
@@ -327,6 +360,10 @@ lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('is-open')) closeLB(); });
 </script>
 <script async src="https://www.instagram.com/embed.js"></script>
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/contours.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>

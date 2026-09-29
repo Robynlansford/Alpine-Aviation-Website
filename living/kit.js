@@ -39,7 +39,7 @@ uniform vec3 uSunDir, uSunCol, uZenith, uHorizon;
 vec3 skyCol(vec3 rd){
   float h = rd.y;
   float sd = max(dot(rd, uSunDir), 0.);
-  float sideSun = pow(dot(normalize(vec3(rd.x, 0., rd.z) + 1e-5), normalize(vec3(uSunDir.x, 0., uSunDir.z) + 1e-5)) * .5 + .5, 2.2);
+  float sideSun = pow(clamp(dot(normalize(vec3(rd.x, 0., rd.z) + 1e-5), normalize(vec3(uSunDir.x, 0., uSunDir.z) + 1e-5)) * .5 + .5, 0., 1.), 2.2);   /* clamp: pow of a rounding-negative base is NaN */
   vec3 hor = mix(uHorizon * vec3(.22, .3, .78), uHorizon, sideSun);           /* gold toward the sun, violet-blue away */
   vec3 mid = mix(vec3(.030, .036, .085), uHorizon * .35, sideSun * .5);
   float hh = clamp(h, 0., 1.);
@@ -234,7 +234,7 @@ void main(){
   c += albedo * uHorizon * .9 * max(dot(n, -vec3(L.x, 0., L.z)), 0.) * .6;       /* bounce from the lit side */
   /* rim: ridges catching the last light */
   vec3 V = normalize(uEye - vW);
-  float rim = pow(1. - max(dot(n, V), 0.), 4.) * dif * sh;
+  float rim = pow(clamp(1. - dot(n, V), 0., 1.), 4.) * dif * sh;
   c += uSunCol * rim * .35;
   /* contour lines at real elevations: every uContour m, brighter every uMajor m */
   float lv = elev / uContour, fw = max(fwidth(lv), 1e-4);
@@ -242,11 +242,13 @@ void main(){
   float mv = elev / uMajor, fm = max(fwidth(mv), 1e-4);
   float major = 1. - smoothstep(0., 1.6*fm, abs(fract(mv - .5) - .5));
   float dist = length(uEye - vW);
-  float cfade = exp(-dist / (uFogD * .55));
+  float cfade = exp(-dist / (uFogD * .42));
   /* when many contours crowd into one pixel (grazing angles, far away) they would alias into a solid wash: fade them */
-  line *= 1. - smoothstep(.12, .4, fw);
-  major *= 1. - smoothstep(.12, .45, fm);
-  float lines = (line * .55 + major * 1.35) * cfade * uGlow;
+  line *= 1. - smoothstep(.05, .22, fw);
+  major *= 1. - smoothstep(.06, .28, fm);
+  /* and at grazing angles, where far plains stack their lines into glittering streaks along the horizon */
+  float graze = smoothstep(.03, .2, dot(n, V));
+  float lines = (line * .55 + major * 1.35) * cfade * uGlow * graze;
   /* contours glow ice-blue in shadow, warm gold where the sun hits */
   vec3 lc = mix(uIce, uGold, smoothstep(.2, .8, dif * sh));
   c += lc * lines;
@@ -326,6 +328,18 @@ out float vA, vS, vId; out float vDepth;
 vec3 W(vec3 q){ ${drape ? "return vec3((q.x-.5)*uSize.x, texture(uH, q.xy).r*uRange*uEx + uLiftM, (q.y-.5)*uSize.y);" : "return q;"} }
 void main(){
   vec4 c = uVP * vec4(W(aP), 1.), cn = uVP * vec4(W(aN), 1.), cp = uVP * vec4(W(aV), 1.);
+  /* clip against the near plane (z = -w) before extruding: a vertex behind the eye would
+     otherwise interpolate its width across the plane into a screen-wide band */
+  float dc = c.z + c.w, dn = cn.z + cn.w, dp = cp.z + cp.w;
+  if (dc < 0.) {
+    if (dn > 0.) c = mix(c, cn, min(1., dc / (dc - dn) + 1e-4));
+    else if (dp > 0.) c = mix(c, cp, min(1., dc / (dc - dp) + 1e-4));
+    dc = c.z + c.w;
+  }
+  if (dc > 0.) {
+    if (dn < 0.) cn = mix(c, cn, dc / (dc - dn) * .999);
+    if (dp < 0.) cp = mix(c, cp, dc / (dc - dp) * .999);
+  }
   vec2 s = c.xy / c.w, sn = cn.xy / cn.w, sp = cp.xy / cp.w;
   vec2 dir = normalize((sn - sp) * uRes + 1e-6);
   vec2 nrm = vec2(-dir.y, dir.x);
@@ -510,7 +524,7 @@ ${K.GLSL.atmos}
 void main(){
   vec3 V = normalize(uEye - vW);
   vec3 n = normalize(vN); if (dot(n, V) < 0.) n = -n;
-  float fr = pow(1. - max(dot(n, V), 0.), 3.);
+  float fr = pow(clamp(1. - dot(n, V), 0., 1.), 3.);
   float dif = max(dot(n, uSunDir), 0.);
   vec3 base = vK < .5 ? vec3(.02, .035, .06) : vK < 1.5 ? vec3(.05, .06, .075) : vK < 2.5 ? vec3(.09, .09, .1) : vec3(.06, .07, .085);
   vec3 c = base * (uZenith * 10. + uSunCol * dif * 1.1);
@@ -544,7 +558,7 @@ void main(){
   }
   blade = min(blade, 1.2);
   float disc = uRate * .10 * smoothstep(.15, .9, r);
-  float tip = exp(-pow((r - .985) / .012, 2.)) * (.15 + uRate * .55);
+  float tq = (r - .985) / .012; float tip = exp(-tq * tq) * (.15 + uRate * .55);   /* pow() of a negative base is undefined in GLSL */
   vec3 c = uCol * (blade * mix(.9, .25, uRate) + disc) + uTip * tip;
   o = vec4(c * uI, 1.);
 }`, ["aP"]);

@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/favicon.png">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: student-housing · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -71,6 +72,18 @@ img { max-width: 100%; display: block; }
 .foot__grid a { font-family: var(--font-mono); font-size: var(--text-xs); color: var(--color-ink-soft); text-decoration: none; }
 .foot__grid a:hover { color: var(--color-ink); }
 .foot__row { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl); font-family: var(--font-mono); font-size: var(--text-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-ink-faint); border-top: var(--rule-hairline); padding-top: var(--space-lg); }
+
+/* credit stays legible over bright sky */
+.lp[data-scene="campus"] .lp-credit { text-shadow: 0 1px 8px oklch(12% .03 258 / .95), 0 0 2px oklch(12% .03 258 / .9); }
+/* Living Pages — dusk-airfield backdrop (also the no-WebGL fallback) */
+.lp[data-scene="campus"] .lp-pin::before {
+  background:
+    var(--lp-poster, none) center / cover no-repeat,   /* the scene's still, when it has one */
+    radial-gradient(40% 16% at 62% 58%, oklch(72% .13 62 / .42), transparent 72%),
+    radial-gradient(18% 10% at 78% 70%, oklch(78% .12 75 / .3), transparent 70%),
+    radial-gradient(70% 40% at 50% 20%, oklch(30% .06 260 / .5), transparent 75%),
+    linear-gradient(180deg, oklch(16% .035 262), oklch(30% .07 45 / .9) 57%, oklch(14% .02 60) 62%, oklch(12% .02 258));
+}
 </style>
 </head>
 <body>
@@ -91,18 +104,27 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<header class="head">
-  <p class="head__eyebrow">Student housing</p>
-  <h1>Live where you train.</h1>
-</header>
+<section class="lp live" data-scene="campus" style="--lp-len:92" aria-label="Live where you train" data-poster="living/posters/student-housing.jpg" data-poster-sm="living/posters/student-housing-sm.jpg">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-static>
+        <p class="lp-eyebrow">Student housing</p>
+        <h1>Live where you train.</h1>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <p class="lp-credit">Illustration · not a map of the real field or a picture of the real homes</p>
+  </div>
+</section>
 
 <div class="layout">
   <main class="article" id="main">
-    <section>
+    <section class="lp-rise">
       <h2>On-field housing</h2>
       <p>Alpine Aviation offers student housing located directly on the field, just steps from our flight instruction facilities. These homes provide convenient, comfortable living accommodations designed to support your focus and success in flight training.</p>
     </section>
-    <section>
+    <div class="lp-divider"></div>
+    <section class="lp-rise">
       <h2>Why it matters</h2>
       <p>Living close to the school means easy access to classrooms and aircraft, so you spend your time flying and studying instead of commuting.</p>
       <a class="btn cta" href="contact.html">Ask about availability</a>
@@ -158,6 +180,10 @@ img { max-width: 100%; display: block; }
   </div>
 </footer>
 
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/campus.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>

@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="images/Alpine-Aviation-Graduates.jpg">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: commercial-services · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -91,14 +92,22 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<main class="head" id="main">
-  <p class="head__eyebrow">Commercial services</p>
-  <h1>Working aircraft, working country.</h1>
-</main>
+<section class="lp live" data-scene="working" style="--lp-len:92" aria-label="Working aircraft, working country" data-poster="living/posters/commercial-services.jpg" data-poster-sm="living/posters/commercial-services-sm.jpg">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-static>
+        <p class="lp-eyebrow">Commercial services</p>
+        <h1>Working aircraft, working country.</h1>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <p class="lp-credit">Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · Mountain Home, ID · heights ×1.6 · flight line and waypoints are a schematic, not a route · helicopter, dust and wind are illustrations</p>
+  </div>
+</section>
 
-<div class="layout">
+<main class="layout" id="main">
   <article class="article">
-    <section>
+    <section class="lp-rise">
       <h2>What we offer</h2>
       <p>Alpine Aviation provides a more personal approach to helicopter flight instruction and all of your commercial helicopter needs.</p>
       <ul>
@@ -108,7 +117,8 @@ img { max-width: 100%; display: block; }
         <li><a href="livestock-pest-control.html">Pest Control / Livestock Management</a></li>
       </ul>
     </section>
-    <section>
+    <div class="lp-divider"></div>
+    <section class="lp-rise">
       <h2>Real-world experience</h2>
       <p>Our students gain hands-on experience by working alongside professionals on active jobs, preparing them for real industry demands from day one.</p>
       <p>Bridging the gap in aviation.</p>
@@ -127,7 +137,7 @@ img { max-width: 100%; display: block; }
       <li><a href="livestock-pest-control.html">Pest Control / Livestock Management</a></li>
     </ul>
   </nav>
-</div>
+</main>
 
 <footer class="foot">
   <p class="foot__statement">Come see it in person — <a href="contact.html">book a discovery flight</a>.</p>
@@ -166,6 +176,10 @@ img { max-width: 100%; display: block; }
   </div>
 </footer>
 
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/working.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>
