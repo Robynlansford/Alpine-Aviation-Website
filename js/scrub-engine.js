@@ -268,9 +268,13 @@ function mountScrollWorld(container, config) {
       const chromeOp = 1 - rel;
       sky.style.opacity = chromeOp;
       topbar.style.opacity = chromeOp;
-      route.style.opacity = chromeOp;
+      // the words and the route dots leave in the first third of the slide, so they never sit
+      // on top of the ground page's first headline as it rises in under the film
+      const wordsOp = Math.max(0, 1 - rel * 3.2);
+      route.style.opacity = wordsOp;
       scrollbar.style.opacity = chromeOp;
-      copylayer.style.opacity = chromeOp;
+      copylayer.style.opacity = wordsOp;
+      copylayer.style.visibility = wordsOp < .01 ? 'hidden' : '';
     }
 
     for (let i = 0; i < N; i++) {

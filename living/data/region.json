@@ -1,0 +1,48 @@
+{
+ "source": "Terrain: USGS 3DEP via AWS Terrain Tiles (z7), courtesy of the U.S. Geological Survey.",
+ "bounds": {
+  "west": -122.3,
+  "south": 38.5,
+  "east": -114.0,
+  "north": 47.2
+ },
+ "km": [
+  677.39,
+  961.96
+ ],
+ "px": [
+  451,
+  640
+ ],
+ "hmin": -50.0,
+ "hmax": 4193.0,
+ "points": [
+  {
+   "name": "Grass Valley, CA",
+   "lat": 39.2232,
+   "lon": -121.003,
+   "uv": [
+    0.15627,
+    0.91687
+   ]
+  },
+  {
+   "name": "Oasis / Mountain Home, ID",
+   "lat": 43.1321,
+   "lon": -115.7349,
+   "uv": [
+    0.79098,
+    0.46757
+   ]
+  },
+  {
+   "name": "Lewiston, ID",
+   "lat": 46.3757,
+   "lon": -117.0155,
+   "uv": [
+    0.63669,
+    0.09475
+   ]
+  }
+ ]
+}

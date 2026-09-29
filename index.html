@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/still_6.webp">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · macrostructure: scroll-film spine + long-document sections · tone: cinematic-rugged-premium
  * theme: custom (see tokens.css stamp) · nav: N2 floating chip (engine topbar) · footer: Ft5 statement
@@ -220,7 +221,9 @@ footer.site {
 /* Tuck the ground content one viewport under the film's track: the film is opaque
    full-bleed while pinned, so the overlap is invisible — and the dissolve then lands
    the visitor exactly on the first ground headline instead of a blank band. */
-main { margin-top: -100vh; position: relative; z-index: 5; }
+/* Living Pages fix: with -100vh the ground's first 100vh (the Training heading, intro and figure) sat under the film's
+   last frame for good — it slides away at scroll speed. At 0 the ground's top edge rides the film's bottom edge. */
+main { margin-top: 0; position: relative; z-index: 5; }
 #world { transition: opacity 120ms linear; }
 #world.is-landed { opacity: 0 !important; pointer-events: none; }
 #world.is-landed * { pointer-events: none !important; }
@@ -348,6 +351,8 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
     <p class="lede">Train in real mountain country — high-desert density altitude, canyon wind,
        confined areas — the conditions that make commercial pilots. Helicopter and fixed-wing,
        from your first hover to your instructor certificate.</p>
+    <div class="fx lp-rise" data-fx="ladder" data-heli="Private Pilot|Commercial Pilot|Certified Flight Instructor" data-plane="Private|Commercial" data-plane-label="Airplane programs" style="--fx-ratio: 21 / 9"></div>
+    <p class="fx-cap">Every rating, one runway — a diagram of the climb, not a flight path.</p>
   </div>
   <div class="wrap">
     <div class="programs">
@@ -396,6 +401,8 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   <div class="wrap">
     <p class="eyebrow">Locations</p>
     <h2>Three fields, one standard.</h2>
+    <div class="fx lp-rise" data-fx="fields" data-names="Grass Valley, California|Oasis / Mountain Home, Idaho|Lewiston, Idaho" style="--fx-ratio: 16 / 8"></div>
+    <p class="fx-cap">Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · heights ×8 · beacons at each town's airport.</p>
     <div class="locs">
       <div class="loc"><h3>Oasis / Mountain Home, Idaho</h3><p>Home base — flight school, commercial operations, and student housing in Idaho high desert.</p></div>
       <div class="loc"><h3>Grass Valley, California</h3><p>Sierra foothills training with the same instructors' standard.</p></div>
@@ -506,7 +513,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   </div>
 </footer>
 
-<script src="js/scrub-engine.js?v=v2"></script>
+<script src="js/scrub-engine.js?v=v3"></script>
 <script>
 (function () {
   const world = document.getElementById('world');
@@ -664,6 +671,11 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
   setTimeout(() => { mount(); reveal(); }, 30000);
 })();
 </script>
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/fx-ladder.js" defer></script>
+  <script src="living/scenes/fx-fields.js" defer></script>
+  <script src="living/fx.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>

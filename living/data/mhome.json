@@ -1,0 +1,39 @@
+{
+ "source": "Terrain: USGS 3DEP via AWS Terrain Tiles (z11), courtesy of the U.S. Geological Survey.",
+ "bounds": {
+  "west": -116.1,
+  "south": 42.9,
+  "east": -115.3,
+  "north": 43.5
+ },
+ "km": [
+  64.92,
+  66.34
+ ],
+ "px": [
+  783,
+  800
+ ],
+ "hmin": 716.9,
+ "hmax": 2329.4,
+ "points": [
+  {
+   "name": "Mountain Home Municipal Airport",
+   "lat": 43.1321,
+   "lon": -115.7349,
+   "uv": [
+    0.45637,
+    0.61317
+   ]
+  },
+  {
+   "name": "Oasis",
+   "lat": 43.2859,
+   "lon": -115.8446,
+   "uv": [
+    0.31925,
+    0.35683
+   ]
+  }
+ ]
+}

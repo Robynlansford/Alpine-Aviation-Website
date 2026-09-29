@@ -1,0 +1,57 @@
+{
+ "source": "Terrain: USGS 3DEP via AWS Terrain Tiles (z12), courtesy of the U.S. Geological Survey.",
+ "bounds": {
+  "west": -116.36,
+  "south": 43.5,
+  "east": -115.98,
+  "north": 43.8
+ },
+ "km": [
+  30.61,
+  33.17
+ ],
+ "px": [
+  738,
+  800
+ ],
+ "hmin": 776.9,
+ "hmax": 2309.2,
+ "points": [
+  {
+   "name": "Idaho State Capitol",
+   "lat": 43.6178,
+   "lon": -116.1997,
+   "uv": [
+    0.42184,
+    0.60733
+   ]
+  },
+  {
+   "name": "Table Rock",
+   "lat": 43.5966,
+   "lon": -116.1637,
+   "uv": [
+    0.51658,
+    0.678
+   ]
+  },
+  {
+   "name": "Lucky Peak Dam",
+   "lat": 43.5273,
+   "lon": -116.0552,
+   "uv": [
+    0.80211,
+    0.909
+   ]
+  },
+  {
+   "name": "Boise Airport",
+   "lat": 43.5601,
+   "lon": -116.2081,
+   "uv": [
+    0.39974,
+    0.79967
+   ]
+  }
+ ]
+}

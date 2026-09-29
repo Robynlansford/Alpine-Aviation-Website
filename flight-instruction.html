@@ -13,6 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:image" content="assets/favicon.png">
 <link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="living/living.css">
 <style>
 /* Hallmark · page: flight-instruction · component of the Alpine Aviation build (see tokens.css stamp) */
 *, *::before, *::after { box-sizing: border-box; }
@@ -109,12 +110,47 @@ img { max-width: 100%; display: block; }
   </div>
 </nav>
 
-<header class="head">
-  <img class="head__logo" src="images/icon_images/Helicopter-Flight-Instruction-Idaho.jpg" alt="Alpine Aviation Flight Instruction">
-  <p class="head__eyebrow">Flight training</p>
-  <h1>From first hover to career pilot.</h1>
-  <p>At Alpine Aviation, we provide comprehensive flight instruction for both rotor and fixed-wing aircraft. Whether you're flying for fun or planning a career in aviation, our experienced instructors and personalized programs will help you reach your goals.</p>
-</header>
+<section class="lp" data-scene="ascent" style="--lp-len:640" aria-label="From first hover to career pilot">
+  <div class="lp-pin">
+    <div class="lp-beats">
+      <div class="lp-beat" data-at="-1,.11" data-static>
+        <img class="lp-badge" src="images/icon_images/Helicopter-Flight-Instruction-Idaho.jpg" alt="Alpine Aviation Flight Instruction" width="64" height="64">
+        <p class="lp-eyebrow">Flight training</p>
+        <h1>From first hover to career pilot.</h1>
+        <p>At Alpine Aviation, we provide comprehensive flight instruction for both rotor and fixed-wing aircraft. Whether you're flying for fun or planning a career in aviation, our experienced instructors and personalized programs will help you reach your goals.</p>
+      </div>
+      <div class="lp-beat" data-at=".17,.33">
+        <span class="lp-num">01 · PPL-H</span>
+        <h2>Private Pilot License</h2>
+        <p>Learn to fly for personal enjoyment. Take family, friends, and coworkers flying while acting as Pilot in Command.</p>
+      </div>
+      <div class="lp-beat" data-at=".40,.55">
+        <span class="lp-num">02 · CPL-H</span>
+        <h2>Commercial Pilot Certificate</h2>
+        <p>Take your skills to the next level (and make money doing it). A commercial license is required to be paid for flying and opens doors to professional aviation jobs.</p>
+      </div>
+      <div class="lp-beat" data-at=".60,.72">
+        <span class="lp-num">03 · CFI-H</span>
+        <h2>Certified Flight Instructor</h2>
+        <p>Teach others to fly helicopters while building valuable experience and flight time.</p>
+      </div>
+      <div class="lp-beat" data-at=".77,.88">
+        <span class="lp-num">PPL-A · CPL-A · CFI-A</span>
+        <h2>Fixed-wing (airplane) flight training</h2>
+        <p>We now offer fixed-wing flight instruction, using the same student-focused, high-quality training approach that made our helicopter program so successful.</p>
+      </div>
+      <div class="lp-beat" data-at=".93,2">
+        <h2>Start your journey today!</h2>
+        <p>Contact us today to schedule your introductory flight or learn more about our helicopter and airplane programs!</p>
+        <div class="lp-cta"><a class="btn" href="contact.html">Contact us</a><a class="textlink" href="tel:2088508252">Or call 208-850-8252</a></div>
+      </div>
+    </div>
+    <div class="lp-labels" aria-hidden="true"></div>
+    <div class="lp-rail" aria-hidden="true"><i class="lp-fill"></i></div>
+    <a class="lp-skip" href="#main">Skip the flight <svg viewBox="0 0 10 14" aria-hidden="true"><path d="M5 1v11M1 8l4 4 4-4"/></svg></a>
+    <p class="lp-credit">Terrain: USGS 3DEP via AWS Terrain Tiles, courtesy of the U.S. Geological Survey · heights ×1.6 · aircraft, pad and wind are illustrations</p>
+  </div>
+</section>
 
 <div class="layout">
   <main class="article" id="main">
@@ -127,6 +163,8 @@ img { max-width: 100%; display: block; }
         <li><strong>Commercial Pilot Certificate (CPL-H)</strong> — Take your skills to the next level (and make money doing it). A commercial license is required to be paid for flying and opens doors to professional aviation jobs.</li>
         <li><strong>Certified Flight Instructor (CFI-H)</strong> — Teach others to fly helicopters while building valuable experience and flight time.</li>
       </ul>
+      <div class="fx" data-fx="ladder" data-heli="PPL-H|CPL-H|CFI-H" data-plane="PPL-A|CPL-A|CFI-A" style="--fx-ratio: 16 / 9"></div>
+      <p class="fx-cap">The ladder, helicopter and airplane — a diagram of the climb, not a flight path.</p>
     </section>
     <section>
       <h2>✈️ Fixed-wing (airplane) flight training</h2>
@@ -211,6 +249,12 @@ img { max-width: 100%; display: block; }
   </div>
 </footer>
 
+  <script src="living/kit.js" defer></script>
+  <script src="living/scenes/ascent.js" defer></script>
+  <script src="living/scenes/fx-ladder.js" defer></script>
+  <script src="living/engine.js" defer></script>
+  <script src="living/fx.js" defer></script>
+  <script src="living/ui.js" defer></script>
   <script src="https://boise-ai.com/embed/v1.js" data-client="alpine-aviation"></script>
 </body>
 </html>
