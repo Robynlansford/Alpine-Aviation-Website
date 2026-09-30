@@ -100,8 +100,8 @@ a.program:focus-visible { outline: 2px solid var(--color-focus); outline-offset:
 /* full-screen badge banner under the training grid — badge has its own navy
    background, so the letterbox (if any, on ultra-wide viewports) blends in. */
 .training-photo { margin-top: var(--space-2xl); background: oklch(24% 0.035 255); display: flex; justify-content: center; align-items: center; min-height: 92vh; }
-.training-photo img { display: block; width: 100%; height: 92vh; object-fit: contain; }
-@media (max-width: 760px) { .training-photo, .training-photo img { min-height: 70vh; height: 70vh; } }
+.training-photo img, .training-photo iframe { border: 0; display: block; width: 100%; height: 92vh; object-fit: contain; }
+@media (max-width: 760px) { .training-photo, .training-photo iframe { min-height: 70vh; height: 70vh; } }
 
 /* full-bleed photo — breaks out of .wrap's max-width */
 .flightline-photo { margin: var(--space-xl) 0 var(--space-2xl); }
@@ -364,7 +364,7 @@ html.is-loading, html.is-loading body { overflow: hidden; height: 100%; }
       <a class="program" href="intro-flight.html"><span class="k">Start here</span><h3>Discovery Flight</h3><p>One flight, real controls, an honest conversation about the path.</p></a>
     </div>
   </div>
-  <div class="training-photo"><img loading="lazy" src="images/alpine-aviation-badge.png" alt="Alpine Aviation — Flight School and Commercial Operations, Oasis, Idaho"></div>
+  <div class="training-photo"><iframe loading="lazy" src="signs/alpine-aviation-3d.html" title="Alpine Aviation — Flight School and Commercial Operations, Oasis, Idaho (interactive 3D sign)"></iframe></div>
 </section>
 
 <section class="block" id="services">
