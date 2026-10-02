@@ -65,7 +65,7 @@
    Logo shrinks so the chip fits a phone without hiding the conversion links. */
 @media (max-width: 700px) {
   .hide-sm { display: none !important; }
-  .brand-logo { height: 52px !important; width: 52px !important; }
+  .brand-logo { height: 44px !important; width: 44px !important; }
 }
 .nav__call, .gnav__call {
   color: var(--color-accent) !important;
