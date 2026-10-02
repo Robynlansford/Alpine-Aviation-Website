@@ -65,7 +65,7 @@
    Logo shrinks so the chip fits a phone without hiding the conversion links. */
 @media (max-width: 700px) {
   .hide-sm { display: none !important; }
-  .brand-logo { height: 44px !important; width: 44px !important; }
+  .brand-logo { height: 64px !important; width: 64px !important; }
 }
 .nav__call, .gnav__call {
   color: var(--color-accent) !important;
@@ -112,4 +112,13 @@ summary:focus-visible {
   text-transform: uppercase;
   color: var(--color-ink-faint);
   margin: 0 0 var(--space-sm);
+}
+
+/* Logo sits on its own at the left edge of the nav, outside the link chip,
+   so it can be large enough to read while the chip stays one line tall. */
+.nav__brand, .gnav__brand { position: absolute; left: var(--space-md); top: 0; pointer-events: auto; }
+.nav__brand .brand-logo, .gnav__brand .brand-logo { height: 96px; width: 96px; }
+@media (max-width: 700px) {
+  /* phones: the link chip fills the width, so the logo drops just below it */
+  .nav__brand, .gnav__brand { top: 64px; }
 }
